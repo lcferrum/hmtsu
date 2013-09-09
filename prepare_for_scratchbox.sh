@@ -14,18 +14,20 @@ case "$1" in
 	release)
 		fn_prepare_dir
 		fn_filter_rules "debug disabled"
+		echo "release build prepared"
 		exit 0
 	;;
 
 	debug)
 		fn_prepare_dir
 		fn_filter_rules "debug enabled"
+		echo "debug build prepared"
 		exit 0
 	;;
 
 	*)
-		echo "script called with unknown parameter '$1'" >&2
-		echo "should be 'release' or 'debug'" >&2
+		echo "script called with unknown parameter '$1'"
+		echo "should be 'release' or 'debug'"
 		exit 1
 	;;
 esac
