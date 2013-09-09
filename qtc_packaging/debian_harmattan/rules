@@ -18,7 +18,7 @@ configure-stamp:
 	dh_testdir
 	touch configure-stamp
 #	qmake PREFIX=/usr # Uncomment this line for use without Qt Creator with debug disabled
-#	qmake PREFIX=/usr ENABLE_DEBUG=true # Uncomment this line for use without Qt Creator with debug enabled
+#	qmake PREFIX=/usr CONFIG+=debug # Uncomment this line for use without Qt Creator with debug enabled
 
 
 build: build-stamp
