@@ -23,7 +23,7 @@ hmtsu
 *.changes
 
 # Directories
-obj
-moc
-debian
-rcc
+obj/
+moc/
+debian/
+rcc/
