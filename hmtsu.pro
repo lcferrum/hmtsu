@@ -9,7 +9,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-# Speed up launching on MeeGo/Harmattan when using applauncherd daemon
+# Harmattan boosting through applauncherd daemon requires qdeclarative-boostable
 # MNotification uses meegotouch
 CONFIG += qdeclarative-boostable meegotouch
 
@@ -34,7 +34,7 @@ HEADERS +=  src/context.h \
             src/common.h \
             src/contranslator.h
 
-# Please do not modify the following two lines. Required for deployment.
+# Things required for deployment and Harmattan booster
 include(qmlapplicationviewer/qmlapplicationviewer.pri)
 qtcAddDeployment()
 
