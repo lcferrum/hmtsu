@@ -34,7 +34,7 @@ HEADERS +=  src/context.h \
             src/common.h \
             src/contranslator.h
 
-# Things required for deployment and Harmattan booster
+# Things required for deployment and Harmattan boosting
 include(qmlapplicationviewer/qmlapplicationviewer.pri)
 qtcAddDeployment()
 
