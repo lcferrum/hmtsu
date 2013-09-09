@@ -22,6 +22,9 @@ hmtsu
 *.deb
 *.changes
 
+# Buildpackage files
+*-stamp
+
 # Directories
 obj/
 moc/
