@@ -55,14 +55,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>__runtools_fork_err_CON__</source>
-        <translation type="obsolete">con: error launching %1: %2</translation>
-    </message>
-    <message>
-        <source>__runtools_fork_err__</source>
-        <translation type="obsolete">hmtsu: error launching %1: %2</translation>
-    </message>
-    <message>
         <location filename="../../src/runtools.cpp" line="163"/>
         <location filename="../../src/runtools.cpp" line="174"/>
         <location filename="../../src/runtools.cpp" line="229"/>

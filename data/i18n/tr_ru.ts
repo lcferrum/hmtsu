@@ -12,14 +12,6 @@
         <translation>&lt;big&gt;&lt;b&gt;Ошибка: Не хватает аргументов&lt;/b&gt;&lt;/big&gt;&lt;br&gt;Необходимо указывать существующее имя файла если используется параметр &lt;i&gt;--command-file&lt;/i&gt;</translation>
     </message>
     <message>
-        <source>__context_commandfile_wrn__</source>
-        <translation type="obsolete">Warning: Could not load command from desktop file: %1</translation>
-    </message>
-    <message>
-        <source>__context_descfile_wrn__</source>
-        <translation type="obsolete">Warning: Could not load &quot;%1&quot; from desktop file: %2</translation>
-    </message>
-    <message>
         <source>__modevalidator_nomodes_err__</source>
         <translation>&lt;big&gt;&lt;b&gt;Ошибка: Нужные методы отсутствуют&lt;/b&gt;&lt;/big&gt;&lt;br&gt;Не было найдено ни однога метода смены пользователя</translation>
     </message>
@@ -28,20 +20,8 @@
         <translation>&lt;big&gt;&lt;b&gt;Ошибка: Несуществующий метод&lt;/b&gt;&lt;/big&gt;&lt;br&gt;Выбранный метод смены пользователя не найден</translation>
     </message>
     <message>
-        <source>__uservalidator_wronguser_err__</source>
-        <translation type="obsolete">&lt;big&gt;&lt;b&gt;Error: Wrong user&lt;/b&gt;&lt;/big&gt;&lt;br&gt;User %1 does not exist</translation>
-    </message>
-    <message>
         <source>__pswchecker_err__</source>
         <translation>&lt;big&gt;&lt;b&gt;Ошибка: Не удалось проверить пароль&lt;/b&gt;&lt;/big&gt;&lt;br&gt;Сведения о пароле не могут быть получены</translation>
-    </message>
-    <message>
-        <source>__runtools_fork_err__</source>
-        <translation type="obsolete">Error launching %1: %2</translation>
-    </message>
-    <message>
-        <source>__runtools_fork_wrn__</source>
-        <translation type="obsolete">%1 warning: %2</translation>
     </message>
     <message>
         <source>__pswchecker_not_sudoer_err__</source>
@@ -54,10 +34,6 @@
     <message>
         <source>__context_wordexp_wrn__</source>
         <translation>Внимание: Не удалось интерпретировать команду (оставлена как есть)</translation>
-    </message>
-    <message>
-        <source>__pswchecker_err%1__</source>
-        <translation type="obsolete">&lt;big&gt;&lt;b&gt;Ошибка: Не удалось проверить пароль&lt;/b&gt;&lt;/big&gt;&lt;br&gt;Сведения о пароле не могут быть получены: %1</translation>
     </message>
     <message>
         <source>__context_commandfile_wrn%1__</source>
@@ -95,32 +71,12 @@
         <translation>Введите пароль</translation>
     </message>
     <message>
-        <source>__default_msg__</source>
-        <translation type="obsolete">Введите пароль пользователя %U для запуска приложения «%D».</translation>
-    </message>
-    <message>
         <source>__launch__</source>
         <translation>ОК</translation>
     </message>
     <message>
-        <source>__default_root_msg__</source>
-        <translation type="obsolete">Введите административный пароль чтобы разрешить приложению «%D» изменять ключевые параметры вашей системы.</translation>
-    </message>
-    <message>
-        <source>__default_sudo_msg__</source>
-        <translation type="obsolete">Введите ваш пароль для запуска приложения «%D» с правами пользователя %U.</translation>
-    </message>
-    <message>
-        <source>__default_sudo_root_msg__</source>
-        <translation type="obsolete">Введите ваш пароль чтобы разрешить приложению «%D» изменять ключевые параметры вашей системы.</translation>
-    </message>
-    <message>
         <source>__pass_ok__</source>
         <translation>Пароль подтвержден. Программа запускается...</translation>
-    </message>
-    <message>
-        <source>__pass_wrong_cnt__</source>
-        <translation type="obsolete">Incorrect password... try again. Attempts remain: %R</translation>
     </message>
     <message>
         <source>__pass_wrong_end__</source>
@@ -207,14 +163,6 @@
     <message>
         <source>__hmtsu_description__</source>
         <translation>&lt;div&gt;HMTsu это аналог gksu, графическая оболочка для запуска devel&amp;#8209;su, sudo и ariadne. Для получения дополнительной информации запустите программу в терминале с параметром&amp;nbsp;«&amp;#8209;h».&lt;/div&gt;</translation>
-    </message>
-    <message>
-        <source>__about_close__</source>
-        <translation type="obsolete">ОК</translation>
-    </message>
-    <message>
-        <source>__hmtsu_copyright__</source>
-        <translation type="obsolete">&lt;tt&gt;This program comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it under the terms of the GNU General Public License; see the source code for details.&lt;/tt&gt;</translation>
     </message>
 </context>
 </TS>

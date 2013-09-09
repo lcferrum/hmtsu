@@ -1,28 +1,13 @@
-# Add more folders to ship with the application, here
-#folder_01.source = src/qml
-#folder_01.target = .
-#DEPLOYMENTFOLDERS = folder_01
-
-# Additional import path used to resolve QML modules in Creator's code model
-QML_IMPORT_PATH =
-
-#symbian:TARGET.UID3 = 0xE65FD930
-
-# Smart Installer package's UID
-# This UID is from the protected range and therefore the package will
-# fail to install if self-signed. By default qmake uses the unprotected
-# range value if unprotected UID is defined for the application and
-# 0x2002CCCF value if protected UID is given to the application
-#symbian:DEPLOYMENT.installer_header = 0x2002CCCF
-
-# Allow network access on Symbian
-#symbian:TARGET.CAPABILITY += NetworkServices
-
-# If your application uses the Qt Mobility libraries, uncomment the following
-# lines and add the respective components to the MOBILITY variable.
-# CONFIG += mobility
-# MOBILITY +=
-# QT += dbus
+# HMTsu
+# Copyright (C) 2013 Lcferrum
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 # Speed up launching on MeeGo/Harmattan when using applauncherd daemon
 # MNotification uses meegotouch
@@ -30,10 +15,6 @@ CONFIG += qdeclarative-boostable meegotouch
 
 LIBS += -lcrypt -lutil
 
-# Add dependency to Symbian components
-# CONFIG += qt-components
-
-# The .cpp file which was generated for your project. Feel free to hack it.
 SOURCES +=  src/main.cpp \
             src/context.cpp \
             src/modevalidator.cpp \
@@ -66,7 +47,7 @@ OTHER_FILES +=  qtc_packaging/debian_harmattan/rules \
                 qtc_packaging/debian_harmattan/prerm \
                 qtc_packaging/debian_harmattan/changelog
 
-#Hack for lupdate
+# Hack for lupdate
 translate_qml {
     SOURCES +=  src/qml/PassPage.qml \
                 src/qml/main.qml \
