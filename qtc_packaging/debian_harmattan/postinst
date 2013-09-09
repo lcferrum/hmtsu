@@ -1,0 +1,8 @@
+#!/bin/sh
+
+if [ -f /usr/bin/hmtsu ]
+then
+    echo "hmtsu: symbolic link to hmtsu already exists in /usr/bin/"
+else
+    ln -s /opt/hmtsu/bin/hmtsu /usr/bin/hmtsu
+fi

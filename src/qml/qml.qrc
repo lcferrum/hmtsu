@@ -1,0 +1,11 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>PassPage.qml</file>
+        <file>StartPage.qml</file>
+        <file>TopHeader.qml</file>
+        <file>GroupHeader.qml</file>
+        <file>OptionsItem.qml</file>
+        <file>OptionsSwitch.qml</file>
+    </qresource>
+</RCC>
