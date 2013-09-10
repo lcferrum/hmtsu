@@ -421,7 +421,7 @@ void PrintUsage() {
 
 void PrintVersion() {
     cout<<
-"HMTsu "<<HMTSU_VERSION_STRING<<IF_DEBUG(" (DEBUG)")"\n"
+"HMTsu "<<HMTSU_VERSION_STRING IF_DEBUG(" (DEBUG)")<<"\n"
 "\n"
 "Copyright (C) 2013 "<<HMTSU_COPYRIGHT_STRING<<"\n"
 "This program comes with ABSOLUTELY NO WARRANTY.\n"

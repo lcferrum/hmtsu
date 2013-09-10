@@ -72,7 +72,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
         Viewer.rootContext()->setContextProperty("objContext", &Ctx);
         Viewer.rootContext()->setContextProperty("objIntercom", &ViewerIntercomHandler);
         Viewer.rootContext()->setContextProperty("objPassCheck", &PassCheck);
-        Viewer.rootContext()->setContextProperty("HMTSU_VERSION_STRING", HMTSU_VERSION_STRING);
+        Viewer.rootContext()->setContextProperty("HMTSU_VERSION_STRING", HMTSU_VERSION_STRING IF_DEBUG(" (DEBUG)"));
         Viewer.rootContext()->setContextProperty("HMTSU_COPYRIGHT_STRING", HMTSU_COPYRIGHT_STRING);
         Viewer.rootContext()->setContextProperty("CANCELED_EXIT_CODE", CANCELED_EXIT_CODE);
         Viewer.rootContext()->setContextProperty("DENIED_EXIT_CODE", DENIED_EXIT_CODE);
