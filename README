@@ -46,7 +46,7 @@ from configuration GUI and doesn't require command (but requires --description
 or --message).
 
 Usage (when launched from terminal): 
-       hmtsu [-u <user>] [options] <command>  
+    hmtsu [-u <user>] [options] <command>  
       
 --help, -h    
     Display this help and exit.  
