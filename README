@@ -149,4 +149,5 @@ directory and type:
 	dpkg-buildpackage -rfakeroot
 
 You can also use Qt Creator with Harmattan SDK to build HMTsu - just open
-hmtsu.pro in Qt Creator, select Harmattan target and run the project.
+hmtsu.pro in Qt Creator, select Harmattan target, release translations and
+run the project.
