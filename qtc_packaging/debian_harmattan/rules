@@ -17,7 +17,6 @@ configure: configure-stamp
 configure-stamp:
 	dh_testdir
 	touch configure-stamp
-#	lrelease hmtsu.pro # Uncomment this line for use without Qt Creator
 #	qmake PREFIX=/usr # Uncomment this line for use without Qt Creator with debug disabled
 #	qmake PREFIX=/usr CONFIG+=debug # Uncomment this line for use without Qt Creator with debug enabled
 
@@ -28,6 +27,7 @@ build-stamp: configure-stamp
 	dh_testdir
 
 	# Add here commands to compile the package.
+	lrelease hmtsu.pro
 #	$(MAKE) # Uncomment this line for use without Qt Creator
 	#docbook-to-man debian/hmtsu.sgml > hmtsu.1
 
