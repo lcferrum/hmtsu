@@ -56,7 +56,7 @@ Usage (when launched from terminal):
 
 --verbosity-level, -V    
     This option controls pop-up's verbosity and debug output availability. 
-	Each level includes the previous levels as well.    
+    Each level includes the previous levels as well.    
     LEVEL   DESCRIPTION    
     -----   --------------------------------------------------------- 
         0 - No pop-ups, only error dialogs and standart/error output.    
