@@ -29,8 +29,122 @@ Main project homepage is at GitHub:
 
 4. Usage
 --------
-TBD
+After installing the .deb file on your device (don't forget to allow
+installation from non-Store sources in the Settings) HMTsu will be available
+right from application screen and from terminal (symlink is added to 
+/usr/bin/). 
 
-5. Building
+If HMTsu is launched from application screen or command was not
+given when launched from terminal - it will show a configuration GUI which
+mirrors almost every CLI option. If command was given when launching 
+HMTsu - it will skip this configuration GUI and go directly to password promt.
+
+Please note that --print-pass option is a special case: it is not available
+from configuration GUI and doesn't require command (but requires --description
+or --message).
+
+Usage (when launched from terminal): 
+       hmtsu [-u <user>] [options] <command>  
+      
+--help, -h    
+    Display this help and exit.  
+	
+--version, -v    
+    Output version information and exit.  
+
+--verbosity-level, -V    
+    This option controls pop-up's verbosity and debug output availability. 
+	Each level includes the previous levels as well.    
+    LEVEL   DESCRIPTION    
+    -----   --------------------------------------------------------- 
+        0 - No pop-ups, only error dialogs and standart/error output.    
+        1 - General informational pop-up messages.    
+        2 - Error pop-up messages.    
+        3 - Warning pop-up messages (default level).    
+        4 - Debug output.  
+
+--user <user>, -u <user>    
+    Call <command> as the specified user. By default it is root.  
+      
+--preserve-env, -k    
+    Try to preserve the current environments.  
+
+--login, -l    
+    Make this a login shell.  
+      
+--description <description|file>, -D <description|file>    
+    Provide a descriptive name for the command to be used in the default
+    message, making it nicer. You can also provide the absolute path for a    
+    .desktop file. The Name key will be used in this case.  
+
+--message <message|file>, -m <message|file>    
+    Replace the standard message shown to ask for password for the argument
+    passed to the option. Only use this if --description does not suffice. You
+    can also provide the absolute path for a .desktop file. The Comment key
+    will be used in this case.  
+    
+--print-pass, -p    
+    Ask HMTsu to print the password to stdout, just like ssh-askpass. Useful
+    to use in scripts with programs that accept receiving the password on 
+    stdin. HMTsu doesn't check password and user existence during this.  
+      
+--sudo-mode, -S    
+    Make HMTsu use sudo.  
+
+--su-mode, -w    
+    Make HMTsu use devel-su (default mode).  
+
+--ariadne-mode, -a    
+    Make HMTsu use ariadne.  
+      
+--    
+    The -- option indicates that HMTsu should stop processing command line
+    arguments.
+	
+5. Usage example
+----------------                              
+Example:
+       hmtsu -u root -D "current processes" --ariadne-mode -- ps aux
+	   
+HMTsu will ask user to enter administrative password to run 'current 
+processes'. Ariadne will be used to substitute user and run 'ps aux' command.
+
+6. Additional notes
+-------------------
+HMTsu won't ask for password (though GUI will be shown either way) if devel-su
+is used and current user is root or if sudo is used and appropriate credentials
+were cached. Credential caching for ariadne is not supported - it will be
+forced to ask for password every time.
+
+Some Harmattan apps may crash on exit if were launched with root privileges.
+HMTsu will report this through warning pop-up message. If you acknowledged of
+such behavior and don't want to see this pop-ups - set verbosity to level 2.
+
+Pop-up messages use Harmattan notification mechanism. If HMTsu itself is run
+under root - this pop-ups can cause segfaults (if no additional steps to
+prevent this were taken). You can disable pop-ups altogeher (error pop-up
+messages will be redirected to stderr in this case) with verbosity set to
+level 0.
+
+Sudo (if not launched as login shell) and ariadne use exec internally to launch
+commands. So in this case you can't use shell commands directly like with
+devel-su.
+
+There is also opensudo package for Harmattan - it provides similar aegised
+privileges like ariadne, but functions like sudo. Sudo and opensudo packages
+are mutually exclusive - you can't have both of them installed and working
+properly at the same time. HMTsu doesn't distinguish opensudo from sudo and
+will use either of them when in sudo mode.
+	
+7. Building
 -----------
-TBD
+The easiest way to build HMTsu is by using MeeGo 1.2 Harmattan Platform SDK
+provided by Nokia. Just make sure that you have installed Platform SDK
+correctly, start scratchbox, select HARMATTAN_ARMEL target, switch to sources
+directory and type:
+
+	./prepare_for_scratchbox.sh release
+	dpkg-buildpackage -rfakeroot
+
+You can also use Qt Creator with Harmattan SDK to build HMTsu - just open
+hmtsu.pro in Qt Creator, select Harmattan target and run the project.
