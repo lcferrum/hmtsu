@@ -162,7 +162,7 @@
     </message>
     <message>
         <source>__hmtsu_description__</source>
-        <translation>&lt;div&gt;HMTsu это аналог gksu, графическая оболочка для запуска devel&amp;#8209;su, sudo и ariadne. Для получения дополнительной информации запустите программу в терминале с параметром&amp;nbsp;«&amp;#8209;h».&lt;/div&gt;</translation>
+        <translation>&lt;style type=&apos;text/css&apos;&gt;a:link{color:#5183d7}&lt;/style&gt;HMTsu это аналог gksu, графическая оболочка для запуска devel&amp;#8209;su, sudo и ariadne. Для получения дополнительной информации &lt;a href=&quot;https://github.com/lcferrum/hmtsu&quot;&gt;посетите страницу проекта на GitHub&apos;е&lt;/a&gt;.</translation>
     </message>
 </context>
 </TS>

@@ -162,7 +162,7 @@
     </message>
     <message>
         <source>__hmtsu_description__</source>
-        <translation>&lt;div&gt;HMTsu is a gksu-like tool, frontend to devel&amp;#8209;su, sudo and ariadne. For more information run it in terminal with &apos;&amp;#8209;h&apos;&amp;nbsp;option.&lt;/div&gt;</translation>
+        <translation>&lt;style type=&apos;text/css&apos;&gt;a:link{color:#5183d7}&lt;/style&gt;HMTsu is a gksu-like tool, frontend to devel&amp;#8209;su, sudo and ariadne. For more information, see &lt;a href=&quot;https://github.com/lcferrum/hmtsu&quot;&gt;the project homepage at GitHub&lt;/a&gt;.</translation>
     </message>
 </context>
 </TS>

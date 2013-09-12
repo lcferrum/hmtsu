@@ -83,6 +83,9 @@ PageStackWindow {
                 anchors.leftMargin: UiConstants.DefaultMargin*2
                 anchors.rightMargin: UiConstants.DefaultMargin*2
                 color: "white";
+                onLinkActivated: {
+                    Qt.openUrlExternally(link);
+                }
             }
 
             Label {
