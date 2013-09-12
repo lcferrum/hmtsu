@@ -27,7 +27,7 @@ build-stamp: configure-stamp
 	dh_testdir
 
 	# Add here commands to compile the package.
-	lrelease hmtsu.pro
+#	lrelease hmtsu.pro # Uncomment this line for use without Qt Creator
 #	$(MAKE) # Uncomment this line for use without Qt Creator
 	#docbook-to-man debian/hmtsu.sgml > hmtsu.1
 
