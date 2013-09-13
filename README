@@ -14,9 +14,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 2. About
 --------
-HMTsu is a gksu-like tool, frontend to devel-su, sudo and ariadne. It provides
-graphical password promt and GUI to launch apps with root priveleges without
-the need to open terminal and run mentioned tools directly.
+HMTsu is a gksu-like tool for N9 smartphone, frontend to devel-su, sudo and
+ariadne. It provides graphical password promt and GUI to launch apps with root
+priveleges without the need to open terminal and run mentioned tools directly.
 
 3. Where to get
 ---------------
@@ -106,7 +106,7 @@ Usage (when launched from terminal):
 5. Usage example
 ----------------                              
 Example:
-       hmtsu -u root -D "current processes" --ariadne-mode -- ps aux
+    hmtsu -u root -D "current processes" --ariadne-mode -- ps aux
 	   
 HMTsu will ask user to enter administrative password to run 'current 
 processes'. Ariadne will be used to substitute user and run 'ps aux' command.
