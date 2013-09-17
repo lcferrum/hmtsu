@@ -87,7 +87,7 @@ void PswChecker::PswCheck(QString psw)
         char *psw_hash=NULL;
 
         psw_hash=crypt(psw.toLocal8Bit().constData(), user_record->pw_passwd);
-		psw.fill('\0');
+        psw.fill('\0');
 
         if (!psw_hash) {
             Intercom->AddError(QCoreApplication::translate("Messages", "__pswchecker_err__"));
