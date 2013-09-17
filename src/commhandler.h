@@ -67,7 +67,6 @@ public:
     static void DisableErrorMsgs();
     static void DisableWarningMsgs();
     static void DisableGeneralMsgs();
-
 };
 
 class ScopedIntercomHandler: protected IntercomHandler {
