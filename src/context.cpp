@@ -312,7 +312,6 @@ void Context::Run(QString psw, bool no_pass)
             break;
     }
     psw.fill('\0');
-    psw.clear();
 }
 
 void Context::ActuallyRun()
