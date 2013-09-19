@@ -15,7 +15,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 2. About
 --------
 HMTsu is a gksu-like tool for N9 smartphone, frontend to devel-su, sudo and
-ariadne. It provides graphical password promt and GUI to launch apps with root
+ariadne. It provides graphical password prompt and GUI to launch apps with root
 priveleges without the need to open terminal and run mentioned tools directly.
 
 3. Where to get
@@ -39,7 +39,7 @@ right from application screen and from terminal (symlink is added to
 If HMTsu is launched from application screen or command was not
 given when launched from terminal - it will show a configuration GUI which
 mirrors almost every CLI option. If command was given when launching 
-HMTsu - it will skip this configuration GUI and go directly to password promt.
+HMTsu - it will skip this configuration GUI and go directly to password prompt.
 
 Please note that --print-pass option is a special case: it is not available
 from configuration GUI and doesn't require command (but requires --description
