@@ -36,6 +36,8 @@ private:
     bool kpp_env;
     QString user;
     QString text;
+    QString splash;
+    QString icon;
     QStringList command;
     bool LoadTextFromDesktop(QString fname, QString key, QString lang);
     bool LoadCommandFromDesktop(QString fname);

@@ -36,7 +36,7 @@ struct option long_options[] = {
     {"ariadne-mode",    0, NULL, 'a'},
     {"su-mode",         0, NULL, 'w'},
     {"description",     1, NULL, 'D'},
-    {"command-file",    0, NULL, 'f'},
+    {"desktop-file",    0, NULL, 'f'},
     {"verbosity-level", 1, NULL, 'V'},
     {NULL, 0, NULL, 0}
 };
@@ -58,7 +58,8 @@ Context::Context(int argc, char **argv, QString lang):
     text="";
 
     int opt=0;
-    bool command_file=false;
+    bool use_desktop_file=false;
+    QString desktop_file_path="";
 
     while ((opt=getopt_long(argc, argv, "?hvu:lpm:kSwaD:V:", long_options, NULL))!=-1) {    //temporary removed -f option
     //while ((opt=getopt_long(argc, argv, "?hvu:lpm:kSwaD:fV:", long_options, NULL))!=-1) {
@@ -88,7 +89,10 @@ Context::Context(int argc, char **argv, QString lang):
                 break;
             case 'm':
                 if (!access(optarg, R_OK)) {
-                    if (LoadTextFromDesktop(optarg, "Comment", lang)) message=ctx_msg_FULL;
+                    if (LoadTextFromDesktop(optarg, "Comment", lang)) {
+                        message=ctx_msg_FULL;
+                        desktop_file_path=optarg;
+                    }
                 } else {
                     text=QString::fromLocal8Bit(optarg);
                     message=ctx_msg_FULL;
@@ -99,7 +103,10 @@ Context::Context(int argc, char **argv, QString lang):
                 break;
             case 'D':
                 if (!access(optarg, R_OK)) {
-                    if (LoadTextFromDesktop(optarg, "Name", lang)) message=ctx_msg_DESC;
+                    if (LoadTextFromDesktop(optarg, "Name", lang)) {
+                        message=ctx_msg_DESC;
+                        desktop_file_path=optarg;
+                    }
                 } else {
                     text=QString::fromLocal8Bit(optarg);
                     message=ctx_msg_DESC;
@@ -115,7 +122,7 @@ Context::Context(int argc, char **argv, QString lang):
                 if (run_mode!=RunModes::PRINT) run_mode=RunModes::ARIADNE;
                 break;
             case 'f':
-                command_file=true;
+                use_desktop_file=true;
                 break;
             case 'V':
                 {
@@ -130,6 +137,12 @@ Context::Context(int argc, char **argv, QString lang):
         }
     }
 
+    if (use_desktop_file) {
+        //TODO: get splash screen, icon and command from desktop file
+        //Intercom->AddError(QCoreApplication::translate("Messages", "__context_commandfile_err__"));
+        //Intercom->AddWarning(QCoreApplication::translate("Messages", "__context_commandfile_wrn%1__").arg(argv[optind]));
+    }
+
     if (run_mode==RunModes::PRINT) {
         if (message==ctx_msg_NULL) {
             Intercom->AddError(QCoreApplication::translate("Messages", "__context_printpass_err__"));
@@ -141,28 +154,18 @@ Context::Context(int argc, char **argv, QString lang):
     }
 
     if (argc<=optind) {
-        if (command_file)
-            Intercom->AddError(QCoreApplication::translate("Messages", "__context_commandfile_err__"));
-        action=ctx_act_ASK_FOR_MORE;
-        return;
-    } else {
-        if (command_file) {
-            if (!access(argv[optind], R_OK)&&LoadCommandFromDesktop(argv[optind])) {
-                if (message==ctx_msg_NULL) message=ctx_msg_CMD;
-                action=ctx_act_CONTINUE;
-            } else {
-                Intercom->AddWarning(QCoreApplication::translate("Messages", "__context_commandfile_wrn%1__").arg(argv[optind]));
-                action=ctx_act_ASK_FOR_MORE;
-            }
-            return;
-        } else {
-            while (optind<argc)
-                command<<QString::fromLocal8Bit(argv[optind++]);
-
-            if (message==ctx_msg_NULL) message=ctx_msg_CMD;
+        if (command.length()>0)
             action=ctx_act_CONTINUE;
-            return;
-        }
+        else
+            action=ctx_act_ASK_FOR_MORE;
+    } else {
+        command.clear();
+
+        while (optind<argc)
+            command<<QString::fromLocal8Bit(argv[optind++]);
+
+        if (message==ctx_msg_NULL) message=ctx_msg_CMD;
+        action=ctx_act_CONTINUE;
     }
 }
 
