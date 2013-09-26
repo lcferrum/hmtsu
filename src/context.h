@@ -39,8 +39,8 @@ private:
     QString splash;
     QString icon;
     QStringList command;
-    bool LoadTextFromDesktop(QString fname, QString key, QString lang);
-    bool LoadCommandFromDesktop(QString fname);
+    bool LoadValueFromDesktop(QString fname, QString key, QString lang, QString &value);
+    bool LoadExecFromDesktop(QString fname);
     bool ToArgv(QString cmdline);
 public:
     Context(int argc, char **argv, QString lang);

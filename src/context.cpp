@@ -19,6 +19,9 @@
 #include <QSettings>
 #include <QCoreApplication>
 #include <QTextCodec>
+#include <QRegExp>
+#include <QStringList>
+#include <QProcess>
 #include "context.h"
 #include "common.h"
 
@@ -36,7 +39,7 @@ struct option long_options[] = {
     {"ariadne-mode",    0, NULL, 'a'},
     {"su-mode",         0, NULL, 'w'},
     {"description",     1, NULL, 'D'},
-    {"desktop-file",    0, NULL, 'f'},
+    {"force-desktop",    0, NULL, 'f'},
     {"verbosity-level", 1, NULL, 'V'},
     {NULL, 0, NULL, 0}
 };
@@ -89,10 +92,8 @@ Context::Context(int argc, char **argv, QString lang):
                 break;
             case 'm':
                 if (!access(optarg, R_OK)) {
-                    if (LoadTextFromDesktop(optarg, "Comment", lang)) {
-                        message=ctx_msg_FULL;
-                        desktop_file_path=optarg;
-                    }
+                    desktop_file_path=optarg;
+                    if (LoadValueFromDesktop(optarg, "Comment", lang, text)) message=ctx_msg_FULL;
                 } else {
                     text=QString::fromLocal8Bit(optarg);
                     message=ctx_msg_FULL;
@@ -103,10 +104,8 @@ Context::Context(int argc, char **argv, QString lang):
                 break;
             case 'D':
                 if (!access(optarg, R_OK)) {
-                    if (LoadTextFromDesktop(optarg, "Name", lang)) {
-                        message=ctx_msg_DESC;
-                        desktop_file_path=optarg;
-                    }
+                    desktop_file_path=optarg;
+                    if (LoadValueFromDesktop(optarg, "Name", lang, text)) message=ctx_msg_DESC;
                 } else {
                     text=QString::fromLocal8Bit(optarg);
                     message=ctx_msg_DESC;
@@ -141,24 +140,25 @@ Context::Context(int argc, char **argv, QString lang):
         //TODO: get splash screen, icon and command from desktop file
         //Intercom->AddError(QCoreApplication::translate("Messages", "__context_commandfile_err__"));
         //Intercom->AddWarning(QCoreApplication::translate("Messages", "__context_commandfile_wrn%1__").arg(argv[optind]));
+
+        if (desktop_file_path.length()>0) {
+            LoadValueFromDesktop(desktop_file_path, "Icon", lang, icon);
+            LoadExecFromDesktop(desktop_file_path);
+        } else
+            Intercom->AddWarning(QCoreApplication::translate("Messages", "__context_commandfile_wrn%1__").arg(use_desktop_file));
     }
 
     if (run_mode==RunModes::PRINT) {
-        if (message==ctx_msg_NULL) {
-            Intercom->AddError(QCoreApplication::translate("Messages", "__context_printpass_err__"));
-            action=ctx_act_ASK_FOR_MORE;
-        } else {
+        if (message==ctx_msg_FULL||message==ctx_msg_DESC) {
             action=ctx_act_CONTINUE;
+        } else {
+            action=ctx_act_ASK_FOR_MORE;
+            Intercom->AddError(QCoreApplication::translate("Messages", "__context_printpass_err__"));
         }
         return;
     }
 
-    if (argc<=optind) {
-        if (command.length()>0)
-            action=ctx_act_CONTINUE;
-        else
-            action=ctx_act_ASK_FOR_MORE;
-    } else {
+    if (argc>optind) {
         command.clear();
 
         while (optind<argc)
@@ -236,7 +236,7 @@ void Context::SetPreserveEnv(bool flag)
     kpp_env=flag;
 }
 
-bool Context::LoadTextFromDesktop(QString fname, QString key, QString lang)
+bool Context::LoadValueFromDesktop(QString fname, QString key, QString lang, QString &value)
 {
     QSettings desktop(fname, QSettings::IniFormat);
     desktop.setIniCodec(QTextCodec::codecForName("UTF-8"));
@@ -245,13 +245,13 @@ bool Context::LoadTextFromDesktop(QString fname, QString key, QString lang)
     QVariant val=desktop.value(QString("%1[%2]").arg(key, lang));
 
     if (val.isValid()) {
-        text=val.toString();
+        value=val.toString();
         return true;
     } else if ((val=desktop.value(QString("%1[%2]").arg(key, lang.left(2)))).isValid()) {
-        text=val.toString();
+        value=val.toString();
         return true;
     } else if ((val=desktop.value(key)).isValid()) {
-        text=val.toString();
+        value=val.toString();
         return true;
     } else {
         Intercom->AddWarning(QCoreApplication::translate("Messages", "__context_descfile_wrn%1%2__").arg(key, fname));
@@ -259,28 +259,41 @@ bool Context::LoadTextFromDesktop(QString fname, QString key, QString lang)
     }
 }
 
-bool Context::LoadCommandFromDesktop(QString fname)
+bool Context::LoadExecFromDesktop(QString fname)
 {
-    QSettings desktop(fname, QSettings::IniFormat);
-    desktop.setIniCodec(QTextCodec::codecForName("UTF-8"));
-    desktop.beginGroup("Desktop Entry");
+    QString exec;
+    if (LoadValueFromDesktop(fname, "Exec", "", exec)) {
+        if (exec.startsWith("invoker")||exec.startsWith("/usr/bin/invoker")) {
+            QRegExp SplashRx(" (--splash[ =]|-S ?)(.+) ");
+            SplashRx.setMinimal(true);
+            if (SplashRx.indexIn(exec)!=-1)
+                splash=SplashRx.cap(2);
 
-    QVariant val=desktop.value(QString("Exec"));
+            foreach (const QString &token, exec.split(" ").filter(QRegExp("^[^-\"']"))) { //TODO: skip first token
+                QProcess which;
+                which.start("which", QStringList()<<token);
+                if (which.waitForFinished()) {
+                    if (!which.exitCode()) {
+                        SetCommand(exec.mid(exec.indexOf(token)));
+                        break;
+                    }
+                }
+            }
+        } else
+            SetCommand(exec);
 
-    if (val.isValid()) {
-        return ToArgv(val.toString());
-    } else {
+        return true;
+    } else
         return false;
-    }
 }
 
 bool Context::ToArgv(QString cmdline)
 {
     wordexp_t args;
 
-    if(!wordexp(cmdline.toUtf8().constData(), &args, WRDE_UNDEF)) {
+    if(!wordexp(cmdline.toLocal8Bit().constData(), &args, WRDE_UNDEF)) {
         for (unsigned int i=0; i<args.we_wordc; i++)
-            command<<QString::fromUtf8(args.we_wordv[i]);
+            command<<QString::fromLocal8Bit(args.we_wordv[i]);
 
         wordfree(&args);
         return true;
