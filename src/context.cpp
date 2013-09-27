@@ -322,7 +322,7 @@ QString Context::GetIcon()
 
 bool Context::ShowSplash()
 {
-    if (!isatty(STDOUT_FILENO)) {   //STDIN && STDERR also enabled when launching with invoker
+    if (!isatty(STDOUT_FILENO)) {   //STDIN && STDERR are connected to terminal if launched with invoker
         if (splash.length()>0) {
             return QProcess::startDetached("/usr/bin/invoker", QStringList()<<"--splash"<<splash<<"--type=e"<<"true");
         }
