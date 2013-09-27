@@ -56,7 +56,8 @@ Page {
             idBtnLaunch.enabled=false;
             idPassInput.platformCloseSoftwareInputPanel();
             idPassInput.readOnly=true;
-            objIntercom.AddInfo(qsTr("__pass_ok__"));
+            if (!objContext.ShowSplash())
+                objIntercom.AddInfo(qsTr("__pass_ok__"));
             idRunTimer.start();
         }
         onSignalPswBad: {
@@ -82,6 +83,10 @@ Page {
     Component.onCompleted: {
         objIntercom.SetCustomExitCode(CANCELED_EXIT_CODE);
         objPassCheck.Prepare(objContext.Mode, objContext.TargetUser);
+        if (objContext.GetIcon().length>0) {
+            idBlancIcon.source="gfx/blanc.png";
+            idProgramIcon.source=objContext.GetIcon();
+        }
     }
 
     Timer {
@@ -148,9 +153,16 @@ Page {
         height: 272
 
         Image {
+            id: idBlancIcon
             source: "gfx/logo.png"
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.verticalCenter: parent.verticalCenter
+
+            Image {
+                id: idProgramIcon
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.verticalCenter: parent.verticalCenter
+            }
         }
     }
 

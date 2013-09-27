@@ -13,7 +13,6 @@
 
 #include <MNotification>
 #include <iostream>
-#include <unistd.h>
 #include "commhandler.h"
 #include "common.h"
 
@@ -35,7 +34,6 @@ Intercommunication::Intercommunication():
     error_msgs_enabled=true;
     warning_msgs_enabled=true;
     general_msgs_enabled=true;
-    istty=ttyname(STDOUT_FILENO)&&ttyname(STDERR_FILENO)&&ttyname(STDIN_FILENO);    //STDIN && STDERR also enabled when launching with invoker
 }
 
 void Intercommunication::AddError(QString msg)

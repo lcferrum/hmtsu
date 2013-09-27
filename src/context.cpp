@@ -274,6 +274,8 @@ bool Context::LoadExecFromDesktop(QString fname)
 {
     QString exec;
     if (LoadValueFromDesktop(fname, "Exec", "", exec)) {
+        exec.replace(QRegExp("([^%])%[A-Za-z]"), "\\1");
+
         if (exec.startsWith("invoker")||exec.startsWith("/usr/bin/invoker")) {
             QRegExp SplashRx(" (--splash[ =]|-S ?)(.+) ");
             SplashRx.setMinimal(true);
@@ -308,6 +310,24 @@ bool Context::LoadExecFromDesktop(QString fname)
 int Context::GetVerboseLevel()
 {
     return verbosity;
+}
+
+QString Context::GetIcon()
+{
+    if (icon.length()>0)
+        return QString(icon).prepend(icon.startsWith("/")?"file://":"image://theme/");
+    else
+        return icon;
+}
+
+bool Context::ShowSplash()
+{
+    if (!isatty(STDOUT_FILENO)) {   //STDIN && STDERR also enabled when launching with invoker
+        if (splash.length()>0) {
+            return QProcess::startDetached("/usr/bin/invoker", QStringList()<<"--splash"<<splash<<"--type=e"<<"true");
+        }
+    }
+    return false;
 }
 
 void Context::Run(QString psw, bool no_pass)

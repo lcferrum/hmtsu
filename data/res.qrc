@@ -4,5 +4,6 @@
         <file>i18n/tr_ru.qm</file>
         <file>i18n/conmsgs.qm</file>
         <file alias="gfx/logo.png">logo.png</file>
+        <file alias="gfx/blanc.png">blanc.png</file>
     </qresource>
 </RCC>
