@@ -41,7 +41,6 @@ private:
     QStringList command;
     bool LoadValueFromDesktop(QString fname, QString key, QString lang, QString &value);
     bool LoadExecFromDesktop(QString fname);
-    bool ToArgv(QString cmdline);
 public:
     Context(int argc, char **argv, QString lang);
     bool IfExit();
@@ -63,7 +62,7 @@ public:
     Q_INVOKABLE void SetPreserveEnv(bool flag);
     Q_INVOKABLE bool IfCustomMessage();
     Q_INVOKABLE bool IfContinue();
-    Q_INVOKABLE void SetCommand(QString str);
+    Q_INVOKABLE void SetCommand(QString cmdline);
     Q_INVOKABLE QString GetText();
     Q_INVOKABLE void Run(QString psw, bool no_pass);
 };

@@ -5,11 +5,7 @@
     <name>Messages</name>
     <message>
         <source>__context_printpass_err__</source>
-        <translation>&lt;big&gt;&lt;b&gt;Error: Missing options&lt;/b&gt;&lt;/big&gt;&lt;br&gt;You need to provide &lt;i&gt;--description&lt;/i&gt; or &lt;i&gt;--message&lt;/i&gt; with &lt;i&gt;--print-pass&lt;/i&gt; option</translation>
-    </message>
-    <message>
-        <source>__context_commandfile_err__</source>
-        <translation>&lt;big&gt;&lt;b&gt;Error: Missing argument&lt;/b&gt;&lt;/big&gt;&lt;br&gt;You need to provide valid file name with &lt;i&gt;--command-file&lt;/i&gt; option</translation>
+        <translation>&lt;big&gt;&lt;b&gt;Error: Missing options&lt;/b&gt;&lt;/big&gt;&lt;br&gt;You need to provide &lt;i&gt;&amp;#8209;&amp;#8209;description&lt;/i&gt; or &lt;i&gt;&amp;#8209;&amp;#8209;message&lt;/i&gt; with &lt;i&gt;&amp;#8209;&amp;#8209;print&amp;#8209;pass&lt;/i&gt; option</translation>
     </message>
     <message>
         <source>__modevalidator_nomodes_err__</source>
@@ -36,10 +32,6 @@
         <translation>Warning: Can not parse command line (leaving as-is)</translation>
     </message>
     <message>
-        <source>__context_commandfile_wrn%1__</source>
-        <translation>Warning: Could not load command from desktop file: %1</translation>
-    </message>
-    <message>
         <source>__context_descfile_wrn%1%2__</source>
         <translation>Warning: Could not load &quot;%1&quot; from desktop file: %2</translation>
     </message>
@@ -62,6 +54,14 @@
     <message>
         <source>__uservalidator_wronguser_err%1__</source>
         <translation>&lt;big&gt;&lt;b&gt;Error: Wrong user&lt;/b&gt;&lt;/big&gt;&lt;br&gt;User %1 does not exist</translation>
+    </message>
+    <message>
+        <source>__context_badinvoke_wrn__</source>
+        <translation>Warning: Can not parse invoker parametres (will be used unchanged in command)</translation>
+    </message>
+    <message>
+        <source>__context_nodesktop_err__</source>
+        <translation>&lt;big&gt;&lt;b&gt;Error: Wrong argument&lt;/b&gt;&lt;/big&gt;&lt;br&gt;You need to provide a valid file name in &lt;i&gt;&amp;#8209;&amp;#8209;description&lt;/i&gt; or &lt;i&gt;&amp;#8209;&amp;#8209;message&lt;/i&gt; with &lt;i&gt;&amp;#8209;&amp;#8209;force&amp;#8209;desktop&lt;/i&gt; option</translation>
     </message>
 </context>
 <context>

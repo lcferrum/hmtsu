@@ -5,11 +5,7 @@
     <name>Messages</name>
     <message>
         <source>__context_printpass_err__</source>
-        <translation>&lt;big&gt;&lt;b&gt;Ошибка: Не хватает параметров&lt;/b&gt;&lt;/big&gt;&lt;br&gt;Вместе с параметром &lt;i&gt;--print-pass&lt;/i&gt; необходимо использовать параметр &lt;i&gt;--description&lt;/i&gt; или &lt;i&gt;--message&lt;/i&gt;</translation>
-    </message>
-    <message>
-        <source>__context_commandfile_err__</source>
-        <translation>&lt;big&gt;&lt;b&gt;Ошибка: Не хватает аргументов&lt;/b&gt;&lt;/big&gt;&lt;br&gt;Необходимо указывать существующее имя файла если используется параметр &lt;i&gt;--command-file&lt;/i&gt;</translation>
+        <translation>&lt;big&gt;&lt;b&gt;Ошибка: Не хватает параметров&lt;/b&gt;&lt;/big&gt;&lt;br&gt;Вместе с параметром &lt;i&gt;&amp;#8209;&amp;#8209;print&amp;#8209;pass&lt;/i&gt; необходимо использовать параметр &lt;i&gt;&amp;#8209;&amp;#8209;description&lt;/i&gt; или &lt;i&gt;&amp;#8209;&amp;#8209;message&lt;/i&gt;</translation>
     </message>
     <message>
         <source>__modevalidator_nomodes_err__</source>
@@ -36,10 +32,6 @@
         <translation>Внимание: Не удалось интерпретировать команду (оставлена как есть)</translation>
     </message>
     <message>
-        <source>__context_commandfile_wrn%1__</source>
-        <translation>Внимание: Невозможно загрузить команду из desktop файла: %1</translation>
-    </message>
-    <message>
         <source>__context_descfile_wrn%1%2__</source>
         <translation>Внимание: Невозможно загрузить ключ &quot;%1&quot; из desktop файла: %2</translation>
     </message>
@@ -62,6 +54,14 @@
     <message>
         <source>__uservalidator_wronguser_err%1__</source>
         <translation>&lt;big&gt;&lt;b&gt;Ошибка: Несуществующий пользователь&lt;/b&gt;&lt;/big&gt;&lt;br&gt;Пользователь %1 не найден</translation>
+    </message>
+    <message>
+        <source>__context_badinvoke_wrn__</source>
+        <translation>Внимание: Не удалось интерпретировать параметры invoker (применятся в команде без изменений)</translation>
+    </message>
+    <message>
+        <source>__context_nodesktop_err__</source>
+        <translation>&lt;big&gt;&lt;b&gt;Ошибка: Неверный аргумент&lt;/b&gt;&lt;/big&gt;&lt;br&gt;Вместе с параметром &lt;i&gt;&amp;#8209;&amp;#8209;force&amp;#8209;desktop&lt;/i&gt; необходимо использовать существующее имя файла в параметрах &lt;i&gt;&amp;#8209;&amp;#8209;description&lt;/i&gt; или &lt;i&gt;&amp;#8209;&amp;#8209;message&lt;/i&gt;</translation>
     </message>
 </context>
 <context>

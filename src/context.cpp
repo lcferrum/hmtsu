@@ -64,8 +64,7 @@ Context::Context(int argc, char **argv, QString lang):
     bool use_desktop_file=false;
     QString desktop_file_path="";
 
-    while ((opt=getopt_long(argc, argv, "?hvu:lpm:kSwaD:V:", long_options, NULL))!=-1) {    //temporary removed -f option
-    //while ((opt=getopt_long(argc, argv, "?hvu:lpm:kSwaD:fV:", long_options, NULL))!=-1) {
+    while ((opt=getopt_long(argc, argv, "?hvu:lpm:kSwaD:fV:", long_options, NULL))!=-1) {
         switch (opt) {
             case 0:
                 break;
@@ -137,15 +136,14 @@ Context::Context(int argc, char **argv, QString lang):
     }
 
     if (use_desktop_file) {
-        //TODO: get splash screen, icon and command from desktop file
-        //Intercom->AddError(QCoreApplication::translate("Messages", "__context_commandfile_err__"));
-        //Intercom->AddWarning(QCoreApplication::translate("Messages", "__context_commandfile_wrn%1__").arg(argv[optind]));
-
         if (desktop_file_path.length()>0) {
             LoadValueFromDesktop(desktop_file_path, "Icon", lang, icon);
             LoadExecFromDesktop(desktop_file_path);
-        } else
-            Intercom->AddWarning(QCoreApplication::translate("Messages", "__context_commandfile_wrn%1__").arg(use_desktop_file));
+        } else {
+            action=ctx_act_ASK_FOR_MORE;
+            Intercom->AddError(QCoreApplication::translate("Messages", "__context_nodesktop_err__"));
+            return;
+        }
     }
 
     if (run_mode==RunModes::PRINT) {
@@ -219,9 +217,22 @@ void Context::SetTargetUser(QString str)
     user=str;
 }
 
-void Context::SetCommand(QString str)
+void Context::SetCommand(QString cmdline)
 {
-    ToArgv(str);
+    wordexp_t args;
+
+    command.clear();
+    if(!wordexp(cmdline.toLocal8Bit().constData(), &args, WRDE_UNDEF)) {
+        for (unsigned int i=0; i<args.we_wordc; i++)
+            command<<QString::fromLocal8Bit(args.we_wordv[i]);
+
+        wordfree(&args);
+    } else {
+        command<<cmdline;
+
+        Intercom->AddWarning(QCoreApplication::translate("Messages", "__context_wordexp_wrn__"));
+    }
+
     if (message==ctx_msg_NULL) message=ctx_msg_CMD;
     action=ctx_act_CONTINUE;
 }
@@ -269,9 +280,11 @@ bool Context::LoadExecFromDesktop(QString fname)
             if (SplashRx.indexIn(exec)!=-1)
                 splash=SplashRx.cap(2);
 
-            foreach (const QString &token, exec.split(" ").filter(QRegExp("^[^-\"']"))) { //TODO: skip first token
+            command.clear();
+
+            foreach (const QString &token, exec.split(" ").filter(QRegExp("^[^-\"']")).mid(1)) {
                 QProcess which;
-                which.start("which", QStringList()<<token);
+                which.start("/usr/bin/which", QStringList()<<token);
                 if (which.waitForFinished()) {
                     if (!which.exitCode()) {
                         SetCommand(exec.mid(exec.indexOf(token)));
@@ -279,31 +292,17 @@ bool Context::LoadExecFromDesktop(QString fname)
                     }
                 }
             }
+
+            if (command.length()==0) {
+                Intercom->AddWarning(QCoreApplication::translate("Messages", "__context_badinvoke_wrn__"));
+                SetCommand(exec);
+            }
         } else
             SetCommand(exec);
 
         return true;
     } else
         return false;
-}
-
-bool Context::ToArgv(QString cmdline)
-{
-    wordexp_t args;
-
-    if(!wordexp(cmdline.toLocal8Bit().constData(), &args, WRDE_UNDEF)) {
-        for (unsigned int i=0; i<args.we_wordc; i++)
-            command<<QString::fromLocal8Bit(args.we_wordv[i]);
-
-        wordfree(&args);
-        return true;
-    } else {
-        command.clear();
-        command<<cmdline;
-
-        Intercom->AddWarning(QCoreApplication::translate("Messages", "__context_wordexp_wrn__"));
-        return false;
-    }
 }
 
 int Context::GetVerboseLevel()
@@ -399,12 +398,13 @@ void PrintUsage() {
 "    this case."
 "\n"
     <<endl;
-/*    cout<<
-"  --command-file, -f\n"
-"    Treat command argument as path to .desktop file\n"
-"    containing actual command in Exec key."
+    cout<<
+"  --force-desktop, -f\n"
+"    Extract command line, application icon and splash\n"
+"    image from .desktop file provided in --description\n"
+"    or --message."
 "\n"
-    <<endl;*/
+    <<endl;
     cout<<
 "  --print-pass, -p\n"
 "    Ask HMTsu to print the password to stdout, just\n"
