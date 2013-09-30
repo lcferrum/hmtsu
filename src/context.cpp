@@ -315,7 +315,7 @@ int Context::GetVerboseLevel()
 QString Context::GetIcon()
 {
     if (icon.length()>0)
-        return QString(icon).prepend(icon.startsWith("/")?"file://":"image://theme/");
+        return QString(icon).prepend(access(icon.toLocal8Bit().constData(), R_OK)?"image://theme/":"file://");
     else
         return icon;
 }
