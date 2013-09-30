@@ -208,8 +208,7 @@ bool RunTools::Launch(char **cmd, const QString &path)
     if ((pid=Fork(master_fd, cmd, path))) {
         fd_set rfds;
         struct timeval tv;
-        char rbuf[BUFFER_SIZE];
-        memset(rbuf, 0, BUFFER_SIZE);
+        char rbuf[BUFFER_SIZE]={};
         int ret, status;
         bool first_pass=true;
         bool password_needed=!no_pass;

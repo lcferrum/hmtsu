@@ -284,7 +284,7 @@ bool Context::LoadExecFromDesktop(QString fname)
 
             command.clear();
 
-            foreach (const QString &token, exec.split(" ").filter(QRegExp("^[^-\"']")).mid(1)) {
+            foreach (const QString &token, exec.split(" ", QString::SkipEmptyParts).filter(QRegExp("^[^-\"']")).mid(1)) {
                 QProcess which;
                 which.start("/usr/bin/which", QStringList()<<token);
                 if (which.waitForFinished()) {
