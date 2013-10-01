@@ -24,9 +24,15 @@
 #include <iostream>
 #include <QCoreApplication>
 #include <QFile>
+#include <QByteArray>
+#include <QProcess>
 #include "common.h"
 #include "runmodes.h"
 #include "runtools.h"
+
+#include <X11/Xlib.h>
+#include <X11/Xatom.h>
+#include <X11/Xutil.h>
 
 #ifdef QT_DEBUG
 #include <QDebug>
@@ -43,17 +49,18 @@ RunTools::RunTools(const QString &psw, bool no_pass)
     this->no_pass=no_pass;
 }
 
-void PrintRunTools::Run(const QString &user, bool login, bool kpp_env, const QStringList &command)
+void PrintRunTools::Run(const QString &user, bool login, bool kpp_env, const QStringList &command, const QString &splash)
 {
     Q_UNUSED(user);
     Q_UNUSED(login);
     Q_UNUSED(kpp_env);
     Q_UNUSED(command);
+    Q_UNUSED(splash);
     std::cout<<qPrintable(psw)<<std::endl;
     ClearPsw();
 }
 
-void SuRunTools::Run(const QString &user, bool login, bool kpp_env, const QStringList &command)
+void SuRunTools::Run(const QString &user, bool login, bool kpp_env, const QStringList &command, const QString &splash)
 {
     QStringList args;
     char **cmd;
@@ -70,12 +77,12 @@ void SuRunTools::Run(const QString &user, bool login, bool kpp_env, const QStrin
 
     cmd=StringListToArray(args);
 
-    Launch(cmd, path);
+    Launch(cmd, path, splash);
 
     DeleteStringArray(cmd);
 }
 
-void SudoRunTools::Run(const QString &user, bool login, bool kpp_env, const QStringList &command)
+void SudoRunTools::Run(const QString &user, bool login, bool kpp_env, const QStringList &command, const QString &splash)
 {
     QStringList args;
     char **cmd;
@@ -98,12 +105,12 @@ void SudoRunTools::Run(const QString &user, bool login, bool kpp_env, const QStr
 
     cmd=StringListToArray(args);
 
-    Launch(cmd, path);
+    Launch(cmd, path, splash);
 
     DeleteStringArray(cmd);
 }
 
-void AriadneRunTools::Run(const QString &user, bool login, bool kpp_env, const QStringList &command)
+void AriadneRunTools::Run(const QString &user, bool login, bool kpp_env, const QStringList &command, const QString &splash)
 {
     QStringList args;
     char **cmd;
@@ -134,7 +141,7 @@ void AriadneRunTools::Run(const QString &user, bool login, bool kpp_env, const Q
 
     cmd=StringListToArray(args);
 
-    Launch(cmd, path);
+    Launch(cmd, path, splash);
 
     DeleteStringArray(cmd);
 }
@@ -200,7 +207,7 @@ pid_t RunTools::Fork(int &master_fd, char **cmd, const QString &mode_dsc)
     }
 }
 
-bool RunTools::Launch(char **cmd, const QString &path)
+bool RunTools::Launch(char **cmd, const QString &path, const QString &splash)
 {
     pid_t pid;
     int master_fd=-1;
@@ -265,6 +272,7 @@ bool RunTools::Launch(char **cmd, const QString &path)
                 if (WaitForNoEcho(master_fd, false)) {              //Child is ready for password -> print it to stdin
                     write(master_fd, psw.toLocal8Bit().constData(), psw.toLocal8Bit().length()+1);
                     write(master_fd, "\n", 1);
+                    TryToShowSplash(pid, splash);                   //Try to show splash screen
                     IF_DEBUG(qDebug()<<"Password sent";)
                 } else {                                            //Child was not ready for password -> just warn about it and print out data recieved from child
                     Intercom->AddSafeWarning(QCoreApplication::translate("Messages", "__runtools_fork_wrn_NOPSW%1__").arg(path));
@@ -298,6 +306,55 @@ bool RunTools::Launch(char **cmd, const QString &path)
         }
     } else
         return false;
+}
+
+bool RunTools::TryToShowSplash(pid_t pid, const QString &splash)
+{
+    if (splash.length()==0||isatty(STDOUT_FILENO))  //STDIN && STDERR are connected to terminal if launched with invoker
+        return false;
+
+    usleep(PARENT_HANDICAP);
+
+    QProcess Pgrep;
+    QStringList PgrepArgs;
+    PgrepArgs<<"-P"<<"";
+    QByteArray current_pid=QString::number(pid).toLocal8Bit();
+    do {
+        PgrepArgs[1]=current_pid;
+        Pgrep.start("/usr/bin/pgrep", PgrepArgs);
+        if (Pgrep.waitForFinished()&&!Pgrep.exitCode()) {
+            current_pid=Pgrep.readAllStandardOutput();
+            current_pid.chop(1);
+        } else
+            break;
+    } while (current_pid.count('\n')==0);
+
+    Display *dpy=XOpenDisplay(NULL);
+    Atom actual_type;
+    int actual_format;
+    unsigned long nitems, bytes_after;
+    Window *MCompositor=NULL;
+
+    // Get MCompositor window object
+    int ret=XGetWindowProperty(dpy, XDefaultRootWindow(dpy), XInternAtom(dpy, "_NET_SUPPORTING_WM_CHECK", False),
+                               0, 0x7fffffff, False, XA_WINDOW, &actual_type, &actual_format, &nitems, &bytes_after,
+                               (unsigned char **)&MCompositor);
+
+    if(ret==Success) {
+        QByteArray data(PgrepArgs[1].toLocal8Bit());    //_MEEGO_SPLASH_SCREEN[0]=Pid
+        data.append("\0\0", 2);                         //_MEEGO_SPLASH_SCREEN[1]=""
+        data.append(splash.toLocal8Bit());              //_MEEGO_SPLASH_SCREEN[2]=Splash
+        data.append("\0\0\0", 3);                       //_MEEGO_SPLASH_SCREEN[3,4]=""
+
+        // Set _MEEGO_SPLASH_SCREEN property for MCompositor
+        XChangeProperty(dpy, *MCompositor, XInternAtom(dpy, "_MEEGO_SPLASH_SCREEN", False),
+                        XA_STRING, 8, PropModeReplace,
+                        (unsigned char *)data.constData(), data.size());
+    }
+
+    XCloseDisplay(dpy);
+
+    return ret==Success;
 }
 
 void RunTools::ClearPsw()

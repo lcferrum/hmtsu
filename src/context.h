@@ -65,7 +65,6 @@ public:
     Q_INVOKABLE void SetCommand(QString cmdline);
     Q_INVOKABLE QString GetText();
     Q_INVOKABLE QString GetIcon();
-    Q_INVOKABLE bool ShowSplash();
     Q_INVOKABLE void Run(QString psw, bool no_pass);
 };
 

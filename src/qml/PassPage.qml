@@ -56,8 +56,7 @@ Page {
             idBtnLaunch.enabled=false;
             idPassInput.platformCloseSoftwareInputPanel();
             idPassInput.readOnly=true;
-            if (!objContext.ShowSplash())
-                objIntercom.AddInfo(qsTr("__pass_ok__"));
+            objIntercom.AddInfo(qsTr("__pass_ok__"));
             idRunTimer.start();
         }
         onSignalPswBad: {

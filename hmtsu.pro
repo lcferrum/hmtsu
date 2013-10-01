@@ -13,7 +13,7 @@
 # MNotification uses meegotouch
 CONFIG += qdeclarative-boostable meegotouch
 
-LIBS += -lcrypt -lutil
+LIBS += -lcrypt -lutil -lX11
 
 SOURCES +=  src/main.cpp \
             src/context.cpp \

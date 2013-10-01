@@ -39,7 +39,7 @@ struct option long_options[] = {
     {"ariadne-mode",    0, NULL, 'a'},
     {"su-mode",         0, NULL, 'w'},
     {"description",     1, NULL, 'D'},
-    {"force-desktop",    0, NULL, 'f'},
+    {"force-desktop",   0, NULL, 'f'},
     {"verbosity-level", 1, NULL, 'V'},
     {NULL, 0, NULL, 0}
 };
@@ -320,16 +320,6 @@ QString Context::GetIcon()
         return icon;
 }
 
-bool Context::ShowSplash()
-{
-    if (!isatty(STDOUT_FILENO)) {   //STDIN && STDERR are connected to terminal if launched with invoker
-        if (splash.length()>0) {
-            return QProcess::startDetached("/usr/bin/invoker", QStringList()<<"--splash"<<splash<<"--type=e"<<"true");
-        }
-    }
-    return false;
-}
-
 void Context::Run(QString psw, bool no_pass)
 {
     switch (run_mode) {
@@ -352,7 +342,7 @@ void Context::Run(QString psw, bool no_pass)
 void Context::ActuallyRun()
 {
     if (Tools) {
-        Tools->Run(user, login, kpp_env, command);
+        Tools->Run(user, login, kpp_env, command, splash);
         delete Tools;
     }
 }
