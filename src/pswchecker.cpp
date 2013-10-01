@@ -35,9 +35,9 @@ void PswChecker::Prepare(RunModes::QmlEnum mode, QString &target_user)
     if (!prepared) {
         do {
             errno=0;
-            user_record=(mode==RunModes::SUDO)?
-                        getpwuid(getuid()):
-                        getpwnam(target_user.toLocal8Bit().constData());
+            user_record=(mode==RunModes::SU)?
+                        getpwnam(target_user.toLocal8Bit().constData()):
+                        getpwuid(mode==RunModes::ARIADNE?0:getuid());
         } while (errno==EINTR);
 
         if (!user_record) {

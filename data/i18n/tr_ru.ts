@@ -106,6 +106,10 @@
         <source>__pass_wrong_cnt%R__</source>
         <translation>Неверный пароль... введите снова. Попыток осталось: %R</translation>
     </message>
+    <message>
+        <source>__default_ariadne_msg%U%D__</source>
+        <translation>Введите административный пароль для запуска приложения «%D» с правами пользователя %U.</translation>
+    </message>
 </context>
 <context>
     <name>StartPage</name>

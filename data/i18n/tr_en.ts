@@ -96,7 +96,7 @@
     </message>
     <message>
         <source>__default_sudo_msg%U%D__</source>
-        <translation>Enter your password to run the application &apos;%D&apos; as user %U.</translation>
+        <translation>Enter your password to run the application &apos;%D&apos; as %U.</translation>
     </message>
     <message>
         <source>__default_msg%U%D__</source>
@@ -105,6 +105,10 @@
     <message>
         <source>__pass_wrong_cnt%R__</source>
         <translation>Incorrect password... try again. Attempts remain: %R</translation>
+    </message>
+    <message>
+        <source>__default_ariadne_msg%U%D__</source>
+        <translation>Enter administrative password to run the application &apos;%D&apos; as %U.</translation>
     </message>
 </context>
 <context>

@@ -26,7 +26,7 @@ Page {
             if (objContext.TargetUser=="root") {
                 return (objContext.Mode==RunModes.SUDO?qsTr("__default_sudo_root_msg%D__"):qsTr("__default_root_msg%D__")).replace("%D", objContext.GetText());
             } else {
-                return (objContext.Mode==RunModes.SUDO?qsTr("__default_sudo_msg%U%D__"):qsTr("__default_msg%U%D__")).replace("%U", objContext.TargetUser).replace("%D", objContext.GetText());
+                return (objContext.Mode==RunModes.SU?qsTr("__default_msg%U%D__"):(objContext.Mode==RunModes.ARIADNE?qsTr("__default_ariadne_msg%U%D__"):qsTr("__default_sudo_msg%U%D__"))).replace("%U", objContext.TargetUser).replace("%D", objContext.GetText());
             }
         } else {
             return objContext.GetText();

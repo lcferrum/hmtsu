@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="en_GB">
+<TS version="2.0" language="en">
 <context>
     <name>Messages</name>
     <message>
@@ -14,7 +14,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/context.cpp" line="297"/>
+        <location filename="../../src/context.cpp" line="299"/>
         <source>__context_badinvoke_wrn__</source>
         <translation type="unfinished"></translation>
     </message>
@@ -44,37 +44,37 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/pswchecker.cpp" line="44"/>
-        <location filename="../../src/pswchecker.cpp" line="93"/>
+        <location filename="../../src/pswchecker.cpp" line="52"/>
+        <location filename="../../src/pswchecker.cpp" line="101"/>
         <source>__pswchecker_err__</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/pswchecker.cpp" line="53"/>
+        <location filename="../../src/pswchecker.cpp" line="61"/>
         <source>__pswchecker_not_sudoer_err__</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/runtools.cpp" line="176"/>
-        <location filename="../../src/runtools.cpp" line="187"/>
-        <location filename="../../src/runtools.cpp" line="242"/>
-        <location filename="../../src/runtools.cpp" line="258"/>
-        <location filename="../../src/runtools.cpp" line="296"/>
+        <location filename="../../src/runtools.cpp" line="183"/>
+        <location filename="../../src/runtools.cpp" line="194"/>
+        <location filename="../../src/runtools.cpp" line="248"/>
+        <location filename="../../src/runtools.cpp" line="264"/>
+        <location filename="../../src/runtools.cpp" line="303"/>
         <source>__runtools_fork_err_BASE%1%2__</source>
         <translation>hmtsu: error launching %1: %2</translation>
     </message>
     <message>
-        <location filename="../../src/runtools.cpp" line="230"/>
+        <location filename="../../src/runtools.cpp" line="236"/>
         <source>__runtools_fork_err_BADPSW%1__</source>
         <translation>hmtsu: error: %1 asks for password</translation>
     </message>
     <message>
-        <location filename="../../src/runtools.cpp" line="271"/>
+        <location filename="../../src/runtools.cpp" line="278"/>
         <source>__runtools_fork_wrn_NOPSW%1__</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/runtools.cpp" line="291"/>
+        <location filename="../../src/runtools.cpp" line="298"/>
         <source>__runtools_fork_wrn_ECODE%1%2%3__</source>
         <translation type="unfinished"></translation>
     </message>
@@ -107,6 +107,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../src/qml/PassPage.qml" line="29"/>
+        <source>__default_ariadne_msg%U%D__</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../src/qml/PassPage.qml" line="59"/>
         <source>__pass_ok__</source>
         <translation type="unfinished"></translation>
@@ -127,12 +132,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/qml/PassPage.qml" line="103"/>
+        <location filename="../../src/qml/PassPage.qml" line="107"/>
         <source>__enter_pass__</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/qml/PassPage.qml" line="139"/>
+        <location filename="../../src/qml/PassPage.qml" line="143"/>
         <source>__launch__</source>
         <translation type="unfinished"></translation>
     </message>
