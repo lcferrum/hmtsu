@@ -40,7 +40,7 @@
 
 #define NO_ECHO_TRIES       15      //15x0.001 seconds
 #define OUTPUT_TIMEOUT      5       //5 seconds
-#define PARENT_HANDICAP     500000  //0.5 seconds
+#define PARENT_HANDICAP     250000  //0.25 seconds
 #define BUFFER_SIZE         512     //512 bytes
 
 RunTools::RunTools(const QString &psw, bool no_pass)
