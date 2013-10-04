@@ -315,6 +315,9 @@ bool RunTools::TryToShowSplash(pid_t pid, const QString &splash)
 
     usleep(PARENT_HANDICAP);
 
+    //Quick and dirty way to guess PID of actual process (and not the PID of devel-su/sudo/ariadne):
+    //  Pgrep util searches for the last child of original process or the child with multiple children
+    //  If found - this child is assumed to be the actual process
     QProcess Pgrep;
     QStringList PgrepArgs;
     PgrepArgs<<"-P"<<"";
@@ -327,7 +330,7 @@ bool RunTools::TryToShowSplash(pid_t pid, const QString &splash)
             current_pid.chop(1);
         } else
             break;
-    } while (current_pid.count('\n')==0);
+    } while (current_pid.indexOf('\n')==-1);
 
     Display *dpy=XOpenDisplay(NULL);
     Atom actual_type;
@@ -335,7 +338,7 @@ bool RunTools::TryToShowSplash(pid_t pid, const QString &splash)
     unsigned long nitems, bytes_after;
     Window *MCompositor=NULL;
 
-    // Get MCompositor window object
+    //Get MCompositor window object
     int ret=XGetWindowProperty(dpy, XDefaultRootWindow(dpy), XInternAtom(dpy, "_NET_SUPPORTING_WM_CHECK", False),
                                0, 0x7fffffff, False, XA_WINDOW, &actual_type, &actual_format, &nitems, &bytes_after,
                                (unsigned char **)&MCompositor);
@@ -346,7 +349,7 @@ bool RunTools::TryToShowSplash(pid_t pid, const QString &splash)
         data.append(splash.toLocal8Bit());              //_MEEGO_SPLASH_SCREEN[2]=Splash
         data.append("\0\0\0", 3);                       //_MEEGO_SPLASH_SCREEN[3,4]=""
 
-        // Set _MEEGO_SPLASH_SCREEN property for MCompositor
+        //Set _MEEGO_SPLASH_SCREEN property for MCompositor
         XChangeProperty(dpy, *MCompositor, XInternAtom(dpy, "_MEEGO_SPLASH_SCREEN", False),
                         XA_STRING, 8, PropModeReplace,
                         (unsigned char *)data.constData(), data.size());

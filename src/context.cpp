@@ -284,9 +284,12 @@ bool Context::LoadExecFromDesktop(QString fname)
 
             command.clear();
 
+            //Quick and dirty way to guess command line from invoker string without parsing it:
+            //  Which util searches for valid executable in the string
+            //  If found - everything starting from this executable is asuumed to be command line
             foreach (const QString &token, exec.split(" ", QString::SkipEmptyParts).filter(QRegExp("^[^-\"']")).mid(1)) {
                 QProcess which;
-                which.start("/usr/bin/which", QStringList()<<token);
+                which.start("/usr/bin/which", QStringList(token));
                 if (which.waitForFinished()) {
                     if (!which.exitCode()) {
                         SetCommand(exec.mid(exec.indexOf(token)));
