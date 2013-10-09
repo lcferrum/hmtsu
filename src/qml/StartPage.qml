@@ -160,12 +160,14 @@ Page {
 
     tools: ToolBarLayout {
         visible: true
+
         ToolIcon {
             iconId: "toolbar-done"
             onClicked: {
                 fnContinue();
             }
         }
+
         ToolIcon {
             iconSource: "image://theme/icon-s-description"
             anchors.right: parent.right

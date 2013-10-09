@@ -20,6 +20,7 @@ Page {
 
     property int propAtsRemain: MAX_PSW_ATTEMPTS
     property bool propNoPass: false
+    property string propProgramIcon: ""
 
     function fnGetMessage() {
         if (!objContext.IfCustomMessage()) {
@@ -83,8 +84,10 @@ Page {
         objIntercom.SetCustomExitCode(CANCELED_EXIT_CODE);
         objPassCheck.Prepare(objContext.Mode, objContext.TargetUser);
         if (objContext.GetIcon().length>0) {
-            idBlancIcon.source="gfx/blanc.png";
-            idProgramIcon.source=objContext.GetIcon();
+            propProgramIcon=objContext.GetIcon();
+            idIconLoader.sourceComponent=idProgramIcon;
+        } else {
+            idIconLoader.sourceComponent=idLogoIcon;
         }
     }
 
@@ -151,22 +154,39 @@ Page {
         anchors.top: idBtnLaunch.bottom
         height: 272
 
+        Loader {
+            id: idIconLoader
+            anchors.centerIn: parent
+        }
+    }
+
+    Component {
+        id: idProgramIcon
+
         Image {
-            id: idBlancIcon
-            source: "gfx/logo.png"
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.verticalCenter: parent.verticalCenter
+            source: "gfx/blanc.png"
+            anchors.centerIn: parent
 
             Image {
-                id: idProgramIcon
-                anchors.horizontalCenter: parent.horizontalCenter
-                anchors.verticalCenter: parent.verticalCenter
+                source: propProgramIcon
+                anchors.centerIn: parent
+                opacity: 0.4
             }
+        }
+    }
+
+    Component {
+        id: idLogoIcon
+
+        Image {
+            source: "gfx/logo.png"
+            anchors.centerIn: parent
         }
     }
 
     tools: ToolBarLayout {
         visible: true
+
         ToolIcon {
             iconSource: "image://theme/icon-s-description"
             anchors.right: parent.right
