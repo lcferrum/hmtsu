@@ -171,7 +171,7 @@ IntercomHandler::~IntercomHandler()
 int IntercomHandler::GetExitCode()
 {
     if (Intercom) return Intercom->GetExitCode();
-        else return 0;
+        else return NORMAL_EXIT_CODE;
 }
 
 void IntercomHandler::DisableErrorMsgs()
