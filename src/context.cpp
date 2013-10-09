@@ -286,7 +286,7 @@ bool Context::LoadExecFromDesktop(QString fname)
 
             //Quick and dirty way to guess command line from invoker string without parsing it:
             //  Which util searches for valid executable in the string
-            //  If found - everything starting from this executable is asuumed to be command line
+            //  If found - everything starting from this executable is assumed to be command line
             foreach (const QString &token, exec.split(" ", QString::SkipEmptyParts).filter(QRegExp("^[^-\"']")).mid(1)) {
                 QProcess which;
                 which.start("/usr/bin/which", QStringList(token));
@@ -317,10 +317,11 @@ int Context::GetVerboseLevel()
 
 QString Context::GetIcon()
 {
-    if (icon.length()>0)
+    /*if (icon.length()>0)
         return QString(icon).prepend(access(icon.toLocal8Bit().constData(), R_OK)?"image://theme/":"file://");
     else
-        return icon;
+        return icon;*/
+    return icon;
 }
 
 void Context::Run(QString psw, bool no_pass)

@@ -20,7 +20,6 @@ Page {
 
     property int propAtsRemain: MAX_PSW_ATTEMPTS
     property bool propNoPass: false
-    property string propProgramIcon: ""
 
     function fnGetMessage() {
         if (!objContext.IfCustomMessage()) {
@@ -57,6 +56,7 @@ Page {
             idBtnLaunch.enabled=false;
             idPassInput.platformCloseSoftwareInputPanel();
             idPassInput.readOnly=true;
+            objIntercom.SetCustomInfoIcon(objContext.GetIcon());
             objIntercom.AddInfo(qsTr("__pass_ok__"));
             idRunTimer.start();
         }
@@ -83,12 +83,6 @@ Page {
     Component.onCompleted: {
         objIntercom.SetCustomExitCode(CANCELED_EXIT_CODE);
         objPassCheck.Prepare(objContext.Mode, objContext.TargetUser);
-        if (objContext.GetIcon().length>0) {
-            propProgramIcon=objContext.GetIcon();
-            idIconLoader.sourceComponent=idProgramIcon;
-        } else {
-            idIconLoader.sourceComponent=idLogoIcon;
-        }
     }
 
     Timer {
@@ -133,6 +127,7 @@ Page {
         onTextChanged: {
             errorHighlight=false;
         }
+
         Keys.onReturnPressed: {
             fnCheckPassword();
         }
@@ -153,30 +148,6 @@ Page {
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: idBtnLaunch.bottom
         height: 272
-
-        Loader {
-            id: idIconLoader
-            anchors.centerIn: parent
-        }
-    }
-
-    Component {
-        id: idProgramIcon
-
-        Image {
-            source: "gfx/blanc.png"
-            anchors.centerIn: parent
-
-            Image {
-                source: propProgramIcon
-                anchors.centerIn: parent
-                opacity: 0.4
-            }
-        }
-    }
-
-    Component {
-        id: idLogoIcon
 
         Image {
             source: "gfx/logo.png"
