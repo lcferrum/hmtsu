@@ -104,26 +104,35 @@ Page {
         text: qsTr("__enter_pass__")
     }
 
-    Label {
-        id: idLabelTop
-        anchors.horizontalCenter: parent.horizontalCenter
+    Flickable {
+        anchors.left: parent.left
+        anchors.right: parent.right
         anchors.top: idBannerTop.bottom
-        anchors.topMargin: 16
-        width: parent.width-32;
+        anchors.bottom: idPassInput.top
+        anchors.margins: UiConstants.DefaultMargin
+        flickableDirection: Flickable.VerticalFlick
+        clip: true
 
-        Component.onCompleted: {
-            text=fnGetMessage();
+        Label {
+            id: idLabelTop
+            width: parent.width
+
+            Component.onCompleted: {
+                text=fnGetMessage();
+            }
         }
     }
 
     TextField {
         id: idPassInput
-        width: parent.width-64;
+        anchors.left: parent.left
+        anchors.leftMargin: UiConstants.DefaultMargin*2
+        anchors.right: parent.right
+        anchors.rightMargin: UiConstants.DefaultMargin*2
+        anchors.bottom: idBtnLaunch.top
+        anchors.bottomMargin: UiConstants.DefaultMargin
         echoMode: TextInput.Password
         inputMethodHints: Qt.ImhNoAutoUppercase|Qt.ImhNoPredictiveText
-        anchors.horizontalCenter: parent.horizontalCenter
-        anchors.bottom: idBtnLaunch.top
-        anchors.bottomMargin: 16
         onTextChanged: {
             errorHighlight=false;
         }
