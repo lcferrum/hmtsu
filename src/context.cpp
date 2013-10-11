@@ -359,7 +359,7 @@ void Context::ActuallyRun()
 }
 
 void PrintUsage() {
-    Hout::Separator("Usage: hmtsu [-u <user>] [options] <command>");
+    Hout::Separator("Usage: hmtsu [-u <user>] [options] [<command>]");
     Hout::EmptyLine();
     Hout::Separator("--help, -h", 2);
     Hout::Paragraph("Display this help and exit.",

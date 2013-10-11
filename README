@@ -46,7 +46,7 @@ from configuration GUI and doesn't require command (but requires --description
 or --message).
 
 Usage (when launched from terminal): 
-    hmtsu [-u <user>] [options] <command>  
+    hmtsu [-u <user>] [options] [<command>]  
       
 --help, -h    
     Display this help and exit.  
@@ -54,7 +54,7 @@ Usage (when launched from terminal):
 --version, -v    
     Output version information and exit.  
 
---verbosity-level, -V    
+--verbosity-level <level>, -V <level>
     This option controls pop-up's verbosity and debug output availability. 
     Each level includes the previous levels as well.    
     LEVEL   DESCRIPTION    
@@ -83,7 +83,11 @@ Usage (when launched from terminal):
     Replace the standard message shown to ask for password for the argument
     passed to the option. Only use this if --description does not suffice. You
     can also provide the absolute path for a .desktop file. The Comment key
-    will be used in this case.  
+    will be used in this case.
+	
+--force-desktop, -f
+	Extract command line, application icon and splash image from .desktop file
+	provided in --description or --message.
     
 --print-pass, -p    
     Ask HMTsu to print the password to stdout, just like ssh-askpass. Useful
@@ -105,11 +109,18 @@ Usage (when launched from terminal):
 	
 5. Usage example
 ----------------                              
-Example:
+Example 1:
     hmtsu -u root -D "current processes" --ariadne-mode -- ps aux
 	   
 HMTsu will ask user to enter administrative password to run 'current 
 processes'. Ariadne will be used to substitute user and run 'ps aux' command.
+
+Example 2:
+    hmtsu -fm /usr/share/applications/SomeProgram.desktop
+	   
+HMTsu will print Comment key value from .desktop file. Devel-su will be used to
+substitute user and run command from Exec key as root. Program icon (and splash
+screen, if present) will be displayed during launch.
 
 6. Additional notes
 -------------------
@@ -117,6 +128,12 @@ HMTsu won't ask for password (though GUI will be shown either way) if devel-su
 is used and current user is root or if sudo is used and appropriate credentials
 were cached. Credential caching for ariadne is not supported - it will be
 forced to ask for password every time.
+
+Force-desktop option causes HMTsu not only to use value of Exec key as command
+line but also to parse invoker arguments (if present) to determine actual
+command line and path to splash screen. It is still possible to pass command
+line as argument to HMTsu while using force-desktop option - in this case
+external command line will override command line from .desktop file.
 
 Some Harmattan apps may crash on exit if were launched with root privileges.
 HMTsu will report this through warning pop-up message. If you acknowledged of

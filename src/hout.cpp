@@ -11,7 +11,7 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-//For the sake of reusablity this class relies solely on C++ Standard Library
+//For the sake of reusability this class relies solely on C++ Standard Library
 
 #include "hout.h"
 #include <iostream>
@@ -19,7 +19,11 @@
 
 using namespace std;
 
-size_t Hout::terminal_size=80;  //Default terminal size = 80 characters
+#ifdef _WIN32
+size_t Hout::terminal_size=79;	//Default terminal size = 80 columns (79 characters + 1 line break)
+#else
+size_t Hout::terminal_size=80;	//Default terminal size = 80 characters
+#endif
 
 void Hout::Paragraph(const char *str, size_t indent, const char *padding)
 {
@@ -66,5 +70,12 @@ void Hout::EmptyLine()
 
 void Hout::SetTerminalSize(size_t size)
 {
+#ifdef _WIN32
+    if (size<=0)
+        terminal_size=0;
+    else
+        terminal_size=size-1;
+#else
     terminal_size=size;
+#endif
 }

@@ -14,7 +14,7 @@
 #ifndef HOUT_H
 #define HOUT_H
 
-//For the sake of reusablity this class relies solely on C++ Standard Library
+//For the sake of reusability this class relies solely on C++ Standard Library
 
 #include <string.h>
 

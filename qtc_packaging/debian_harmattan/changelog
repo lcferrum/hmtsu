@@ -1,6 +1,8 @@
 hmtsu (0.1.1) unstable; urgency=low
 
-  * Added --force-desktop option
+  * Now supports showing application splash screen and icon.
+  * Added --force-desktop option.
+  * Fixed bug with running ariadne for non-root users.
 
  -- Lcferrum <lcferrum@yandex.com>  Fri, 27 Sep 2013 13:23:13 +0400
 
