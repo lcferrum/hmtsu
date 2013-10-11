@@ -11,6 +11,7 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <sys/ioctl.h>
 #include <getopt.h>
 #include <string.h>
 #include <unistd.h>
@@ -24,6 +25,7 @@
 #include <QProcess>
 #include "context.h"
 #include "common.h"
+#include "hout.h"
 
 using namespace std;
 
@@ -63,6 +65,11 @@ Context::Context(int argc, char **argv, QString lang):
     int opt=0;
     bool use_desktop_file=false;
     QString desktop_file_path="";
+
+    struct winsize argp;
+    if (!ioctl(STDOUT_FILENO, TIOCGWINSZ, &argp)) {
+        Hout::SetTerminalSize(argp.ws_col);
+    }
 
     while ((opt=getopt_long(argc, argv, "?hvu:lpm:kSwaD:fV:", long_options, NULL))!=-1) {
         switch (opt) {
@@ -352,112 +359,75 @@ void Context::ActuallyRun()
 }
 
 void PrintUsage() {
-    cout<<
-"Usage: hmtsu [-u <user>] [options] <command>"
-"\n"
-    <<endl;
-    cout<<
-"  --help, -h\n"
-"    Display this help and exit."
-    <<endl;
-    cout<<
-"  --version, -v\n"
-"    Output version information and exit."
-    <<endl;
-    cout<<
-"  --verbosity-level, -V\n"
-"    This option controls pop-up's verbosity and\n"
-"    debug output availability. Each level includes\n"
-"    the previous levels as well.\n"
-"    LEVEL   DESCRIPTION\n"
-"    -----   ----------------------------------------\n"
-"        0 - No pop-ups, only error dialogs and\n"
-"            standart/error output.\n"
-"        1 - General informational pop-up messages.\n"
-"        2 - Error pop-up messages.\n"
-"        3 - Warning pop-up messages"IFNOT_DEBUG(" (default level)")".\n"
-"        4 - Debug output"IF_DEBUG(" (default level)")"."
-"\n"
-    <<endl;
-    cout<<
-"  --user <user>, -u <user>\n"
-"    Call <command> as the specified user. By default\n"
-"    it is root."
-"\n"
-    <<endl;
-    cout<<
-"  --preserve-env, -k\n"
-"    Try to preserve the current environments."
-    <<endl;
-    cout<<
-"  --login, -l\n"
-"    Make this a login shell."
-"\n"
-    <<endl;
-    cout<<
-"  --description <description|file>, -D <description|file>\n"
-"    Provide a descriptive name for the command to\n"
-"    be used in the default message, making it nicer.\n"
-"    You can also provide the absolute path for a\n"
-"    .desktop file. The Name key will be used in this\n"
-"    case."
-    <<endl;
-    cout<<
-"  --message <message|file>, -m <message|file>\n"
-"    Replace the standard message shown to ask for\n"
-"    password for the argument passed to the option.\n"
-"    Only use this if --description does not suffice.\n"
-"    You can also provide the absolute path for a\n"
-"    .desktop file. The Comment key will be used in\n"
-"    this case."
-"\n"
-    <<endl;
-    cout<<
-"  --force-desktop, -f\n"
-"    Extract command line, application icon and splash\n"
-"    image from .desktop file provided in --description\n"
-"    or --message."
-"\n"
-    <<endl;
-    cout<<
-"  --print-pass, -p\n"
-"    Ask HMTsu to print the password to stdout, just\n"
-"    like ssh-askpass. Useful to use in scripts with\n"
-"    programs that accept receiving the password on\n"
-"    stdin. HMTsu doesn't check password and user\n"
-"    existence during this."
-"\n"
-    <<endl;
-    cout<<
-"  --sudo-mode, -S\n"
-"    Make HMTsu use sudo."
-    <<endl;
-    cout<<
-"  --su-mode, -w\n"
-"    Make HMTsu use devel-su (default mode)."
-    <<endl;
-    cout<<
-"  --ariadne-mode, -a\n"
-"    Make HMTsu use ariadne."
-"\n"
-    <<endl;
-    cout<<
-"  --\n"
-"    The -- option indicates that HMTsu should stop\n"
-"    processing command line arguments."
-    <<endl;
+    Hout::Separator("Usage: hmtsu [-u <user>] [options] <command>");
+    Hout::EmptyLine();
+    Hout::Separator("--help, -h", 2);
+    Hout::Paragraph("Display this help and exit.",
+                    4);
+    Hout::Separator("--version, -v", 2);
+    Hout::Paragraph("Output version information and exit.",
+                    4);
+    Hout::Separator("--verbosity-level <level>, -V <level>", 2);
+    Hout::Paragraph("This option controls pop-up's verbosity and debug output availability. Each level includes the previous levels as well.",
+                    4);
+    Hout::Separator("LEVEL   DESCRIPTION", 4);
+    Hout::Separator("-----   ", 4, '-');
+    Hout::Paragraph("No pop-ups, only error dialogs and standart/error output.",
+                    12, "0 - ");
+    Hout::Paragraph("General informational pop-up messages.",
+                    12, "1 - ");
+    Hout::Paragraph("Error pop-up messages.",
+                    12, "2 - ");
+    Hout::Paragraph("Warning pop-up messages" IFNOT_DEBUG(" (default level)") ".",
+                    12, "3 - ");
+    Hout::Paragraph("Debug output" IF_DEBUG(" (default level)") ".",
+                    12, "4 - ");
+    Hout::EmptyLine();
+    Hout::Separator("--user <user>, -u <user>", 2);
+    Hout::Paragraph("Call <command> as the specified user. By default it is root.",
+                    4);
+    Hout::EmptyLine();
+    Hout::Separator("--preserve-env, -k", 2);
+    Hout::Paragraph("Try to preserve the current environments.",
+                    4);
+    Hout::Separator("--login, -l", 2);
+    Hout::Paragraph("Make this a login shell.",
+                    4);
+    Hout::EmptyLine();
+    Hout::Separator("--description <description|file>, -D <description|file>", 2);
+    Hout::Paragraph("Provide a descriptive name for the command to be used in the default message, making it nicer. You can also provide the absolute path for a .desktop file. The Name key will be used in this case.",
+                    4);
+    Hout::Separator("--message <message|file>, -m <message|file>", 2);
+    Hout::Paragraph("Replace the standard message shown to ask for password for the argument passed to the option. Only use this if --description does not suffice. You can also provide the absolute path for a .desktop file. The Comment key will be used in this case.",
+                    4);
+    Hout::Separator("--force-desktop, -f", 2);
+    Hout::Paragraph("Extract command line, application icon and splash image from .desktop file provided in --description or --message.",
+                    4);
+    Hout::EmptyLine();
+    Hout::Separator("--print-pass, -p", 2);
+    Hout::Paragraph("Ask HMTsu to print the password to stdout, just like ssh-askpass. Useful to use in scripts with programs that accept receiving the password on stdin. HMTsu doesn't check password and user existence during this.",
+                    4);
+    Hout::EmptyLine();
+    Hout::Separator("--sudo-mode, -S", 2);
+    Hout::Paragraph("Make HMTsu use sudo.",
+                    4);
+    Hout::Separator("--su-mode, -w", 2);
+    Hout::Paragraph("Make HMTsu use devel-su (default mode).",
+                    4);
+    Hout::Separator("--ariadne-mode, -a", 2);
+    Hout::Paragraph("Make HMTsu use ariadne.",
+                    4);
+    Hout::EmptyLine();
+    Hout::Separator("--", 2);
+    Hout::Paragraph("The -- option indicates that HMTsu should stop processing command line arguments.",
+                    4);
 }
 
 void PrintVersion() {
-    cout<<
-"HMTsu "<<HMTSU_VERSION_STRING IF_DEBUG(" (DEBUG)")<<"\n"
-"\n"
-"Copyright (C) 2013 "<<HMTSU_COPYRIGHT_STRING<<"\n"
-"This program comes with ABSOLUTELY NO WARRANTY.\n"
-"This is free software, and you are welcome to redistribute it\n"
-"under the terms of the GNU General Public License;\n"
-"see the source code for details.\n"
-"\n"
-"Try '-h' option for more information.\n"
-    <<endl;
+    Hout::Separator("HMTsu " HMTSU_VERSION_STRING IF_DEBUG(" (DEBUG)"));
+    Hout::EmptyLine();
+    Hout::Separator("Copyright (C) " HMTSU_COPYRIGHT_STRING);
+    Hout::Paragraph("This program comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it under the terms of the GNU General Public License; see the source code for details.");
+    Hout::EmptyLine();
+    Hout::Separator("Try '-h' option for more information.");
 }
