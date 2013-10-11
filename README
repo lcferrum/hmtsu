@@ -86,8 +86,8 @@ Usage (when launched from terminal):
     will be used in this case.
 	
 --force-desktop, -f
-	Extract command line, application icon and splash image from .desktop file
-	provided in --description or --message.
+    Extract command line, application icon and splash image from .desktop file
+    provided in --description or --message.
     
 --print-pass, -p    
     Ask HMTsu to print the password to stdout, just like ssh-askpass. Useful
