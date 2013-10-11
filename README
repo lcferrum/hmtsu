@@ -116,11 +116,12 @@ HMTsu will ask user to enter administrative password to run 'current
 processes'. Ariadne will be used to substitute user and run 'ps aux' command.
 
 Example 2:
-    hmtsu -fm /usr/share/applications/SomeProgram.desktop
+    hmtsu -fD /usr/share/applications/SomeProgram.desktop
 	   
-HMTsu will print Comment key value from .desktop file. Devel-su will be used to
-substitute user and run command from Exec key as root. Program icon (and splash
-screen, if present) will be displayed during launch.
+HMTsu will ask user to enter administrative password to run application (app
+name will be taken from Name key). Devel-su will be used to substitute user and
+run command from Exec key as root. Program icon (and splash screen, if present)
+will be displayed during launch.
 
 6. Additional notes
 -------------------
