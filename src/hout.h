@@ -22,6 +22,7 @@ class Hout {
 private:
     static size_t terminal_size;
 public:
+	virtual ~Hout()=0;	//A trick to make class abstract, non-instantiatable. Works only with destructors.
     static void Paragraph(const char *str, size_t indent=0, const char *padding=NULL);
     static void Separator(const char *str, size_t indent=0, char filler=' ');
     static void EmptyLine();
