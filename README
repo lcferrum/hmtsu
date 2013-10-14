@@ -130,11 +130,11 @@ is used and current user is root or if sudo is used and appropriate credentials
 were cached. Credential caching for ariadne is not supported - it will be
 forced to ask for password every time.
 
-Force-desktop option causes HMTsu not only to use value of Exec key as command
-line but also to parse invoker arguments (if present) to determine actual
-command line and path to splash screen. It is still possible to pass command
-line as argument to HMTsu while using force-desktop option - in this case
-external command line will override command line from .desktop file.
+--force-desktop option causes HMTsu not only to use value of Exec key as
+command line but also to parse invoker arguments (if present) to determine
+actual command line and path to splash screen. It is still possible to pass
+command line as argument to HMTsu while using --force-desktop option - in this
+case external command line will override command line from .desktop file.
 
 Some Harmattan apps may crash on exit if were launched with root privileges.
 HMTsu will report this through warning pop-up message. If you acknowledged of
