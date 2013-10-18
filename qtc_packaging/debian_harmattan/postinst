@@ -6,3 +6,17 @@ then
 else
     ln -s /opt/hmtsu/bin/hmtsu /usr/bin/hmtsu
 fi
+
+if [ -f /usr/bin/hmtsudo ]
+then
+    echo "hmtsu: symbolic link to hmtsudo already exists in /usr/bin/"
+else
+    ln -s /opt/hmtsu/bin/hmtsu /usr/bin/hmtsudo
+fi
+
+if [ -f /usr/bin/hmtard ]
+then
+    echo "hmtsu: symbolic link to hmtard already exists in /usr/bin/"
+else
+    ln -s /opt/hmtsu/bin/hmtsu /usr/bin/hmtard
+fi

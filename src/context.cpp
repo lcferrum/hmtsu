@@ -23,6 +23,7 @@
 #include <QRegExp>
 #include <QStringList>
 #include <QProcess>
+#include <QFileInfo>
 #include "context.h"
 #include "common.h"
 #include "hout.h"
@@ -52,7 +53,6 @@ void PrintVersion();
 Context::Context(int argc, char **argv, QString lang):
     QObject(NULL)
 {
-    run_mode=RunModes::SU;
     Tools=NULL;
     action=ctx_act_ASK_FOR_MORE;
     message=ctx_msg_NULL;
@@ -61,6 +61,14 @@ Context::Context(int argc, char **argv, QString lang):
     kpp_env=false;
     user="root";
     text="";
+
+    QFileInfo ExePath(argv[0]);
+    if (ExePath.fileName()=="hmtsudo")
+        run_mode=RunModes::SUDO;
+    else if (ExePath.fileName()=="hmtard")
+        run_mode=RunModes::ARIADNE;
+    else
+        run_mode=RunModes::SU;
 
     int opt=0;
     bool use_desktop_file=false;
@@ -412,7 +420,7 @@ void PrintUsage() {
     Hout::Paragraph("Make HMTsu use sudo.",
                     4);
     Hout::Separator("--su-mode, -w", 2);
-    Hout::Paragraph("Make HMTsu use devel-su (default mode).",
+    Hout::Paragraph("Make HMTsu use devel-su.",
                     4);
     Hout::Separator("--ariadne-mode, -a", 2);
     Hout::Paragraph("Make HMTsu use ariadne.",

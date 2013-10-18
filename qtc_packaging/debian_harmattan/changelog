@@ -1,3 +1,9 @@
+hmtsu (0.1.2) unstable; urgency=low
+
+  * Added hmtsudo and hmtard symlinks.
+
+ -- Lcferrum <lcferrum@yandex.com>  Fri, 18 Oct 2013 15:59:02 +0400
+
 hmtsu (0.1.1) unstable; urgency=low
 
   * Now supports showing application splash screen and icon.

@@ -4,3 +4,13 @@ if [ -f /usr/bin/hmtsu ]
 then
     rm /usr/bin/hmtsu
 fi
+
+if [ -f /usr/bin/hmtsudo ]
+then
+    rm /usr/bin/hmtsudo
+fi
+
+if [ -f /usr/bin/hmtard ]
+then
+    rm /usr/bin/hmtard
+fi
