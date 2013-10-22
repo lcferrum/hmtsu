@@ -15,7 +15,7 @@
 #define HOUT_H
 
 //For the sake of reusability this class relies solely on C++ Standard Library
-//This class is not aware of multibyte strings! Be careful when using non-ASCII characters in strings!
+//This class is not aware of multibyte strings! Be careful when using non-SBCS character sets!
 
 #include <string.h>
 
