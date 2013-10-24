@@ -14,9 +14,9 @@ else
     ln -s /opt/hmtsu/bin/hmtsu /usr/bin/hmtsudo
 fi
 
-if [ -f /usr/bin/hmtard ]
+if [ -f /usr/bin/hmtadn ]
 then
-    echo "hmtsu: symbolic link to hmtard already exists in /usr/bin/"
+    echo "hmtsu: symbolic link to hmtadn already exists in /usr/bin/"
 else
-    ln -s /opt/hmtsu/bin/hmtsu /usr/bin/hmtard
+    ln -s /opt/hmtsu/bin/hmtsu /usr/bin/hmtadn
 fi

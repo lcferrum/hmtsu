@@ -65,7 +65,7 @@ Context::Context(int argc, char **argv, QString lang):
     QFileInfo ExePath(argv[0]);
     if (ExePath.fileName()=="hmtsudo")
         run_mode=RunModes::SUDO;
-    else if (ExePath.fileName()=="hmtard")
+    else if (ExePath.fileName()=="hmtadn")
         run_mode=RunModes::ARIADNE;
     else
         run_mode=RunModes::SU;

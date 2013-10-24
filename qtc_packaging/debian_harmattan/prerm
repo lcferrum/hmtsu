@@ -10,7 +10,7 @@ then
     rm /usr/bin/hmtsudo
 fi
 
-if [ -f /usr/bin/hmtard ]
+if [ -f /usr/bin/hmtadn ]
 then
-    rm /usr/bin/hmtard
+    rm /usr/bin/hmtadn
 fi
