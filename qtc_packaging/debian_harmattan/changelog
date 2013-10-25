@@ -1,6 +1,8 @@
 hmtsu (0.1.2) unstable; urgency=low
 
-  * Added hmtsudo and hmtard symlinks.
+  * Added hmtsudo and hmtadn symlinks.
+  * Removed hardcoded root username.
+  * Fixed incorrect PRINT mode text.
 
  -- Lcferrum <lcferrum@yandex.com>  Fri, 18 Oct 2013 15:59:02 +0400
 
