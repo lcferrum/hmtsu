@@ -19,7 +19,7 @@ Item {
     property variant color: undefined
     property bool landscape: false
 
-    height: landscape?UiConstants.HeaderDefaultHeightLandscape:UiConstants.HeaderDefaultHeightPortrait
+    height: landscape?64:UiConstants.HeaderDefaultHeightPortrait //Nokia uses 64px instead of UiConstants.HeaderDefaultHeightLandscape (46px) in their apps
 
     Loader {
         anchors.fill: parent
@@ -60,8 +60,8 @@ Item {
 
     Item {
         anchors.fill: parent
-        anchors.topMargin: UiConstants.HeaderDefaultTopSpacingPortrait
-        anchors.bottomMargin: UiConstants.HeaderDefaultBottomSpacingPortrait
+        anchors.topMargin: landscape?UiConstants.HeaderDefaultTopSpacingLandscape:UiConstants.HeaderDefaultTopSpacingPortrait
+        anchors.bottomMargin: landscape?UiConstants.HeaderDefaultBottomSpacingLandscape:UiConstants.HeaderDefaultBottomSpacingPortrait
         anchors.rightMargin: UiConstants.DefaultMargin
         anchors.leftMargin: UiConstants.DefaultMargin
 

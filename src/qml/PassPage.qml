@@ -21,6 +21,10 @@ Page {
     property int propAtsRemain: MAX_PSW_ATTEMPTS
     property bool propNoPass: false
 
+    function fnCurrentScreenHeight() {
+        return screen.currentOrientation===Screen.Portrait?screen.displayWidth:screen.displayHeight;
+    }
+
     function fnGetMessage() {
         if (!objContext.IfCustomMessage()) {
             if (objContext.TargetUser===objContext.GetRootName()) {
@@ -106,6 +110,7 @@ Page {
     }
 
     Flickable {
+        id: idLabelTopItem
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.top: idBannerTop.bottom
@@ -123,6 +128,10 @@ Page {
                 text=fnGetMessage();
             }
         }
+    }
+
+    ScrollDecorator {
+        flickableItem: idLabelTopItem
     }
 
     TextField {

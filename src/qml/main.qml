@@ -15,7 +15,7 @@ import QtQuick 1.1
 import com.nokia.meego 1.1
 
 PageStackWindow {
-    showStatusBar: true
+    showStatusBar: false
     showToolBar: true
 
     initialPage: objContext.IfContinue()?idPassPage:idStartPage
