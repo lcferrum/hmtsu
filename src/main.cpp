@@ -64,7 +64,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
         ScopedIntercomHandler ViewerIntercomHandler;
         QmlApplicationViewer Viewer;
 
-        Viewer.setOrientation(QmlApplicationViewer::ScreenOrientationLockPortrait);
+        //Viewer.setOrientation(QmlApplicationViewer::ScreenOrientationLockPortrait);
 
         qmlRegisterUncreatableType<RunModes>("com.lcferrum.hmtsu", 1, 0, "RunModes", "Exports RunModes enum to QML");
         Viewer.rootContext()->setContextProperty("objModesList", &ModesList);

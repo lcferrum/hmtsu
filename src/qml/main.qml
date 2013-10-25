@@ -56,7 +56,7 @@ PageStackWindow {
         id: idAboutDialog
 
         title: Label {
-            height: UiConstants.HeaderDefaultHeightPortrait
+            height: screen.currentOrientation===Screen.Portrait?UiConstants.HeaderDefaultHeightPortrait:UiConstants.HeaderDefaultHeightLandscape
             width: parent.width
             horizontalAlignment: Text.AlignHCenter
             color: "white"
@@ -66,7 +66,7 @@ PageStackWindow {
         }
 
         content: Column {
-            width: screen.displayHeight
+            width: screen.currentOrientation===Screen.Portrait?screen.displayHeight:screen.displayWidth
             spacing: UiConstants.ButtonSpacing
             anchors.horizontalCenter: parent.horizontalCenter
 

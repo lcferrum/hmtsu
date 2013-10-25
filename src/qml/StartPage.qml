@@ -16,7 +16,7 @@ import com.nokia.meego 1.0
 import com.lcferrum.hmtsu 1.0   //created at runtime
 
 Page {
-    orientationLock: PageOrientation.LockPortrait
+    //orientationLock: PageOrientation.LockPortrait
 
     function fnContinue() {
         if (idCommandText.text.length<=0)
@@ -34,15 +34,15 @@ Page {
         anchors.top: parent.top
         anchors.left: parent.left
         anchors.right: parent.right
+        landscape: screen.currentOrientation===Screen.Landscape
         text: qsTr("__start__")
     }
 
-    Image {
+    Item {
         id: idCommandItem
         anchors.top: idBannerTop.bottom
         height: 80
         width: parent.width
-        source: "image://theme/meegotouch-applicationpage-background"
 
         TextField {
             id: idCommandText
@@ -94,7 +94,8 @@ Page {
         anchors.leftMargin: UiConstants.DefaultMargin
         anchors.rightMargin: UiConstants.DefaultMargin
         flickableDirection: Flickable.VerticalFlick
-        z: -1
+        contentHeight: idRunOptions.height
+        clip: true
 
         Column {
             id: idRunOptions

@@ -16,7 +16,7 @@ import com.nokia.meego 1.0
 import com.lcferrum.hmtsu 1.0   //created at runtime
 
 Page {
-    orientationLock: PageOrientation.LockPortrait
+    //orientationLock: PageOrientation.LockPortrait
 
     property int propAtsRemain: MAX_PSW_ATTEMPTS
     property bool propNoPass: false
@@ -101,6 +101,7 @@ Page {
         anchors.top: parent.top
         anchors.left: parent.left
         anchors.right: parent.right
+        landscape: screen.currentOrientation===Screen.Landscape
         text: qsTr("__enter_pass__")
     }
 
@@ -111,6 +112,7 @@ Page {
         anchors.bottom: idPassInput.top
         anchors.margins: UiConstants.DefaultMargin
         flickableDirection: Flickable.VerticalFlick
+        contentHeight: idLabelTop.height
         clip: true
 
         Label {

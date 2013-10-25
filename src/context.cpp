@@ -29,8 +29,6 @@
 #include "common.h"
 #include "hout.h"
 
-using namespace std;
-
 struct option long_options[] = {
     {"help",            0, NULL, 'h'},
     {"version",         0, NULL, 'v'},
@@ -143,6 +141,7 @@ Context::Context(int argc, char **argv, QString lang):
                     bool intok;
                     verbosity=QString::fromLocal8Bit(optarg).toInt(&intok, 10);
                     if (!intok||verbosity<0||verbosity>4) {
+                        action=ctx_act_ASK_FOR_MORE;
                         Intercom->AddError(QCoreApplication::translate("Messages", "__context_verbosity_err__"));
                         return;
                     }
