@@ -17,6 +17,7 @@
 #include <string.h>
 #include <QCoreApplication>
 #include <QProcess>
+#include "common.h"
 #include "pswchecker.h"
 
 using namespace std;
@@ -37,7 +38,7 @@ void PswChecker::Prepare(RunModes::QmlEnum mode, QString &target_user)
             errno=0;
             user_record=(mode==RunModes::SU)?
                         getpwnam(target_user.toLocal8Bit().constData()):
-                        getpwuid(mode==RunModes::ARIADNE?0:getuid());
+                        getpwuid(mode==RunModes::ARIADNE?ROOT_UID:getuid());
         } while (errno==EINTR);
 
         if (!user_record) {
@@ -61,7 +62,7 @@ void PswChecker::Prepare(RunModes::QmlEnum mode, QString &target_user)
 bool PswChecker::CheckSuNoPass()
 {
     //if (user_record->pw_uid==getuid()||!getuid())
-    if (!getuid())
+    if (getuid()==ROOT_UID)
         signalNoPsw();
 
     return true;

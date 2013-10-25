@@ -24,7 +24,7 @@ UserValidator::UserValidator(QString user, bool skip):
 
     if (skip||Intercom->IfError()) return;
 
-    struct passwd *pw;
+    passwd *pw;
 
     setpwent();
     while ((pw=getpwent()))

@@ -47,7 +47,7 @@ public:
     int GetVerboseLevel();
     void ActuallyRun();
 
-    //Properties expose to QML
+    //Properties exposed to QML:
     Q_PROPERTY(RunModes::QmlEnum Mode READ CheckMode WRITE ChangeMode) //N.B.: non-local Q_ENUMS can't be used in Q_INVOKABLE, should be fixed in Qt5
     Q_PROPERTY(QString TargetUser READ GetTargetUser WRITE SetTargetUser)
     RunModes::QmlEnum CheckMode();
@@ -65,6 +65,7 @@ public:
     Q_INVOKABLE void SetCommand(QString cmdline);
     Q_INVOKABLE QString GetText();
     Q_INVOKABLE QString GetIcon();
+    Q_INVOKABLE QString GetRootName();
     Q_INVOKABLE void Run(QString psw, bool no_pass);
 };
 

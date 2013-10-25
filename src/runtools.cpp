@@ -164,7 +164,7 @@ bool AriadneRunTools::CustomForkAction()
 
     if (!login&&!kpp_env) {
         setenv("HOME", user_record->pw_dir, true);
-        if (user_record->pw_uid) {  //non-root
+        if (user_record->pw_uid!=ROOT_UID) {
             setenv("USER", user_record->pw_name, true);
             setenv("LOGNAME", user_record->pw_name, true);
         }

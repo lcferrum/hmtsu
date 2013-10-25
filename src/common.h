@@ -22,6 +22,8 @@
 #define CANCELED_EXIT_CODE  2
 #define DENIED_EXIT_CODE    3
 
+#define ROOT_UID            0
+
 #define MAX_PSW_ATTEMPTS    3
 
 #ifdef QT_DEBUG

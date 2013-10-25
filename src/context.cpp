@@ -16,6 +16,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <wordexp.h>
+#include <pwd.h>
 #include <iostream>
 #include <QSettings>
 #include <QCoreApplication>
@@ -59,7 +60,7 @@ Context::Context(int argc, char **argv, QString lang):
     verbosity=CND_DEBUG(4,3);
     login=false;
     kpp_env=false;
-    user="root";
+    user=GetRootName();
     text="";
 
     QFileInfo ExePath(argv[0]);
@@ -339,6 +340,19 @@ QString Context::GetIcon()
     return icon;
 }
 
+QString Context::GetRootName()
+{
+    passwd *user_record;
+
+    user_record=getpwuid(ROOT_UID);
+
+    if (user_record) {
+        return QString::fromLocal8Bit(user_record->pw_name);
+    } else {
+        return "root";
+    }
+}
+
 void Context::Run(QString psw, bool no_pass)
 {
     switch (run_mode) {
@@ -366,7 +380,8 @@ void Context::ActuallyRun()
     }
 }
 
-void PrintUsage() {
+void PrintUsage()
+{
     Hout::Separator("Usage: hmtsu [-u <user>] [options] [<command>]");
     Hout::EmptyLine();
     Hout::Separator("--help, -h", 2);
@@ -431,7 +446,8 @@ void PrintUsage() {
                     4);
 }
 
-void PrintVersion() {
+void PrintVersion()
+{
     Hout::Separator("HMTsu " HMTSU_VERSION_STRING IF_DEBUG(" (DEBUG)"));
     Hout::EmptyLine();
     Hout::Separator("Copyright (C) " HMTSU_COPYRIGHT_STRING);
