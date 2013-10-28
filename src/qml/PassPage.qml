@@ -12,7 +12,7 @@
  */
 
 import QtQuick 1.1
-import com.nokia.meego 1.0
+import com.nokia.meego 1.1
 import com.lcferrum.hmtsu 1.0   //created at runtime
 
 Page {
@@ -146,12 +146,16 @@ Page {
         id: idPassInput
         width: screen.displayHeight-UiConstants.DefaultMargin*4
         anchors.horizontalCenter: parent.horizontalCenter
-        anchors.bottom: idScreenAnchor.verticalCenter
-        anchors.bottomMargin: parent.height<fnCurrentScreenHeight()/2?parent.bottom:idScreenAnchor.verticalCenter
+        anchors.bottom: parent.height<fnCurrentScreenHeight()/2?parent.bottom:idScreenAnchor.verticalCenter
+        anchors.bottomMargin: UiConstants.DefaultMargin/2
         echoMode: TextInput.Password
         inputMethodHints: Qt.ImhNoAutoUppercase|Qt.ImhNoPredictiveText
         onTextChanged: {
             errorHighlight=false;
+        }
+
+        platformSipAttributes: SipAttributes {
+            actionKeyLabel: qsTr("__launch__")
         }
 
         Keys.onReturnPressed: {

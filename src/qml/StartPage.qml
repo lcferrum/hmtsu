@@ -12,7 +12,7 @@
  */
 
 import QtQuick 1.1
-import com.nokia.meego 1.0
+import com.nokia.meego 1.1
 import com.lcferrum.hmtsu 1.0   //created at runtime
 
 Page {
