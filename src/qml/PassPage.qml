@@ -147,7 +147,7 @@ Page {
         width: screen.displayHeight-UiConstants.DefaultMargin*4
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.bottom: idScreenAnchor.verticalCenter
-        anchors.bottomMargin: UiConstants.DefaultMargin/2
+        anchors.bottomMargin: parent.height<fnCurrentScreenHeight()/2?parent.bottom:idScreenAnchor.verticalCenter
         echoMode: TextInput.Password
         inputMethodHints: Qt.ImhNoAutoUppercase|Qt.ImhNoPredictiveText
         onTextChanged: {
