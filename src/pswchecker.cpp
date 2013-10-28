@@ -70,13 +70,13 @@ bool PswChecker::CheckSuNoPass()
 
 bool PswChecker::CheckSudoNoPass()
 {
-    QProcess Setsid;
-    Setsid.setStandardInputFile("/dev/null");
-    Setsid.start("/usr/bin/sudo", QStringList()<<"-S"<<"-v");
-    Setsid.waitForFinished();
-    QByteArray output=Setsid.readAllStandardError();
+    QProcess sudo;
+    sudo.setStandardInputFile("/dev/null");
+    sudo.start("/usr/bin/sudo", QStringList()<<"-S"<<"-v");
+    sudo.waitForFinished();
+    QByteArray output=sudo.readAllStandardError();
 
-    if (!Setsid.exitCode())
+    if (!sudo.exitCode())
         signalNoPsw();
 
     return output.length()==0||output.endsWith(":\n");
