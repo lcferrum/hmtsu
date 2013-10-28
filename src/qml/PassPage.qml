@@ -109,6 +109,14 @@ Page {
         text: qsTr("__enter_pass__")
     }
 
+    Item {
+        id: idScreenAnchor
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.top: parent.top
+        height: fnCurrentScreenHeight()
+    }
+
     Flickable {
         id: idLabelTopItem
         anchors.left: parent.left
@@ -136,12 +144,10 @@ Page {
 
     TextField {
         id: idPassInput
-        anchors.left: parent.left
-        anchors.leftMargin: UiConstants.DefaultMargin*2
-        anchors.right: parent.right
-        anchors.rightMargin: UiConstants.DefaultMargin*2
-        anchors.bottom: idBtnLaunch.top
-        anchors.bottomMargin: UiConstants.DefaultMargin
+        width: screen.displayHeight-UiConstants.DefaultMargin*4
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.bottom: idScreenAnchor.verticalCenter
+        anchors.bottomMargin: UiConstants.DefaultMargin/2
         echoMode: TextInput.Password
         inputMethodHints: Qt.ImhNoAutoUppercase|Qt.ImhNoPredictiveText
         onTextChanged: {
@@ -156,8 +162,8 @@ Page {
     Button {
         id: idBtnLaunch
         anchors.horizontalCenter: parent.horizontalCenter
-        anchors.top: parent.top
-        anchors.topMargin: 420
+        anchors.top: idPassInput.bottom
+        anchors.topMargin: UiConstants.DefaultMargin
         text: qsTr("__launch__")
         onClicked: {
             fnCheckPassword();
@@ -167,7 +173,9 @@ Page {
     Item {
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: idBtnLaunch.bottom
-        height: 272
+        anchors.topMargin: UiConstants.DefaultMargin
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: UiConstants.DefaultMargin
 
         Image {
             source: "gfx/logo.png"
