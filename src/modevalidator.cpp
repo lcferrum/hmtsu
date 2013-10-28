@@ -13,6 +13,8 @@
 
 #include <unistd.h>
 #include <QCoreApplication>
+#include <QStringList>
+#include <QProcess>
 #include "modevalidator.h"
 
 ModeValidator::ModeValidator(RunModes::QmlEnum mode, bool skip):
@@ -27,8 +29,14 @@ ModeValidator::ModeValidator(RunModes::QmlEnum mode, bool skip):
 
     if (!access("/bin/devel-su", R_OK))
         AvailableModes.append(ModePair("devel-su", RunModes::SU));
-    if (!access("/usr/bin/sudo", R_OK))
-        AvailableModes.append(ModePair("sudo", RunModes::SUDO));
+    if (!access("/usr/bin/sudo", R_OK)) {
+        QProcess dpkg;
+        dpkg.start("/usr/bin/dpkg", QStringList()<<"-s"<<"opensudo");
+        if (dpkg.waitForFinished()&&!dpkg.exitCode())
+            AvailableModes.append(ModePair("opensudo", RunModes::SUDO));
+        else
+            AvailableModes.append(ModePair("sudo", RunModes::SUDO));
+    }
     if (!access("/usr/bin/ariadne", R_OK))
         AvailableModes.append(ModePair("ariadne", RunModes::ARIADNE));
 
