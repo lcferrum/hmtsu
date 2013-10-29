@@ -59,6 +59,7 @@ PageStackWindow {
             height: screen.currentOrientation===Screen.Portrait?UiConstants.HeaderDefaultHeightPortrait:UiConstants.HeaderDefaultHeightLandscape
             width: parent.width
             horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
             color: "white"
             text: "<b>HMTsu</b> <i><small>"+HMTSU_VERSION_STRING+"</small></i>"
             font.pixelSize: UiConstants.HeaderFont.pixelSize

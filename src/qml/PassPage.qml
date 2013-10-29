@@ -117,12 +117,53 @@ Page {
         height: fnCurrentScreenHeight()
     }
 
+    Item {
+        id: idPassInputItem
+        anchors.top: idBannerTop.bottom
+        height: 80
+        width: parent.width
+
+        TextField {
+            id: idPassInput
+            width: Math.floor((screen.currentOrientation===Screen.Landscape?screen.displayWidth:screen.displayHeight)*0.87)
+            //horizontalAlignment: Text.AlignHCenter
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.verticalCenter: parent.verticalCenter
+            //anchors.bottom: parent.height<fnCurrentScreenHeight()/2?parent.bottom:idScreenAnchor.verticalCenter
+            //anchors.bottomMargin: UiConstants.DefaultMargin/2
+            echoMode: TextInput.Password
+            placeholderText: "Password"
+            inputMethodHints: Qt.ImhNoAutoUppercase|Qt.ImhNoPredictiveText
+            onTextChanged: {
+                errorHighlight=false;
+            }
+
+            platformSipAttributes: SipAttributes {
+                actionKeyLabel: qsTr("__launch__")
+                //actionKeyHighlighted: true
+            }
+
+            Keys.onReturnPressed: {
+                fnCheckPassword();
+            }
+        }
+    }
+
+    Image {
+        id: idSeparator
+        anchors.top: idPassInputItem.bottom
+        height: 2
+        width: parent.width
+        visible: false
+        source: "image://theme/meegotouch-groupheader-background"
+    }
+
     Flickable {
         id: idLabelTopItem
         anchors.left: parent.left
         anchors.right: parent.right
-        anchors.top: idBannerTop.bottom
-        anchors.bottom: idPassInput.top
+        anchors.bottom: parent.bottom
+        anchors.top: idPassInputItem.bottom
         anchors.margins: UiConstants.DefaultMargin
         flickableDirection: Flickable.VerticalFlick
         contentHeight: idLabelTop.height
@@ -142,53 +183,18 @@ Page {
         flickableItem: idLabelTopItem
     }
 
-    TextField {
-        id: idPassInput
-        width: screen.displayHeight-UiConstants.DefaultMargin*4
-        anchors.horizontalCenter: parent.horizontalCenter
-        anchors.bottom: parent.height<fnCurrentScreenHeight()/2?parent.bottom:idScreenAnchor.verticalCenter
-        anchors.bottomMargin: UiConstants.DefaultMargin/2
-        echoMode: TextInput.Password
-        inputMethodHints: Qt.ImhNoAutoUppercase|Qt.ImhNoPredictiveText
-        onTextChanged: {
-            errorHighlight=false;
-        }
-
-        platformSipAttributes: SipAttributes {
-            actionKeyLabel: qsTr("__launch__")
-        }
-
-        Keys.onReturnPressed: {
-            fnCheckPassword();
-        }
-    }
-
-    Button {
-        id: idBtnLaunch
-        anchors.horizontalCenter: parent.horizontalCenter
-        anchors.top: idPassInput.bottom
-        anchors.topMargin: UiConstants.DefaultMargin
-        text: qsTr("__launch__")
-        onClicked: {
-            fnCheckPassword();
-        }
-    }
-
-    Item {
-        anchors.horizontalCenter: parent.horizontalCenter
-        anchors.top: idBtnLaunch.bottom
-        anchors.topMargin: UiConstants.DefaultMargin
-        anchors.bottom: parent.bottom
-        anchors.bottomMargin: UiConstants.DefaultMargin
-
-        Image {
-            source: "gfx/logo.png"
-            anchors.centerIn: parent
-        }
-    }
-
     tools: ToolBarLayout {
         visible: true
+
+        ToolButton {
+            text: qsTr("__launch__")
+            width: children.width
+            anchors.left: parent.left
+            anchors.leftMargin: UiConstants.DefaultMargin
+            onClicked: {
+                fnCheckPassword();
+            }
+        }
 
         ToolIcon {
             iconSource: "image://theme/icon-s-description"

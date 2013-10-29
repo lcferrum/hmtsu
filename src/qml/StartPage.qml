@@ -60,6 +60,12 @@ Page {
                 fnContinue();
             }
 
+            platformSipAttributes: SipAttributes {
+                //actionKeyLabel: qsTr("__launch__")
+                //actionKeyHighlighted: true
+                actionKeyIcon: "/usr/share/themes/blanco/meegotouch/icons/icon-m-toolbar-done-white.png"
+            }
+
             Image {
                 anchors.right: parent.right
                 anchors.rightMargin: 10
