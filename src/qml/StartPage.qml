@@ -16,8 +16,6 @@ import com.nokia.meego 1.1
 import com.lcferrum.hmtsu 1.0   //created at runtime
 
 Page {
-    //orientationLock: PageOrientation.LockPortrait
-
     function fnContinue() {
         if (idCommandText.text.length<=0)
             objIntercom.AddWarning(qsTr("__command_text_empty__"));
@@ -61,9 +59,7 @@ Page {
             }
 
             platformSipAttributes: SipAttributes {
-                //actionKeyLabel: qsTr("__launch__")
-                //actionKeyHighlighted: true
-                actionKeyIcon: "/usr/share/themes/blanco/meegotouch/icons/icon-m-toolbar-done-white.png"
+                actionKeyLabel: qsTr("__done__")
             }
 
             Image {

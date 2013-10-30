@@ -37,6 +37,7 @@ private:
     QString user;
     QString text;
     QString splash;
+    QString splash_lscape;
     QString icon;
     QStringList command;
     bool LoadValueFromDesktop(QString fname, QString key, QString lang, QString &value);

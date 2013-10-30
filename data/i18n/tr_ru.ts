@@ -88,19 +88,19 @@
     </message>
     <message>
         <source>__default_sudo_root_msg%D__</source>
-        <translation>Введите ваш пароль чтобы разрешить приложению «%D» изменять ключевые параметры вашей системы.</translation>
+        <translation>Введите ваш пароль чтобы разрешить приложению «%D» изменять ключевые параметры вашей системы</translation>
     </message>
     <message>
         <source>__default_root_msg%D__</source>
-        <translation>Введите административный пароль чтобы разрешить приложению «%D» изменять ключевые параметры вашей системы.</translation>
+        <translation>Введите административный пароль чтобы разрешить приложению «%D» изменять ключевые параметры вашей системы</translation>
     </message>
     <message>
         <source>__default_sudo_msg%U%D__</source>
-        <translation>Введите ваш пароль для запуска приложения «%D» с правами пользователя %U.</translation>
+        <translation>Введите ваш пароль для запуска приложения «%D» с правами пользователя %U</translation>
     </message>
     <message>
         <source>__default_msg%U%D__</source>
-        <translation>Введите пароль пользователя %U для запуска приложения «%D».</translation>
+        <translation>Введите пароль пользователя %U для запуска приложения «%D»</translation>
     </message>
     <message>
         <source>__pass_wrong_cnt%R__</source>
@@ -108,7 +108,7 @@
     </message>
     <message>
         <source>__default_ariadne_msg%U%D__</source>
-        <translation>Введите административный пароль для запуска приложения «%D» с правами пользователя %U.</translation>
+        <translation>Введите административный пароль для запуска приложения «%D» с правами пользователя %U</translation>
     </message>
 </context>
 <context>
@@ -156,6 +156,10 @@
     <message>
         <source>__command_text_empty__</source>
         <translation>Внимание: Команда не была задана</translation>
+    </message>
+    <message>
+        <source>__done__</source>
+        <translation>Готово</translation>
     </message>
 </context>
 <context>

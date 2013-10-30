@@ -25,31 +25,31 @@ private:
     char* DropNewLine(char* in_buf, int buf_size);
     bool WaitForNoEcho(int &master_fd, bool immediate);
     QString GetProcName(pid_t pid);
-    bool TryToShowSplash(pid_t pid, const QString &splash);
+    bool TryToShowSplash(pid_t pid, const QString &splash, const QString &splash_lscape);
 protected:
     QString psw;
     void ClearPsw();
     QString QuotedJoin(const QStringList &list);
-    bool Launch(char **cmd, const QString &path, const QString &splash);
+    bool Launch(char **cmd, const QString &path, const QString &splash, const QString &splash_lscape);
     char** StringListToArray(QStringList &list);
     void DeleteStringArray(char** arr);
 public:
     RunTools(const QString &psw, bool no_pass);
-    virtual void Run(const QString &user, bool login, bool kpp_env, const QStringList &command, const QString &splash)=0;
+    virtual void Run(const QString &user, bool login, bool kpp_env, const QStringList &command, const QString &splash, const QString &splash_lscape)=0;
 };
 
 class SuRunTools: public RunTools {
 public:
     SuRunTools(const QString &psw, bool no_pass):
         RunTools(psw, no_pass) {}
-    virtual void Run(const QString &user, bool login, bool kpp_env, const QStringList &command, const QString &splash);
+    virtual void Run(const QString &user, bool login, bool kpp_env, const QStringList &command, const QString &splash, const QString &splash_lscape);
 };
 
 class SudoRunTools: public RunTools {
 public:
     SudoRunTools(const QString &psw, bool no_pass):
         RunTools(psw, no_pass) {}
-    virtual void Run(const QString &user, bool login, bool kpp_env, const QStringList &command, const QString &splash);
+    virtual void Run(const QString &user, bool login, bool kpp_env, const QStringList &command, const QString &splash, const QString &splash_lscape);
 };
 
 class AriadneRunTools: public RunTools {
@@ -61,14 +61,14 @@ private:
 public:
     AriadneRunTools(const QString &psw, bool no_pass):
         RunTools(psw, no_pass) {}
-    virtual void Run(const QString &user, bool login, bool kpp_env, const QStringList &command, const QString &splash);
+    virtual void Run(const QString &user, bool login, bool kpp_env, const QStringList &command, const QString &splash, const QString &splash_lscape);
 };
 
 class PrintRunTools: public RunTools {
 public:
     PrintRunTools(const QString &psw, bool no_pass):
         RunTools(psw, no_pass) {}
-    virtual void Run(const QString &user, bool login, bool kpp_env, const QStringList &command, const QString &splash);
+    virtual void Run(const QString &user, bool login, bool kpp_env, const QStringList &command, const QString &splash, const QString &splash_lscape);
 };
 
 #endif // RUNTOOLS_H

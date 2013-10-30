@@ -1,5 +1,7 @@
 hmtsu (0.1.2) unstable; urgency=low
 
+  * Landscape support added
+  * Password prompt redesigned
   * Added hmtsudo and hmtadn symlinks.
   * Removed hardcoded root username.
   * Fixed incorrect PRINT mode text.

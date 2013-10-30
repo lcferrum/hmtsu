@@ -4,53 +4,53 @@
 <context>
     <name>Messages</name>
     <message>
-        <location filename="../../src/context.cpp" line="130"/>
+        <location filename="../../src/context.cpp" line="145"/>
         <source>__context_verbosity_err__</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/context.cpp" line="154"/>
+        <location filename="../../src/context.cpp" line="169"/>
         <source>__context_printpass_err__</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/context.cpp" line="299"/>
+        <location filename="../../src/context.cpp" line="317"/>
         <source>__context_badinvoke_wrn__</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/context.cpp" line="268"/>
+        <location filename="../../src/context.cpp" line="283"/>
         <source>__context_descfile_wrn%1%2__</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/context.cpp" line="144"/>
+        <location filename="../../src/context.cpp" line="159"/>
         <source>__context_nodesktop_err__</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/context.cpp" line="233"/>
+        <location filename="../../src/context.cpp" line="248"/>
         <source>__context_wordexp_wrn__</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/modevalidator.cpp" line="36"/>
+        <location filename="../../src/modevalidator.cpp" line="44"/>
         <source>__modevalidator_nomodes_err__</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/modevalidator.cpp" line="39"/>
+        <location filename="../../src/modevalidator.cpp" line="47"/>
         <source>__modevalidator_wrongmode_err__</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/pswchecker.cpp" line="52"/>
-        <location filename="../../src/pswchecker.cpp" line="101"/>
+        <location filename="../../src/pswchecker.cpp" line="45"/>
+        <location filename="../../src/pswchecker.cpp" line="94"/>
         <source>__pswchecker_err__</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/pswchecker.cpp" line="61"/>
+        <location filename="../../src/pswchecker.cpp" line="54"/>
         <source>__pswchecker_not_sudoer_err__</source>
         <translation type="unfinished"></translation>
     </message>
@@ -87,57 +87,58 @@
 <context>
     <name>PassPage</name>
     <message>
-        <location filename="../../src/qml/PassPage.qml" line="27"/>
+        <location filename="../../src/qml/PassPage.qml" line="31"/>
         <source>__default_sudo_root_msg%D__</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/qml/PassPage.qml" line="27"/>
+        <location filename="../../src/qml/PassPage.qml" line="31"/>
         <source>__default_root_msg%D__</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/qml/PassPage.qml" line="29"/>
+        <location filename="../../src/qml/PassPage.qml" line="33"/>
         <source>__default_sudo_msg%U%D__</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/qml/PassPage.qml" line="29"/>
+        <location filename="../../src/qml/PassPage.qml" line="33"/>
         <source>__default_msg%U%D__</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/qml/PassPage.qml" line="29"/>
+        <location filename="../../src/qml/PassPage.qml" line="33"/>
         <source>__default_ariadne_msg%U%D__</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/qml/PassPage.qml" line="59"/>
+        <location filename="../../src/qml/PassPage.qml" line="64"/>
         <source>__pass_ok__</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/qml/PassPage.qml" line="66"/>
+        <location filename="../../src/qml/PassPage.qml" line="71"/>
         <source>__pass_wrong_cnt%R__</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/qml/PassPage.qml" line="72"/>
+        <location filename="../../src/qml/PassPage.qml" line="77"/>
         <source>__pass_wrong_end__</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/qml/PassPage.qml" line="78"/>
+        <location filename="../../src/qml/PassPage.qml" line="83"/>
         <source>__pass_not_needed__</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/qml/PassPage.qml" line="107"/>
+        <location filename="../../src/qml/PassPage.qml" line="110"/>
         <source>__enter_pass__</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/qml/PassPage.qml" line="143"/>
+        <location filename="../../src/qml/PassPage.qml" line="162"/>
+        <location filename="../../src/qml/PassPage.qml" line="173"/>
         <source>__launch__</source>
         <translation type="unfinished"></translation>
     </message>
@@ -150,7 +151,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/qml/StartPage.qml" line="37"/>
+        <location filename="../../src/qml/StartPage.qml" line="38"/>
         <source>__start__</source>
         <translation type="unfinished"></translation>
     </message>
@@ -160,42 +161,47 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/qml/StartPage.qml" line="104"/>
+        <location filename="../../src/qml/StartPage.qml" line="64"/>
+        <source>__done__</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/qml/StartPage.qml" line="109"/>
         <source>__common__</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/qml/StartPage.qml" line="108"/>
+        <location filename="../../src/qml/StartPage.qml" line="113"/>
         <source>__user__</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/qml/StartPage.qml" line="118"/>
+        <location filename="../../src/qml/StartPage.qml" line="123"/>
         <source>__mode_select__</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/qml/StartPage.qml" line="128"/>
+        <location filename="../../src/qml/StartPage.qml" line="133"/>
         <source>__advanced__</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/qml/StartPage.qml" line="132"/>
+        <location filename="../../src/qml/StartPage.qml" line="137"/>
         <source>__login_switch__</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/qml/StartPage.qml" line="138"/>
+        <location filename="../../src/qml/StartPage.qml" line="143"/>
         <source>__env_switch__</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/qml/StartPage.qml" line="147"/>
+        <location filename="../../src/qml/StartPage.qml" line="152"/>
         <source>__modes_list__</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/qml/StartPage.qml" line="155"/>
+        <location filename="../../src/qml/StartPage.qml" line="160"/>
         <source>__users_list__</source>
         <translation type="unfinished"></translation>
     </message>
@@ -203,12 +209,12 @@
 <context>
     <name>main</name>
     <message>
-        <location filename="../../src/qml/main.qml" line="79"/>
+        <location filename="../../src/qml/main.qml" line="80"/>
         <source>__hmtsu_description__</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/qml/main.qml" line="118"/>
+        <location filename="../../src/qml/main.qml" line="119"/>
         <source>__error_close__</source>
         <translation type="unfinished"></translation>
     </message>

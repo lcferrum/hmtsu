@@ -16,14 +16,8 @@ import com.nokia.meego 1.1
 import com.lcferrum.hmtsu 1.0   //created at runtime
 
 Page {
-    //orientationLock: PageOrientation.LockPortrait
-
     property int propAtsRemain: MAX_PSW_ATTEMPTS
     property bool propNoPass: false
-
-    function fnCurrentScreenHeight() {
-        return screen.currentOrientation===Screen.Portrait?screen.displayWidth:screen.displayHeight;
-    }
 
     function fnGetMessage() {
         if (!objContext.IfCustomMessage()) {
@@ -87,6 +81,7 @@ Page {
     Component.onCompleted: {
         objIntercom.SetCustomExitCode(CANCELED_EXIT_CODE);
         objPassCheck.Prepare(objContext.Mode, objContext.TargetUser);
+        idPassInput.forceActiveFocus();
     }
 
     Timer {
@@ -109,92 +104,77 @@ Page {
         text: qsTr("__enter_pass__")
     }
 
-    Item {
-        id: idScreenAnchor
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.top: parent.top
-        height: fnCurrentScreenHeight()
-    }
-
-    Item {
-        id: idPassInputItem
-        anchors.top: idBannerTop.bottom
-        height: 80
-        width: parent.width
-
-        TextField {
-            id: idPassInput
-            width: Math.floor((screen.currentOrientation===Screen.Landscape?screen.displayWidth:screen.displayHeight)*0.87)
-            //horizontalAlignment: Text.AlignHCenter
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.verticalCenter: parent.verticalCenter
-            //anchors.bottom: parent.height<fnCurrentScreenHeight()/2?parent.bottom:idScreenAnchor.verticalCenter
-            //anchors.bottomMargin: UiConstants.DefaultMargin/2
-            echoMode: TextInput.Password
-            placeholderText: "Password"
-            inputMethodHints: Qt.ImhNoAutoUppercase|Qt.ImhNoPredictiveText
-            onTextChanged: {
-                errorHighlight=false;
-            }
-
-            platformSipAttributes: SipAttributes {
-                actionKeyLabel: qsTr("__launch__")
-                //actionKeyHighlighted: true
-            }
-
-            Keys.onReturnPressed: {
-                fnCheckPassword();
-            }
-        }
-    }
-
-    Image {
-        id: idSeparator
-        anchors.top: idPassInputItem.bottom
-        height: 2
-        width: parent.width
-        visible: false
-        source: "image://theme/meegotouch-groupheader-background"
-    }
-
     Flickable {
-        id: idLabelTopItem
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.bottom: parent.bottom
-        anchors.top: idPassInputItem.bottom
-        anchors.margins: UiConstants.DefaultMargin
+        anchors.leftMargin: UiConstants.DefaultMargin
+        anchors.rightMargin: UiConstants.DefaultMargin
+        anchors.fill: parent                //TextField VKB auto-scroll fix
+        z: idBannerTop.z-1                  //TextField VKB auto-scroll fix
         flickableDirection: Flickable.VerticalFlick
-        contentHeight: idLabelTop.height
+        contentHeight: idPassInputItem.height
         clip: true
 
-        Label {
-            id: idLabelTop
+        Column {
+            id: idPassInputItem
             width: parent.width
+            spacing: UiConstants.DefaultMargin/2
 
-            Component.onCompleted: {
-                text=fnGetMessage();
+            Item {
+                width: parent.width
+                height: idBannerTop.height  //TextField VKB auto-scroll fix
+            }
+
+            Label {
+                width: parent.width
+
+                Component.onCompleted: {
+                    text=fnGetMessage();
+                }
+            }
+
+            Column {
+                width: parent.width
+                spacing: UiConstants.DefaultMargin
+
+                Image {
+                    height: 2
+                    width: parent.width
+                    source: "image://theme/meegotouch-groupheader-background"
+                }
+
+                TextField {
+                    id: idPassInput
+                    width: screen.displayHeight-UiConstants.DefaultMargin*2
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    echoMode: TextInput.Password
+                    //placeholderText: "Password"
+                    inputMethodHints: Qt.ImhNoAutoUppercase|Qt.ImhNoPredictiveText
+                    onTextChanged: {
+                        errorHighlight=false;
+                    }
+
+                    platformSipAttributes: SipAttributes {
+                        actionKeyLabel: qsTr("__launch__")
+                    }
+
+                    Keys.onReturnPressed: {
+                        fnCheckPassword();
+                    }
+                }
+
+                Button {
+                    id: idBtnLaunch
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    text: qsTr("__launch__")
+                    onClicked: {
+                        fnCheckPassword();
+                    }
+                }
             }
         }
-    }
-
-    ScrollDecorator {
-        flickableItem: idLabelTopItem
     }
 
     tools: ToolBarLayout {
         visible: true
-
-        ToolButton {
-            text: qsTr("__launch__")
-            width: children.width
-            anchors.left: parent.left
-            anchors.leftMargin: UiConstants.DefaultMargin
-            onClicked: {
-                fnCheckPassword();
-            }
-        }
 
         ToolIcon {
             iconSource: "image://theme/icon-s-description"

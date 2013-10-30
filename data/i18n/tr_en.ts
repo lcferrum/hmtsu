@@ -88,19 +88,19 @@
     </message>
     <message>
         <source>__default_sudo_root_msg%D__</source>
-        <translation>Enter your password to let application &apos;%D&apos; modify essential parts of your system.</translation>
+        <translation>Enter your password to let application &apos;%D&apos; modify essential parts of your system</translation>
     </message>
     <message>
         <source>__default_root_msg%D__</source>
-        <translation>Enter administrative password to let application &apos;%D&apos; modify essential parts of your system.</translation>
+        <translation>Enter administrative password to let application &apos;%D&apos; modify essential parts of your system</translation>
     </message>
     <message>
         <source>__default_sudo_msg%U%D__</source>
-        <translation>Enter your password to run the application &apos;%D&apos; as %U.</translation>
+        <translation>Enter your password to run the application &apos;%D&apos; as %U</translation>
     </message>
     <message>
         <source>__default_msg%U%D__</source>
-        <translation>Enter the password of %U to run the application &apos;%D&apos;.</translation>
+        <translation>Enter the password of %U to run the application &apos;%D&apos;</translation>
     </message>
     <message>
         <source>__pass_wrong_cnt%R__</source>
@@ -108,7 +108,7 @@
     </message>
     <message>
         <source>__default_ariadne_msg%U%D__</source>
-        <translation>Enter administrative password to run the application &apos;%D&apos; as %U.</translation>
+        <translation>Enter administrative password to run the application &apos;%D&apos; as %U</translation>
     </message>
 </context>
 <context>
@@ -156,6 +156,10 @@
     <message>
         <source>__command_text_empty__</source>
         <translation>Warning: Command is empty string</translation>
+    </message>
+    <message>
+        <source>__done__</source>
+        <translation>Done</translation>
     </message>
 </context>
 <context>

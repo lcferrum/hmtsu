@@ -59,6 +59,8 @@ Context::Context(int argc, char **argv, QString lang):
     login=false;
     kpp_env=false;
     user=GetRootName();
+    splash="";
+    splash_lscape="";
     text="";
 
     QFileInfo ExePath(argv[0]);
@@ -297,6 +299,11 @@ bool Context::LoadExecFromDesktop(QString fname)
             if (SplashRx.indexIn(exec)!=-1)
                 splash=SplashRx.cap(2);
 
+            QRegExp SplashLscapeRx(" (--splash-landscape[ =]|-L ?)(.+) ");
+            SplashLscapeRx.setMinimal(true);
+            if (SplashLscapeRx.indexIn(exec)!=-1)
+                splash_lscape=SplashLscapeRx.cap(2);
+
             command.clear();
 
             //Quick and dirty way to guess command line from invoker string without parsing it:
@@ -374,7 +381,7 @@ void Context::Run(QString psw, bool no_pass)
 void Context::ActuallyRun()
 {
     if (Tools) {
-        Tools->Run(user, login, kpp_env, command, splash);
+        Tools->Run(user, login, kpp_env, command, splash, splash_lscape);
         delete Tools;
     }
 }
