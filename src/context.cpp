@@ -46,7 +46,7 @@ struct option long_options[] = {
     {NULL, 0, NULL, 0}
 };
 
-void PrintUsage();
+void PrintUsage(const QString &exe, const QString &su);
 void PrintVersion();
 
 Context::Context(int argc, char **argv, QString lang):
@@ -85,7 +85,7 @@ Context::Context(int argc, char **argv, QString lang):
             case 0:
                 break;
             case 'h':
-                PrintUsage();
+                PrintUsage(ExePath.fileName(), GetRootName());
                 action=ctx_act_EXIT;
                 return;
             case 'v':
@@ -93,7 +93,7 @@ Context::Context(int argc, char **argv, QString lang):
                 action=ctx_act_EXIT;
                 return;
             case '?':
-                PrintUsage();
+                PrintUsage(ExePath.fileName(), GetRootName());
                 action=ctx_act_EXIT;
                 return;
             case 'u':
@@ -386,9 +386,9 @@ void Context::ActuallyRun()
     }
 }
 
-void PrintUsage()
+void PrintUsage(const QString &exe, const QString &su)
 {
-    Hout::Separator("Usage: hmtsu [-u <user>] [options] [<command>]");
+    Hout::Separator(qPrintable(QString("Usage: %1 [-u <user>] [options] [<command>]").arg(exe)));
     Hout::EmptyLine();
     Hout::Separator("--help, -h", 2);
     Hout::Paragraph("Display this help and exit.",
@@ -413,7 +413,7 @@ void PrintUsage()
                     12, "4 - ");
     Hout::EmptyLine();
     Hout::Separator("--user <user>, -u <user>", 2);
-    Hout::Paragraph("Call <command> as the specified user. By default it is root.",
+    Hout::Paragraph(qPrintable(QString("Call <command> as the specified user (default: %1).").arg(su)),
                     4);
     Hout::EmptyLine();
     Hout::Separator("--preserve-env, -k", 2);
