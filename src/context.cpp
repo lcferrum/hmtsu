@@ -339,11 +339,10 @@ int Context::GetVerboseLevel()
 
 QString Context::GetIcon()
 {
-    /*if (icon.length()>0)
+    if (icon.length()>0)
         return QString(icon).prepend(access(icon.toLocal8Bit().constData(), R_OK)?"image://theme/":"file://");
     else
-        return icon;*/
-    return icon;
+        return icon;
 }
 
 QString Context::GetRootName()
@@ -438,13 +437,13 @@ void PrintUsage(const QString &exe, const QString &su)
                     4);
     Hout::EmptyLine();
     Hout::Separator("--sudo-mode, -S", 2);
-    Hout::Paragraph("Make HMTsu use sudo.",
+    Hout::Paragraph(qPrintable(QString("Make HMTsu use sudo%1.").arg(exe=="hmtsudo"?" (default mode)":"")),
                     4);
     Hout::Separator("--su-mode, -w", 2);
-    Hout::Paragraph("Make HMTsu use devel-su.",
+    Hout::Paragraph(qPrintable(QString("Make HMTsu use devel-su%1.").arg(exe!="hmtsudo"&&exe!="hmtadn"?" (default mode)":"")),
                     4);
     Hout::Separator("--ariadne-mode, -a", 2);
-    Hout::Paragraph("Make HMTsu use ariadne.",
+    Hout::Paragraph(qPrintable(QString("Make HMTsu use ariadne%1.").arg(exe=="hmtadn"?" (default mode)":"")),
                     4);
     Hout::EmptyLine();
     Hout::Separator("--", 2);

@@ -30,13 +30,13 @@
 #include "runmodes.h"
 #include "runtools.h"
 
-#include <X11/Xlib.h>
-#include <X11/Xatom.h>
-#include <X11/Xutil.h>
-
 #ifdef QT_DEBUG
 #include <QDebug>
 #endif
+
+#include <X11/Xlib.h>
+#include <X11/Xatom.h>
+#include <X11/Xutil.h>
 
 #define NO_ECHO_TRIES       15      //15x0.001 seconds
 #define OUTPUT_TIMEOUT      5       //5 seconds

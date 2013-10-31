@@ -31,7 +31,6 @@ Intercommunication::Intercommunication():
     started=false;
     error=false;
     exit_code=NORMAL_EXIT_CODE;
-    custom_icon="";
     error_msgs_enabled=true;
     warning_msgs_enabled=true;
     general_msgs_enabled=true;
@@ -101,10 +100,7 @@ void Intercommunication::Notify(QString msg, cmm_ntfs type)
             Ntf.setImage("icon-m-transfer-error");
             break;
         case cmm_ntf_INFO:
-            if (custom_icon.length()>0)
-                Ntf.setImage(custom_icon);
-            else
-                Ntf.setImage("icon-m-content-description-inverse");
+            Ntf.setImage("icon-m-content-description-inverse");
             break;
         case cmm_ntf_SERROR:
             Ntf.setImage("icon-l-error");
@@ -160,11 +156,6 @@ int Intercommunication::GetExitCode()
 void Intercommunication::SetCustomExitCode(int code)
 {
     if (!error) exit_code=code;
-}
-
-void Intercommunication::SetCustomInfoIcon(QString icon)
-{
-    custom_icon=icon;
 }
 
 IntercomHandler::IntercomHandler()

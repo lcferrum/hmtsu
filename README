@@ -47,6 +47,8 @@ or --message).
 
 Usage (when launched from terminal): 
     hmtsu [-u <user>] [options] [<command>]  
+    hmtsudo [-u <user>] [options] [<command>]  
+    hmtadn [-u <user>] [options] [<command>]  
       
 --help, -h    
     Display this help and exit.  
@@ -66,7 +68,7 @@ Usage (when launched from terminal):
         4 - Debug output.  
 
 --user <user>, -u <user>    
-    Call <command> as the specified user. By default it is root.  
+    Call <command> as the specified user (default: root).  
       
 --preserve-env, -k    
     Try to preserve the current environments.  
@@ -95,13 +97,13 @@ Usage (when launched from terminal):
     stdin. HMTsu doesn't check password and user existence during this.  
       
 --sudo-mode, -S    
-    Make HMTsu use sudo.  
+    Make HMTsu use sudo (default mode for hmtsudo).  
 
 --su-mode, -w    
-    Make HMTsu use devel-su (default mode).  
+    Make HMTsu use devel-su (default mode for hmtsu).  
 
 --ariadne-mode, -a    
-    Make HMTsu use ariadne.  
+    Make HMTsu use ariadne (default mode for hmtadn).  
       
 --    
     The -- option indicates that HMTsu should stop processing command line

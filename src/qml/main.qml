@@ -30,12 +30,12 @@ PageStackWindow {
 
     Component.onCompleted: {
         theme.colorScheme=8;
-        idIniTimer.start();
+        idIntercomDelayedStartTimer.start();
     }
 
     Timer {
-        id: idIniTimer
-        interval: 100
+        id: idIntercomDelayedStartTimer
+        interval: 100   //Obtained through trial and error method
         repeat: false
         onTriggered: {
             objIntercom.Start();

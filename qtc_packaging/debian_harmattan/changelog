@@ -1,9 +1,11 @@
 hmtsu (0.1.2) unstable; urgency=low
 
-  * Landscape support added
-  * Password prompt redesigned
+  * Landscape support added.
+  * Password prompt redesigned.
+  * Target app icon moved from notification to password prompt.
   * Added hmtsudo and hmtadn symlinks.
   * Removed hardcoded root username.
+  * Fixed debug build being unable to compile.
   * Fixed incorrect PRINT mode text.
 
  -- Lcferrum <lcferrum@yandex.com>  Fri, 18 Oct 2013 15:59:02 +0400

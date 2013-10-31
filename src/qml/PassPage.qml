@@ -54,7 +54,6 @@ Page {
             idBtnLaunch.enabled=false;
             idPassInput.platformCloseSoftwareInputPanel();
             idPassInput.readOnly=true;
-            objIntercom.SetCustomInfoIcon(objContext.GetIcon());
             objIntercom.AddInfo(qsTr("__pass_ok__"));
             idRunTimer.start();
         }
@@ -81,7 +80,7 @@ Page {
     Component.onCompleted: {
         objIntercom.SetCustomExitCode(CANCELED_EXIT_CODE);
         objPassCheck.Prepare(objContext.Mode, objContext.TargetUser);
-        idPassInput.forceActiveFocus();
+        idNoVkbFlickerTimer.start();
     }
 
     Timer {
@@ -91,6 +90,15 @@ Page {
         onTriggered: {
             objContext.Run(idPassInput.text, propNoPass);
             Qt.quit();
+        }
+    }
+
+    Timer {
+        id: idNoVkbFlickerTimer
+        interval: 300   //Obtained through trial and error method
+        repeat: false
+        onTriggered: {
+            idPassInput.forceActiveFocus();
         }
     }
 
@@ -123,11 +131,23 @@ Page {
                 height: idBannerTop.height  //TextField VKB auto-scroll fix
             }
 
-            Label {
+            Row {
                 width: parent.width
+                spacing: parent.width>0?UiConstants.DefaultMargin:0
 
-                Component.onCompleted: {
-                    text=fnGetMessage();
+                Image {
+                    id: idAppIcon
+                    anchors.verticalCenter: parent.verticalCenter
+                    source: objContext.GetIcon()
+                }
+
+                Label {
+                    width: parent.width-idAppIcon.width-parent.spacing
+                    anchors.verticalCenter: parent.verticalCenter
+
+                    Component.onCompleted: {
+                        text=fnGetMessage();    //Prevents "non-NOTIFYable properties dependency" warning
+                    }
                 }
             }
 
@@ -146,7 +166,6 @@ Page {
                     width: screen.displayHeight-UiConstants.DefaultMargin*2
                     anchors.horizontalCenter: parent.horizontalCenter
                     echoMode: TextInput.Password
-                    //placeholderText: "Password"
                     inputMethodHints: Qt.ImhNoAutoUppercase|Qt.ImhNoPredictiveText
                     onTextChanged: {
                         errorHighlight=false;

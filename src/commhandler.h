@@ -31,7 +31,6 @@ private:
     bool warning_msgs_enabled;
     bool general_msgs_enabled;
     QString err_msg;
-    QString custom_icon;
     bool error;
     int exit_code;
     void Notify(QString msg, cmm_ntfs type);
@@ -48,7 +47,6 @@ public:
 
     //Functions exposed to QML:
     Q_INVOKABLE void SetCustomExitCode(int code);
-    Q_INVOKABLE void SetCustomInfoIcon(QString icon);
     Q_INVOKABLE void Start();
     Q_INVOKABLE void AddError(QString msg);
     Q_INVOKABLE void AddWarning(QString msg);
