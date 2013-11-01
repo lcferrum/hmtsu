@@ -54,12 +54,13 @@ Page {
             platformStyle: TextFieldStyle {
                 //paddingRight: idBtnFileSelect.parent.width+15; //TODO: file select
             }
-            Keys.onReturnPressed: {
-                fnContinue();
-            }
-
             platformSipAttributes: SipAttributes {
                 actionKeyLabel: qsTr("__done__")
+                actionKeyHighlighted: true
+            }
+
+            Keys.onReturnPressed: {
+                fnContinue();
             }
 
             Image {
@@ -69,9 +70,11 @@ Page {
                 source: "image://theme/icon-m-toolbar-directory"
                 opacity: idBtnFileSelect.pressed?0.39:1
                 visible: false //TODO: file select
+
                 MouseArea {
                     id: idBtnFileSelect
                     anchors.fill: parent
+
                     onClicked: {
                         //inputContext.reset(); //TODO: file select
                     }
@@ -112,9 +115,8 @@ Page {
                 subtitle: idDialogUser.model.get(idDialogUser.selectedIndex).name
                 enabled: subtitle.length>0
                 tumbler: true
-                onClicked: {
-                    idDialogUser.open();
-                }
+
+                onClicked: idDialogUser.open()
             }
 
             OptionsItem {
@@ -122,9 +124,8 @@ Page {
                 subtitle: idDialogMode.model.get(idDialogMode.selectedIndex).name
                 enabled: subtitle.length>0
                 tumbler: true
-                onClicked: {
-                    idDialogMode.open();
-                }
+
+                onClicked: idDialogMode.open()
             }
 
             GroupHeader {
@@ -134,12 +135,14 @@ Page {
             OptionsSwitch {
                 title: qsTr("__login_switch__")
                 checked: objContext.GetLogin()
+
                 onCheckedChanged: objContext.SetLogin(checked)
             }
 
             OptionsSwitch {
                 title: qsTr("__env_switch__")
                 checked: objContext.GetPreserveEnv()
+
                 onCheckedChanged: objContext.SetPreserveEnv(checked)
             }
         }
@@ -149,7 +152,6 @@ Page {
         id: idDialogMode
         titleText: qsTr("__modes_list__")
         selectedIndex: model.GetInitialIndex()
-
         model: objModesList
     }
 
@@ -157,7 +159,6 @@ Page {
         id: idDialogUser
         titleText: qsTr("__users_list__")
         selectedIndex: model.GetInitialIndex()
-
         model: objUsersList
     }
 
@@ -166,14 +167,14 @@ Page {
 
         ToolIcon {
             iconId: "toolbar-done"
-            onClicked: {
-                fnContinue();
-            }
+
+            onClicked: fnContinue()
         }
 
         ToolIcon {
             iconSource: "image://theme/icon-s-description"
             anchors.right: parent.right
+
             onClicked: idAboutDialog.open()
         }
     }

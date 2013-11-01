@@ -78,11 +78,9 @@ Item {
 
         anchors.fill: parent
         enabled: parent.enabled //"QGraphicsItem::ungrabMouse: not a mouse grabber" on clicks when disabled
-        onClicked: {
-            parent.clicked();
-        }
-        onPressAndHold: {
-            parent.pressAndHold();
-        }
+
+        onClicked: parent.clicked()
+
+        onPressAndHold: parent.pressAndHold()
     }
 }

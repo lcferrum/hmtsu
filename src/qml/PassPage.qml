@@ -49,6 +49,7 @@ Page {
 
     Connections {
         target: objPassCheck
+
         onSignalPswOk: {
             objIntercom.SetCustomExitCode(NORMAL_EXIT_CODE);
             idBtnLaunch.enabled=false;
@@ -57,6 +58,7 @@ Page {
             objIntercom.AddInfo(qsTr("__pass_ok__"));
             idRunTimer.start();
         }
+
         onSignalPswBad: {
             propAtsRemain--;
             idPassInput.errorHighlight=true;
@@ -70,6 +72,7 @@ Page {
                 objIntercom.AddInfo(qsTr("__pass_wrong_end__"));
             }
         }
+
         onSignalNoPsw: {
             propNoPass=true;
             idPassInput.readOnly=true;
@@ -87,6 +90,7 @@ Page {
         id: idRunTimer
         interval: 1000
         repeat: false
+
         onTriggered: {
             objContext.Run(idPassInput.text, propNoPass);
             Qt.quit();
@@ -97,9 +101,8 @@ Page {
         id: idNoVkbFlickerTimer
         interval: 300   //Obtained through trial and error method
         repeat: false
-        onTriggered: {
-            idPassInput.forceActiveFocus();
-        }
+
+        onTriggered: idPassInput.forceActiveFocus()
     }
 
     TopHeader {
@@ -145,9 +148,7 @@ Page {
                     width: parent.width-idAppIcon.width-parent.spacing
                     anchors.verticalCenter: parent.verticalCenter
 
-                    Component.onCompleted: {
-                        text=fnGetMessage();    //Prevents "non-NOTIFYable properties dependency" warning
-                    }
+                    Component.onCompleted: text=fnGetMessage()  //Prevents "non-NOTIFYable properties dependency" warning
                 }
             }
 
@@ -167,26 +168,22 @@ Page {
                     anchors.horizontalCenter: parent.horizontalCenter
                     echoMode: TextInput.Password
                     inputMethodHints: Qt.ImhNoAutoUppercase|Qt.ImhNoPredictiveText
-                    onTextChanged: {
-                        errorHighlight=false;
-                    }
-
                     platformSipAttributes: SipAttributes {
                         actionKeyLabel: qsTr("__launch__")
+                        actionKeyHighlighted: true
                     }
 
-                    Keys.onReturnPressed: {
-                        fnCheckPassword();
-                    }
+                    Keys.onReturnPressed: fnCheckPassword()
+
+                    onTextChanged: errorHighlight=false
                 }
 
                 Button {
                     id: idBtnLaunch
                     anchors.horizontalCenter: parent.horizontalCenter
                     text: qsTr("__launch__")
-                    onClicked: {
-                        fnCheckPassword();
-                    }
+
+                    onClicked: fnCheckPassword()
                 }
             }
         }
@@ -198,6 +195,7 @@ Page {
         ToolIcon {
             iconSource: "image://theme/icon-s-description"
             anchors.right: parent.right
+
             onClicked: idAboutDialog.open()
         }
     }

@@ -60,9 +60,8 @@ Item {
             anchors.verticalCenter: parent.verticalCenter
             anchors.right: parent.right
             enabled: parent.enabled
-            onCheckedChanged: {
-                parent.parent.checkedChanged();
-            }
+
+            onCheckedChanged: parent.parent.checkedChanged()
         }
     }
 

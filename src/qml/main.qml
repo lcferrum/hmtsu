@@ -22,6 +22,7 @@ PageStackWindow {
 
     Connections {
         target: objIntercom
+
         onSignalError: {
             idErrorDialog.message=msg;
             idErrorDialog.open();
@@ -37,18 +38,19 @@ PageStackWindow {
         id: idIntercomDelayedStartTimer
         interval: 100   //Obtained through trial and error method
         repeat: false
-        onTriggered: {
-            objIntercom.Start();
-        }
+
+        onTriggered: objIntercom.Start()
     }
 
     Component {
         id: idPassPage
+
         PassPage {}
     }
 
     Component {
         id: idStartPage
+
         StartPage {}
     }
 
@@ -84,9 +86,8 @@ PageStackWindow {
                 anchors.leftMargin: UiConstants.DefaultMargin*2
                 anchors.rightMargin: UiConstants.DefaultMargin*2
                 color: "white";
-                onLinkActivated: {
-                    Qt.openUrlExternally(link);
-                }
+
+                onLinkActivated: Qt.openUrlExternally(link)
             }
 
             Label {
@@ -117,6 +118,7 @@ PageStackWindow {
         titleText: " "
         icon: "image://theme/icon-l-error"
         rejectButtonText: qsTr("__error_close__")
+
         onRejected: Qt.quit()
     }
 }
