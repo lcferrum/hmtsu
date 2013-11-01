@@ -27,7 +27,6 @@ Item {
         anchors.rightMargin: text.length>0?24:0
         anchors.top: parent.top
         anchors.topMargin: 25
-
         visible: !parent.textOnly
         source: "image://theme/meegotouch-groupheader-background"
     }
@@ -37,7 +36,6 @@ Item {
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 3
         anchors.right: parent.right
-
         font: UiConstants.GroupHeaderFont
         text: parent.text
         color: "#8c8c8c"

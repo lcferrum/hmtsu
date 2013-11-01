@@ -75,7 +75,6 @@ Item {
 
     MouseArea {
         id: idClickArea
-
         anchors.fill: parent
         enabled: parent.enabled //"QGraphicsItem::ungrabMouse: not a mouse grabber" on clicks when disabled
 
