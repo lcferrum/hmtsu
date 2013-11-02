@@ -144,7 +144,7 @@ such behavior and don't want to see this pop-ups - set verbosity to level 2.
 
 Pop-up messages use Harmattan notification mechanism. If HMTsu itself is run
 under root - this pop-ups can cause segfaults (if no additional steps to
-prevent this were taken). You can disable pop-ups altogeher (error pop-up
+prevent this were taken). You can disable pop-ups altogether (error pop-up
 messages will be redirected to stderr in this case) with verbosity set to
 level 0.
 
