@@ -33,7 +33,7 @@ Main project homepage is at GitHub:
 --------
 After installing the .deb file on your device (don't forget to allow
 installation from non-Store sources in the Settings) HMTsu will be available
-right from application screen and from terminal (symlink is added to 
+right from application screen and from terminal (symlinks are added to 
 /usr/bin/). 
 
 If HMTsu is launched from application screen or command was not
