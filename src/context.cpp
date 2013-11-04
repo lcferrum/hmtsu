@@ -341,9 +341,9 @@ int Context::GetVerboseLevel()
 QString Context::GetIcon()
 {
     if (icon.length()>0)
-        return (QIcon::fromTheme(icon).isNull()?
-                    (access(icon.toLocal8Bit().constData(), R_OK)?"image://theme/":"file://"):
-                    "image://icon/")
+        return (QIcon::hasThemeIcon(icon)?
+                    "image://icon/":
+                    (access(icon.toLocal8Bit().constData(), R_OK)?"image://theme/":"file://"))
                +icon;
     else
         return icon;
