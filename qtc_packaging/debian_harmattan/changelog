@@ -1,3 +1,9 @@
+hmtsu (0.1.3) unstable; urgency=low
+
+  * Fixed handling of themed application icons.
+
+ -- Lcferrum <lcferrum@yandex.com>  Mon, 04 Nov 2013 20:25:33 +0400
+
 hmtsu (0.1.2) unstable; urgency=low
 
   * Landscape support added.

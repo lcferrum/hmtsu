@@ -99,7 +99,7 @@ Page {
 
     Timer {
         id: idNoVkbFlickerTimer
-        interval: 300   //Obtained through trial and error method
+        interval: 350   //Obtained through trial and error method
         repeat: false
 
         onTriggered: idPassInput.forceActiveFocus()

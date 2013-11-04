@@ -25,6 +25,7 @@
 #include <QStringList>
 #include <QProcess>
 #include <QFileInfo>
+#include <QIcon>
 #include "context.h"
 #include "common.h"
 #include "hout.h"
@@ -340,7 +341,9 @@ int Context::GetVerboseLevel()
 QString Context::GetIcon()
 {
     if (icon.length()>0)
-        return QString(icon).prepend(access(icon.toLocal8Bit().constData(), R_OK)?"image://theme/":"file://");
+        return QString(icon).prepend(QIcon::fromTheme(icon).isNull()?
+                                         (access(icon.toLocal8Bit().constData(), R_OK)?"image://theme/":"file://"):
+                                         "image://icon/");
     else
         return icon;
 }

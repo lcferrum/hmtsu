@@ -25,6 +25,7 @@
 #include "commhandler.h"
 #include "common.h"
 #include "contranslator.h"
+#include "iconprovider.h"
 #include "qmlapplicationviewer.h"
 
 void SuppressQDebug(QtMsgType type, const char *msg)
@@ -52,10 +53,10 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     if (Ctx.IfExit())
         return IntercomHandler::GetExitCode();
 
-    if (Ctx.GetVerboseLevel()<1) IntercomHandler::DisableGeneralMsgs();      // GENERAL verbosity included in levels greater than 0
-    if (Ctx.GetVerboseLevel()<2) IntercomHandler::DisableErrorMsgs();        // ERRORS verbosity included in levels greater than 1
-    if (Ctx.GetVerboseLevel()<3) IntercomHandler::DisableWarningMsgs();      // WARNINGS verbosity included in levels greater than 2
-    if (Ctx.GetVerboseLevel()<4) qInstallMsgHandler(SuppressQDebug);         // DEBUG verbosity included in levels greater than 3
+    if (Ctx.GetVerboseLevel()<1) IntercomHandler::DisableGeneralMsgs();     //GENERAL verbosity included in levels greater than 0
+    if (Ctx.GetVerboseLevel()<2) IntercomHandler::DisableErrorMsgs();       //ERRORS verbosity included in levels greater than 1
+    if (Ctx.GetVerboseLevel()<3) IntercomHandler::DisableWarningMsgs();     //WARNINGS verbosity included in levels greater than 2
+    if (Ctx.GetVerboseLevel()<4) qInstallMsgHandler(SuppressQDebug);        //DEBUG verbosity included in levels greater than 3
 
     {
         ModeValidator ModesList(Ctx.CheckMode(), Ctx.CheckMode()==RunModes::PRINT);
@@ -65,6 +66,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
         QmlApplicationViewer Viewer;
 
         qmlRegisterUncreatableType<RunModes>("com.lcferrum.hmtsu", 1, 0, "RunModes", "Exports RunModes enum to QML");
+        Viewer.engine()->addImageProvider("icon", new IconProvider());      //It is QDeclarativeEngine's responsibility to destroy added image providers
         Viewer.rootContext()->setContextProperty("objModesList", &ModesList);
         Viewer.rootContext()->setContextProperty("objUsersList", &UsersList);
         Viewer.rootContext()->setContextProperty("objContext", &Ctx);
