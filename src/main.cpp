@@ -48,6 +48,8 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     ConsoleMsgs.load("conmsgs", ":/i18n");
     App->installTranslator(&ConsoleMsgs);
 
+    IconProvider::SetToCurrentSystemTheme();
+
     Context Ctx(argc, argv, locale);
 
     if (Ctx.IfExit())

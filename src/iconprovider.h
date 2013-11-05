@@ -21,6 +21,8 @@ public:
     IconProvider():
         QDeclarativeImageProvider(QDeclarativeImageProvider::Pixmap) {}
     virtual QPixmap requestPixmap(const QString &id, QSize *size, const QSize &requestedSize);
+    static void SetToCurrentSystemTheme();
+    static bool HasIcon(const QString &name);
 };
 
 #endif // ICONPROVIDER_H

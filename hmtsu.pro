@@ -10,7 +10,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 # Harmattan boosting through applauncherd daemon requires qdeclarative-boostable
-# MNotification uses meegotouch
+# MNotification and MGConfItem uses meegotouch
 CONFIG += qdeclarative-boostable meegotouch
 
 LIBS += -lcrypt -lutil -lX11

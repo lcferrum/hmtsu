@@ -25,9 +25,9 @@
 #include <QStringList>
 #include <QProcess>
 #include <QFileInfo>
-#include <QIcon>
 #include "context.h"
 #include "common.h"
+#include "iconprovider.h"
 #include "hout.h"
 
 struct option long_options[] = {
@@ -341,7 +341,7 @@ int Context::GetVerboseLevel()
 QString Context::GetIcon()
 {
     if (icon.length()>0)
-        return (QIcon::hasThemeIcon(icon)?
+        return (IconProvider::HasIcon(icon)?
                     "image://icon/":
                     (access(icon.toLocal8Bit().constData(), R_OK)?"image://theme/":"file://"))
                +icon;

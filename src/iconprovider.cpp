@@ -12,6 +12,7 @@
  */
 
 #include <QIcon>
+#include <MGConfItem>
 #include "iconprovider.h"
 
 QPixmap IconProvider::requestPixmap(const QString &id, QSize *size, const QSize &requestedSize)
@@ -22,4 +23,15 @@ QPixmap IconProvider::requestPixmap(const QString &id, QSize *size, const QSize 
         *size=pixmap.size();
 
     return pixmap;
+}
+
+void IconProvider::SetToCurrentSystemTheme()
+{
+    MGConfItem CurrentTheme("/meegotouch/theme/name", NULL);
+    QIcon::setThemeName(CurrentTheme.value().toString());
+}
+
+bool IconProvider::HasIcon(const QString &name)
+{
+    return QIcon::hasThemeIcon(name);
 }

@@ -311,7 +311,7 @@ bool RunTools::Launch(char **cmd, const QString &path, const QString &splash, co
 
 bool RunTools::TryToShowSplash(pid_t pid, const QString &splash, const QString &splash_lscape)
 {
-    if (splash.length()==0||isatty(STDOUT_FILENO))  //STDIN && STDERR are connected to terminal if launched with invoker
+    if (splash.length()==0||isatty(STDIN_FILENO))  //STDIN is not connected to terminal if HMTsu launched with invoker or from QtCreator
         return false;
 
     usleep(PARENT_HANDICAP);

@@ -74,7 +74,7 @@ PageStackWindow {
             anchors.horizontalCenter: parent.horizontalCenter
 
             Image {
-                source: "file:///usr/share/icons/hicolor/80x80/apps/hmtsu80.png"
+                source: "file:///usr/share/icons/hicolor/80x80/apps/hmtsu80.png"    //Can't use image://icon - /usr/share/icons/hicolor/80x80/apps is not indexed on Harmattan
                 anchors.horizontalCenter: parent.horizontalCenter
             }
 
