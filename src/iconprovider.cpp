@@ -27,7 +27,7 @@ QPixmap IconProvider::requestPixmap(const QString &id, QSize *size, const QSize 
 
 void IconProvider::SetToCurrentSystemTheme()
 {
-    MGConfItem CurrentTheme("/meegotouch/theme/name", NULL);    //By default QIcon theme is hicolor - set it to current theme from GConf
+    MGConfItem CurrentTheme("/meegotouch/theme/name", NULL);    //By default QIcon theme is hicolor (default fallback theme) - set it to current theme from GConf
     QIcon::setThemeName(CurrentTheme.value().toString());
 }
 
