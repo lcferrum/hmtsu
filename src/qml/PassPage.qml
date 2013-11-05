@@ -121,7 +121,7 @@ Page {
         anchors.fill: parent                //TextField VKB auto-scroll fix
         z: idBannerTop.z-1                  //TextField VKB auto-scroll fix
         flickableDirection: Flickable.VerticalFlick
-        contentHeight: idPassInputItem.height
+        contentHeight: idPassInputItem.height+UiConstants.DefaultMargin
         clip: true
 
         Column {
