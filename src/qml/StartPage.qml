@@ -94,17 +94,17 @@ Page {
     Flickable {
         anchors.top: idSeparator.bottom
         anchors.bottom: parent.bottom
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.leftMargin: UiConstants.DefaultMargin
-        anchors.rightMargin: UiConstants.DefaultMargin
+        width: parent.width
         flickableDirection: Flickable.VerticalFlick
         contentHeight: idRunOptions.height
         clip: true
 
         Column {
             id: idRunOptions
-            width: parent.width
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.leftMargin: UiConstants.DefaultMargin
+            anchors.rightMargin: UiConstants.DefaultMargin
 
             GroupHeader {
                 text: qsTr("__common__")
