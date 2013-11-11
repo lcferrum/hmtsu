@@ -20,23 +20,23 @@ SOURCES +=  src/main.cpp \
             src/modevalidator.cpp \
             src/uservalidator.cpp \
             src/commhandler.cpp \
-            src/pswchecker.cpp \
             src/runtools.cpp \
             src/contranslator.cpp \
             src/hout.cpp \
-            src/iconprovider.cpp
+            src/iconprovider.cpp \
+            src/pswtools.cpp
 
 HEADERS +=  src/context.h \
             src/runmodes.h \
             src/modevalidator.h \
             src/uservalidator.h \
             src/commhandler.h \
-            src/pswchecker.h \
             src/runtools.h \
             src/common.h \
             src/contranslator.h \
             src/hout.h \
-            src/iconprovider.h
+            src/iconprovider.h \
+            src/pswtools.h
 
 # Things required for deployment and Harmattan boosting
 include(qmlapplicationviewer/qmlapplicationviewer.pri)

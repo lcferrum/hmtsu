@@ -18,20 +18,20 @@
 #include <QCoreApplication>
 #include <QProcess>
 #include "common.h"
-#include "pswchecker.h"
+#include "pswtools.h"
 
 using namespace std;
 
 Q_DECLARE_METATYPE(RunModes::QmlEnum)
 
-PswChecker::PswChecker():
+PswTools::PswTools():
     QObject(NULL)
 {
     prepared=false;
     user_record=NULL;
 }
 
-void PswChecker::Prepare(RunModes::QmlEnum mode, QString &target_user)
+void PswTools::PrepareForCheck(RunModes::QmlEnum mode, QString &target_user)
 {
     if (!prepared) {
         do {
@@ -59,7 +59,7 @@ void PswChecker::Prepare(RunModes::QmlEnum mode, QString &target_user)
     }
 }
 
-bool PswChecker::CheckSuNoPass()
+bool PswTools::CheckSuNoPass()
 {
     //if (user_record->pw_uid==getuid()||!getuid())
     if (getuid()==ROOT_UID)
@@ -68,7 +68,7 @@ bool PswChecker::CheckSuNoPass()
     return true;
 }
 
-bool PswChecker::CheckSudoNoPass()
+bool PswTools::CheckSudoNoPass()
 {
     QProcess sudo;
     sudo.setStandardInputFile("/dev/null");
@@ -82,13 +82,13 @@ bool PswChecker::CheckSudoNoPass()
     return output.length()==0||output.endsWith(":\n");
 }
 
-void PswChecker::PswCheck(QString psw)
+void PswTools::PswCheck(QString psw)
 {
     if (prepared) {
         char *psw_hash=NULL;
 
         psw_hash=crypt(psw.toLocal8Bit().constData(), user_record->pw_passwd);
-        psw.fill('\0');
+        ClearPsw(psw);
 
         if (!psw_hash) {
             Intercom->AddError(QCoreApplication::translate("Messages", "__pswchecker_err__"));
@@ -99,4 +99,10 @@ void PswChecker::PswCheck(QString psw)
                 signalPswOk();
         }
     }
+}
+
+void PswTools::ClearPsw(QString &psw)
+{
+    psw.fill('\0');
+    psw.clear();
 }

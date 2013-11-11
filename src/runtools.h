@@ -28,7 +28,6 @@ private:
     bool TryToShowSplash(pid_t pid, const QString &splash, const QString &splash_lscape);
 protected:
     QString psw;
-    void ClearPsw();
     QString QuotedJoin(const QStringList &list);
     bool Launch(char **cmd, const QString &path, const QString &splash, const QString &splash_lscape);
     char** StringListToArray(QStringList &list);

@@ -27,6 +27,7 @@
 #include <QByteArray>
 #include <QProcess>
 #include "common.h"
+#include "pswtools.h"   //ClearPsw()
 #include "runmodes.h"
 #include "runtools.h"
 
@@ -58,7 +59,7 @@ void PrintRunTools::Run(const QString &user, bool login, bool kpp_env, const QSt
     Q_UNUSED(splash);
     Q_UNUSED(splash_lscape);
     std::cout<<qPrintable(psw)<<std::endl;
-    ClearPsw();
+    PswTools::ClearPsw(psw);
 }
 
 void SuRunTools::Run(const QString &user, bool login, bool kpp_env, const QStringList &command, const QString &splash, const QString &splash_lscape)
@@ -280,7 +281,7 @@ bool RunTools::Launch(char **cmd, const QString &path, const QString &splash, co
                     std::cout<<rbuf;
                     password_needed=false;
                 }
-                ClearPsw();                                         //Get rid of password copy in memory
+                PswTools::ClearPsw(psw);                          //Get rid of password copy in memory
             } else if (password_needed) {                           //If password was needed in previous pass -> print out data from child omitting leading new line
                 std::cout<<DropNewLine(rbuf, ret);
                 password_needed=false;
@@ -361,12 +362,6 @@ bool RunTools::TryToShowSplash(pid_t pid, const QString &splash, const QString &
     XCloseDisplay(dpy);
 
     return ret==Success;
-}
-
-void RunTools::ClearPsw()
-{
-    psw.fill('\0');
-    psw.clear();
 }
 
 char* RunTools::DropNewLine(char* in_buf, int buf_size)

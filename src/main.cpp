@@ -21,7 +21,7 @@
 #include "runmodes.h"
 #include "modevalidator.h"
 #include "uservalidator.h"
-#include "pswchecker.h"
+#include "pswtools.h"
 #include "commhandler.h"
 #include "common.h"
 #include "contranslator.h"
@@ -63,7 +63,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     {
         ModeValidator ModesList(Ctx.CheckMode(), Ctx.CheckMode()==RunModes::PRINT);
         UserValidator UsersList(Ctx.GetTargetUser(), Ctx.CheckMode()==RunModes::PRINT);
-        PswChecker PassCheck;
+        PswTools PassCheck;
         ScopedIntercomHandler ViewerIntercomHandler;
         QmlApplicationViewer Viewer;
 

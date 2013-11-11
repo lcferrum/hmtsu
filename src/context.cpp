@@ -27,6 +27,7 @@
 #include <QFileInfo>
 #include "context.h"
 #include "common.h"
+#include "pswtools.h"   //ClearPsw()
 #include "iconprovider.h"
 #include "hout.h"
 
@@ -378,7 +379,7 @@ void Context::Run(QString psw, bool no_pass)
             Tools=new AriadneRunTools(psw, no_pass);
             break;
     }
-    psw.fill('\0');
+    PswTools::ClearPsw(psw);
 }
 
 void Context::ActuallyRun()

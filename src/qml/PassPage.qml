@@ -82,7 +82,7 @@ Page {
 
     Component.onCompleted: {
         objIntercom.SetCustomExitCode(CANCELED_EXIT_CODE);
-        objPassCheck.Prepare(objContext.Mode, objContext.TargetUser);
+        objPassCheck.PrepareForCheck(objContext.Mode, objContext.TargetUser);
         idNoVkbFlickerTimer.start();
     }
 
