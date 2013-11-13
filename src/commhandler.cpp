@@ -26,14 +26,9 @@ int IntercomHandler::ref_count=0;
 Intercommunication *IntercomHandler::Intercom=NULL;
 
 Intercommunication::Intercommunication():
-    QObject(NULL)
+    QObject(NULL),
+    started(false), error_msgs_enabled(true), warning_msgs_enabled(true), general_msgs_enabled(true), error(false), exit_code(NORMAL_EXIT_CODE)
 {
-    started=false;
-    error=false;
-    exit_code=NORMAL_EXIT_CODE;
-    error_msgs_enabled=true;
-    warning_msgs_enabled=true;
-    general_msgs_enabled=true;
 }
 
 void Intercommunication::AddError(QString msg)

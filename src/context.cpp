@@ -52,19 +52,9 @@ void PrintUsage(const QString &exe, const QString &su);
 void PrintVersion();
 
 Context::Context(int argc, char **argv, QString lang):
-    QObject(NULL)
+    QObject(NULL),
+    Tools(NULL), action(ctx_act_ASK_FOR_MORE), message(ctx_msg_NULL), verbosity(CND_DEBUG(4,3)), login(false), kpp_env(false), user(GetRootName()), text(), splash(), splash_lscape()
 {
-    Tools=NULL;
-    action=ctx_act_ASK_FOR_MORE;
-    message=ctx_msg_NULL;
-    verbosity=CND_DEBUG(4,3);
-    login=false;
-    kpp_env=false;
-    user=GetRootName();
-    splash="";
-    splash_lscape="";
-    text="";
-
     QFileInfo ExePath(argv[0]);
     if (ExePath.fileName()=="hmtsudo")
         run_mode=RunModes::SUDO;
@@ -77,7 +67,7 @@ Context::Context(int argc, char **argv, QString lang):
     bool use_desktop_file=false;
     QString desktop_file_path="";
 
-    struct winsize argp;
+    winsize argp;
     if (!ioctl(STDOUT_FILENO, TIOCGWINSZ, &argp)) {
         Hout::SetTerminalSize(argp.ws_col);
     }

@@ -16,7 +16,8 @@
 #include "uservalidator.h"
 
 UserValidator::UserValidator(QString user, bool skip):
-    QAbstractListModel(NULL)
+    QAbstractListModel(NULL),
+    AvailableUsers(), ini_idx(-1)
 {
     QHash<int, QByteArray> roles;
     roles[Qt::DisplayRole]="name";

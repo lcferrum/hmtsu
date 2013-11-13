@@ -44,10 +44,9 @@
 #define PARENT_HANDICAP     250000  //0.25 seconds
 #define BUFFER_SIZE         512     //512 bytes
 
-RunTools::RunTools(const QString &psw, bool no_pass)
+RunTools::RunTools(const QString &psw, bool no_pass):
+    no_pass(no_pass), psw(psw)
 {
-    this->psw=psw;
-    this->no_pass=no_pass;
 }
 
 void PrintRunTools::Run(const QString &user, bool login, bool kpp_env, const QStringList &command, const QString &splash, const QString &splash_lscape)
@@ -178,7 +177,7 @@ bool AriadneRunTools::CustomForkAction()
 pid_t RunTools::Fork(int &master_fd, char **cmd, const QString &mode_dsc)
 {
     pid_t pid;
-    struct winsize argp;
+    winsize argp;
     int slave_fd=-1;
 
     if (openpty(&master_fd, &slave_fd, NULL, NULL, NULL)==-1) {
@@ -216,7 +215,7 @@ bool RunTools::Launch(char **cmd, const QString &path, const QString &splash, co
 
     if ((pid=Fork(master_fd, cmd, path))) {
         fd_set rfds;
-        struct timeval tv;
+        timeval tv;
         char rbuf[BUFFER_SIZE]={};
         int ret, status;
         bool first_pass=true;
@@ -389,7 +388,7 @@ QString RunTools::QuotedJoin(const QStringList &list)
 
 bool RunTools::WaitForNoEcho(int &master_fd, bool immediate)
 {
-    struct termios tio;
+    termios tio;
 
     tcgetattr(master_fd, &tio);
     if (!immediate) {

@@ -25,10 +25,8 @@ using namespace std;
 Q_DECLARE_METATYPE(RunModes::QmlEnum)
 
 PswTools::PswTools():
-    QObject(NULL)
+    QObject(NULL), prepared(false), user_record(NULL)
 {
-    prepared=false;
-    user_record=NULL;
 }
 
 void PswTools::PrepareForCheck(RunModes::QmlEnum mode, QString &target_user)

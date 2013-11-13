@@ -18,11 +18,12 @@
 #include "modevalidator.h"
 
 ModeValidator::ModeValidator(RunModes::QmlEnum mode, bool skip):
-    QAbstractListModel(NULL)
+    QAbstractListModel(NULL),
+    AvailableModes(), ini_idx(-1)
 {
     QHash<int, QByteArray> roles;
     roles[Qt::DisplayRole]="name";
-    roles[Qt::UserRole]="mode";
+    roles[Qt::UserRole+1]="mode";
     setRoleNames(roles);
 
     if (skip||Intercom->IfError()) return;
@@ -59,7 +60,7 @@ QVariant ModeValidator::data(const QModelIndex &index, int role) const
 
     if (role==Qt::DisplayRole)
         return AvailableModes[index.row()].first;
-    else if (role == Qt::UserRole)
+    else if (role == Qt::UserRole+1)
         return AvailableModes[index.row()].second;
 
     return QVariant();
