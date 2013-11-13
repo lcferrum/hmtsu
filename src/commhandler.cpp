@@ -27,11 +27,11 @@ Intercommunication *IntercomHandler::Intercom=NULL;
 
 Intercommunication::Intercommunication():
     QObject(NULL),
-    started(false), error_msgs_enabled(true), warning_msgs_enabled(true), general_msgs_enabled(true), error(false), exit_code(NORMAL_EXIT_CODE)
+    MessageQueue(), started(false), error_msgs_enabled(true), warning_msgs_enabled(true), general_msgs_enabled(true), err_msg(), error(false), exit_code(NORMAL_EXIT_CODE)
 {
 }
 
-void Intercommunication::AddError(QString msg)
+void Intercommunication::AddError(const QString &msg)
 {
     if (!error) {
         if (started) {
@@ -44,7 +44,7 @@ void Intercommunication::AddError(QString msg)
     }
 }
 
-void Intercommunication::AddSafeError(QString msg)
+void Intercommunication::AddSafeError(const QString &msg)
 {
     if (!error&&started) {
         if (error_msgs_enabled)
@@ -56,13 +56,13 @@ void Intercommunication::AddSafeError(QString msg)
     }
 }
 
-void Intercommunication::AddSafeWarning(QString msg)
+void Intercommunication::AddSafeWarning(const QString &msg)
 {
     if (!error&&started&&warning_msgs_enabled)
         Notify(msg, cmm_ntf_WARNING);
 }
 
-void Intercommunication::AddWarning(QString msg)
+void Intercommunication::AddWarning(const QString &msg)
 {
     if (!error&&warning_msgs_enabled) {
         if (started) {
@@ -73,7 +73,7 @@ void Intercommunication::AddWarning(QString msg)
     }
 }
 
-void Intercommunication::AddInfo(QString msg)
+void Intercommunication::AddInfo(const QString &msg)
 {
     if (!error&&general_msgs_enabled) {
         if (started) {
@@ -84,7 +84,7 @@ void Intercommunication::AddInfo(QString msg)
     }
 }
 
-void Intercommunication::Notify(QString msg, cmm_ntfs type)
+void Intercommunication::Notify(const QString &msg, cmm_ntfs type)
 {
     MNotification Ntf(MNotification::DeviceEvent, "", msg);
 

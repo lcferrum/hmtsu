@@ -22,8 +22,8 @@
 struct ModePair {
     QString first;
     RunModes::QmlEnum second;
-    ModePair(QString var1, RunModes::QmlEnum var2):
-        first(var1), second(var2) {}
+    ModePair(const QString &first, RunModes::QmlEnum second):
+        first(first), second(second) {}
     bool operator==(const ModePair &var) const {
         return second==var.second;
     }

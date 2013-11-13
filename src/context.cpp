@@ -51,7 +51,7 @@ struct option long_options[] = {
 void PrintUsage(const QString &exe, const QString &su);
 void PrintVersion();
 
-Context::Context(int argc, char **argv, QString lang):
+Context::Context(int argc, char **argv, const QString &lang):
     QObject(NULL),
     Tools(NULL), action(ctx_act_ASK_FOR_MORE), message(ctx_msg_NULL), verbosity(CND_DEBUG(4,3)), login(false), kpp_env(false), user(GetRootName()), text(), splash(), splash_lscape()
 {
@@ -221,12 +221,12 @@ QString Context::GetText()
     return message==ctx_msg_CMD?command.join(" "):text;
 }
 
-void Context::SetTargetUser(QString str)
+void Context::SetTargetUser(const QString &user)
 {
-    user=str;
+    this->user=user;
 }
 
-void Context::SetCommand(QString cmdline)
+void Context::SetCommand(const QString &cmdline)
 {
     wordexp_t args;
 
@@ -256,7 +256,7 @@ void Context::SetPreserveEnv(bool flag)
     kpp_env=flag;
 }
 
-bool Context::LoadValueFromDesktop(QString fname, QString key, QString lang, QString &value)
+bool Context::LoadValueFromDesktop(const QString &fname, const QString &key, const QString &lang, QString &value)
 {
     QSettings desktop(fname, QSettings::IniFormat);
     desktop.setIniCodec(QTextCodec::codecForName("UTF-8"));
@@ -279,7 +279,7 @@ bool Context::LoadValueFromDesktop(QString fname, QString key, QString lang, QSt
     }
 }
 
-bool Context::LoadExecFromDesktop(QString fname)
+bool Context::LoadExecFromDesktop(const QString &fname)
 {
     QString exec;
     if (LoadValueFromDesktop(fname, "Exec", "", exec)) {
@@ -296,7 +296,7 @@ bool Context::LoadExecFromDesktop(QString fname)
             if (SplashLscapeRx.indexIn(exec)!=-1)
                 splash_lscape=SplashLscapeRx.cap(2);
 
-            command.clear();
+            bool cmd_found=false;
 
             //Quick and dirty way to guess command line from invoker string without parsing it:
             //  Which util searches for valid executable in the string
@@ -307,12 +307,13 @@ bool Context::LoadExecFromDesktop(QString fname)
                 if (which.waitForFinished()) {
                     if (!which.exitCode()) {
                         SetCommand(exec.mid(exec.indexOf(token)));
+                        cmd_found=true;
                         break;
                     }
                 }
             }
 
-            if (command.length()==0) {
+            if (!cmd_found) {
                 Intercom->AddWarning(QCoreApplication::translate("Messages", "__context_badinvoke_wrn__"));
                 SetCommand(exec);
             }

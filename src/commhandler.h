@@ -26,20 +26,19 @@ private:
 
     QList< QPair<QString, cmm_ntfs> > MessageQueue;
     bool started;
-    bool istty;
     bool error_msgs_enabled;
     bool warning_msgs_enabled;
     bool general_msgs_enabled;
     QString err_msg;
     bool error;
     int exit_code;
-    void Notify(QString msg, cmm_ntfs type);
+    void Notify(const QString &msg, cmm_ntfs type);
 public:
     Intercommunication();
     bool IfError();
     int GetExitCode();
-    void AddSafeError(QString msg);
-    void AddSafeWarning(QString msg);
+    void AddSafeError(const QString &msg);
+    void AddSafeWarning(const QString &msg);
     bool IfErrorMsgsDisabled();
     void DisableErrorMsgs();
     void DisableWarningMsgs();
@@ -48,9 +47,9 @@ public:
     //Functions exposed to QML:
     Q_INVOKABLE void SetCustomExitCode(int code);
     Q_INVOKABLE void Start();
-    Q_INVOKABLE void AddError(QString msg);
-    Q_INVOKABLE void AddWarning(QString msg);
-    Q_INVOKABLE void AddInfo(QString msg);
+    Q_INVOKABLE void AddError(const QString &msg);
+    Q_INVOKABLE void AddWarning(const QString &msg);
+    Q_INVOKABLE void AddInfo(const QString &msg);
 signals:
     void signalError(QVariant msg);
 };

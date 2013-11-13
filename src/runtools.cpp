@@ -64,7 +64,7 @@ void PrintRunTools::Run(const QString &user, bool login, bool kpp_env, const QSt
 void SuRunTools::Run(const QString &user, bool login, bool kpp_env, const QStringList &command, const QString &splash, const QString &splash_lscape)
 {
     QStringList args;
-    char **cmd;
+    char** cmd;
     const QString path="/bin/devel-su";
 
     args.append(path);
@@ -86,7 +86,7 @@ void SuRunTools::Run(const QString &user, bool login, bool kpp_env, const QStrin
 void SudoRunTools::Run(const QString &user, bool login, bool kpp_env, const QStringList &command, const QString &splash, const QString &splash_lscape)
 {
     QStringList args;
-    char **cmd;
+    char** cmd;
     const QString path="/usr/bin/sudo";
 
     args.append(path);
@@ -114,7 +114,7 @@ void SudoRunTools::Run(const QString &user, bool login, bool kpp_env, const QStr
 void AriadneRunTools::Run(const QString &user, bool login, bool kpp_env, const QStringList &command, const QString &splash, const QString &splash_lscape)
 {
     QStringList args;
-    char **cmd;
+    char** cmd;
     const QString path="/usr/bin/ariadne";
 
     this->login=login;
@@ -280,7 +280,7 @@ bool RunTools::Launch(char **cmd, const QString &path, const QString &splash, co
                     std::cout<<rbuf;
                     password_needed=false;
                 }
-                PswTools::ClearPsw(psw);                          //Get rid of password copy in memory
+                PswTools::ClearPsw(psw);                            //Get rid of password copy in memory
             } else if (password_needed) {                           //If password was needed in previous pass -> print out data from child omitting leading new line
                 std::cout<<DropNewLine(rbuf, ret);
                 password_needed=false;
@@ -363,7 +363,7 @@ bool RunTools::TryToShowSplash(pid_t pid, const QString &splash, const QString &
     return ret==Success;
 }
 
-char* RunTools::DropNewLine(char* in_buf, int buf_size)
+const char* RunTools::DropNewLine(const char *in_buf, int buf_size)
 {
     while (*in_buf++!='\n'&&--buf_size>0);
     return in_buf;
@@ -412,7 +412,7 @@ QString RunTools::GetProcName(pid_t pid)
     return QString::fromLocal8Bit(CmdLineFile.readAll());
 }
 
-char** RunTools::StringListToArray(QStringList &list)
+char** RunTools::StringListToArray(const QStringList &list)
 {
     char** tmp=new char*[list.count()+1];
     char** arr=tmp;

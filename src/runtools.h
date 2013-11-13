@@ -22,7 +22,7 @@ private:
     bool no_pass;
     pid_t Fork(int &master_fd, char **cmd, const QString &mode_dsc);
     virtual bool CustomForkAction();
-    char* DropNewLine(char* in_buf, int buf_size);
+    const char* DropNewLine(const char *in_buf, int buf_size);
     bool WaitForNoEcho(int &master_fd, bool immediate);
     QString GetProcName(pid_t pid);
     bool TryToShowSplash(pid_t pid, const QString &splash, const QString &splash_lscape);
@@ -30,8 +30,8 @@ protected:
     QString psw;
     QString QuotedJoin(const QStringList &list);
     bool Launch(char **cmd, const QString &path, const QString &splash, const QString &splash_lscape);
-    char** StringListToArray(QStringList &list);
-    void DeleteStringArray(char** arr);
+    char** StringListToArray(const QStringList &list);
+    void DeleteStringArray(char **arr);
 public:
     RunTools(const QString &psw, bool no_pass);
     virtual void Run(const QString &user, bool login, bool kpp_env, const QStringList &command, const QString &splash, const QString &splash_lscape)=0;

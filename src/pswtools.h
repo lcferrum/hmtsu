@@ -25,7 +25,7 @@ class PswTools: public QObject, protected IntercomHandler {
 private:
     bool prepared;
     passwd *user_record;
-    void PrepareForCheck(RunModes::QmlEnum mode, QString &target_user);
+    void PrepareForCheck(RunModes::QmlEnum mode, const QString &target_user);
     bool CheckSuNoPass();
     bool CheckSudoNoPass();
 public:
@@ -33,8 +33,8 @@ public:
     static void ClearPsw(QString &psw);
 
     //Functions exposed to QML:
-    Q_INVOKABLE void PrepareForCheck(/* RunModes::QmlEnum */ int mode, QString target_user) {   //Non-local Q_ENUMS can't be used in Q_INVOKABLE - use this hack
-        PrepareForCheck(static_cast<RunModes::QmlEnum>(mode), target_user);                     //Should be fixed in Qt5
+    Q_INVOKABLE void PrepareForCheck(/* RunModes::QmlEnum */ int mode, const QString &target_user) {    //Non-local Q_ENUMS can't be used in Q_INVOKABLE - use this hack
+        PrepareForCheck(static_cast<RunModes::QmlEnum>(mode), target_user);                             //Should be fixed in Qt5
     }
     Q_INVOKABLE void PswCheck(QString psw);
 signals:

@@ -40,10 +40,10 @@ private:
     QString splash_lscape;
     QString icon;
     QStringList command;
-    bool LoadValueFromDesktop(QString fname, QString key, QString lang, QString &value);
-    bool LoadExecFromDesktop(QString fname);
+    bool LoadValueFromDesktop(const QString &fname, const QString &key, const QString &lang, QString &value);
+    bool LoadExecFromDesktop(const QString &fname);
 public:
-    Context(int argc, char **argv, QString lang);
+    Context(int argc, char **argv, const QString &lang);
     bool IfExit();
     int GetVerboseLevel();
     void ActuallyRun();
@@ -54,7 +54,7 @@ public:
     RunModes::QmlEnum CheckMode();
     void ChangeMode(RunModes::QmlEnum mode);
     QString GetTargetUser();
-    void SetTargetUser(QString str);
+    void SetTargetUser(const QString &user);
 
     //Functions exposed to QML:
     Q_INVOKABLE bool GetLogin();
@@ -63,7 +63,7 @@ public:
     Q_INVOKABLE void SetPreserveEnv(bool flag);
     Q_INVOKABLE bool IfCustomMessage();
     Q_INVOKABLE bool IfContinue();
-    Q_INVOKABLE void SetCommand(QString cmdline);
+    Q_INVOKABLE void SetCommand(const QString &cmdline);
     Q_INVOKABLE QString GetText();
     Q_INVOKABLE QString GetIcon();
     Q_INVOKABLE QString GetRootName();

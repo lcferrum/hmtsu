@@ -29,7 +29,7 @@ PswTools::PswTools():
 {
 }
 
-void PswTools::PrepareForCheck(RunModes::QmlEnum mode, QString &target_user)
+void PswTools::PrepareForCheck(RunModes::QmlEnum mode, const QString &target_user)
 {
     if (!prepared) {
         do {
