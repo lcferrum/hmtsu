@@ -69,6 +69,7 @@ Page {
                 anchors.verticalCenter: parent.verticalCenter
                 source: "image://theme/icon-m-toolbar-directory"
                 opacity: idBtnFileSelect.pressed?0.39:1
+                z: idCommandText.z+1
 
                 MouseArea {
                     id: idBtnFileSelect
@@ -179,8 +180,9 @@ Page {
                 id: idAppBrowserList
                 highlightFollowsCurrentItem: false
                 anchors.fill: parent
+                cacheBuffer: 32
 
-                //model: objAppList
+                model: objAppList
 
                 delegate: Text {
                     text: name + ": " + icon

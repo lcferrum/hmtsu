@@ -15,6 +15,7 @@
 #include <QTextCodec>
 #include <QStringList>
 #include <QDir>
+#include <QtAlgorithms>
 #include "iconprovider.h"
 #include "desktoptools.h"
 
@@ -26,6 +27,11 @@ DesktopTools::DesktopTools():
     QAbstractListModel(NULL),
     DesktopList()
 {
+    QHash<int, QByteArray> roles;
+    roles[Qt::DisplayRole]="name";
+    roles[Qt::UserRole+1]="icon";
+    roles[Qt::UserRole+2]="path";
+    setRoleNames(roles);
 }
 
 bool DesktopTools::DesktopKeyValue(const QString &fname, const QString &key, bool locval, QString &value)
@@ -79,9 +85,9 @@ QVariant DesktopTools::data(const QModelIndex &index, int role) const
     if (role==Qt::DisplayRole)
         return DesktopList[index.row()].name;
     else if (role==Qt::UserRole+1)
-        return DesktopIconPath(DesktopList[index.row()].icon_path);
+        return DesktopList[index.row()].icon_path;
     else if (role==Qt::UserRole+2)
-        return APP_SCREEN_PATH+DesktopList[index.row()].full_path;
+        return DesktopList[index.row()].full_path;
 
     return QVariant();
 }
@@ -107,15 +113,16 @@ void DesktopTools::PrepareList()
         AppScreenDir.setNameFilters(QStringList()<<"*.desktop");
         AppScreenDir.setPath(APP_SCREEN_PATH);
 
-        QString icon;
-        QString name;
-        QString path;
+        QString icon, name, path;
 
         foreach (const QString &file, AppScreenDir.entryList()) {
             path=APP_SCREEN_PATH+file;
+            if (DesktopKeyValue(path, "NotShowIn", false, name)&&name=="X-MeeGo") continue;
             if (!DesktopKeyValue(path, "Name", true, name)) continue;
             if (!DesktopKeyValue(path, "Icon", true, icon)) continue;
             DesktopList.append(DesktopDescription(name, DesktopIconPath(icon), path));
         }
+
+        qSort(DesktopList);
     }
 }

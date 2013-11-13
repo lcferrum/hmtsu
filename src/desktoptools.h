@@ -24,7 +24,7 @@ struct DesktopDescription {
     DesktopDescription (const QString &name, const QString &icon_path, const QString &full_path):
         name(name), icon_path(icon_path), full_path(full_path) {}
     bool operator<(const DesktopDescription &var) const {
-        return name<var.name;
+        return name.localeAwareCompare(var.name)<0;
     }
 };
 
@@ -41,7 +41,6 @@ public:
 
     //ListModel's standart functions implemetation:
     Q_INVOKABLE QVariant get(int index);
-    Q_PROPERTY(int count READ rowCount CONSTANT)
 
     //Overloaded functions:
     int rowCount(const QModelIndex &parent=QModelIndex()) const;
