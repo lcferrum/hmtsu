@@ -26,6 +26,7 @@
 #include "common.h"
 #include "contranslator.h"
 #include "iconprovider.h"
+#include "desktoptools.h"
 #include "qmlapplicationviewer.h"
 
 void SuppressQDebug(QtMsgType type, const char *msg)
@@ -49,8 +50,9 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     App->installTranslator(&ConsoleMsgs);
 
     IconProvider::SetToCurrentSystemTheme();
+    DesktopTools::SetDesktopLang(locale);
 
-    Context Ctx(argc, argv, locale);
+    Context Ctx(argc, argv);
 
     if (Ctx.IfExit())
         return IntercomHandler::GetExitCode();

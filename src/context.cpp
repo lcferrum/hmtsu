@@ -18,9 +18,7 @@
 #include <wordexp.h>
 #include <pwd.h>
 #include <iostream>
-#include <QSettings>
 #include <QCoreApplication>
-#include <QTextCodec>
 #include <QRegExp>
 #include <QStringList>
 #include <QProcess>
@@ -28,7 +26,7 @@
 #include "context.h"
 #include "common.h"
 #include "pswtools.h"   //ClearPsw()
-#include "iconprovider.h"
+#include "desktoptools.h" //DesktopKeyValue() and DesktopIconPath()
 #include "hout.h"
 
 struct option long_options[] = {
@@ -51,7 +49,7 @@ struct option long_options[] = {
 void PrintUsage(const QString &exe, const QString &su);
 void PrintVersion();
 
-Context::Context(int argc, char **argv, const QString &lang):
+Context::Context(int argc, char **argv):
     QObject(NULL),
     Tools(NULL), action(ctx_act_ASK_FOR_MORE), message(ctx_msg_NULL), verbosity(CND_DEBUG(4,3)), login(false), kpp_env(false), user(GetRootName()), text(), splash(), splash_lscape()
 {
@@ -100,7 +98,7 @@ Context::Context(int argc, char **argv, const QString &lang):
             case 'm':
                 if (!access(optarg, R_OK)) {
                     desktop_file_path=optarg;
-                    if (LoadValueFromDesktop(optarg, "Comment", lang, text)) message=ctx_msg_FULL;
+                    if (LoadValueFromDesktop(optarg, "Comment", true, text)) message=ctx_msg_FULL;
                 } else {
                     text=QString::fromLocal8Bit(optarg);
                     message=ctx_msg_FULL;
@@ -112,7 +110,7 @@ Context::Context(int argc, char **argv, const QString &lang):
             case 'D':
                 if (!access(optarg, R_OK)) {
                     desktop_file_path=optarg;
-                    if (LoadValueFromDesktop(optarg, "Name", lang, text)) message=ctx_msg_DESC;
+                    if (LoadValueFromDesktop(optarg, "Name", true, text)) message=ctx_msg_DESC;
                 } else {
                     text=QString::fromLocal8Bit(optarg);
                     message=ctx_msg_DESC;
@@ -146,8 +144,8 @@ Context::Context(int argc, char **argv, const QString &lang):
 
     if (use_desktop_file) {
         if (desktop_file_path.length()>0) {
-            LoadValueFromDesktop(desktop_file_path, "Icon", lang, icon);
-            LoadExecFromDesktop(desktop_file_path);
+            LoadValueFromDesktop(desktop_file_path, "Icon", true, icon);
+            LoadExecFromDesktop(desktop_file_path); //Sets appropriate action (ctx_act_CONTINUE/ctx_act_ASK_FOR_MORE) internally
         } else {
             action=ctx_act_ASK_FOR_MORE;
             Intercom->AddError(QCoreApplication::translate("Messages", "__context_nodesktop_err__"));
@@ -256,33 +254,20 @@ void Context::SetPreserveEnv(bool flag)
     kpp_env=flag;
 }
 
-bool Context::LoadValueFromDesktop(const QString &fname, const QString &key, const QString &lang, QString &value)
+bool Context::LoadValueFromDesktop(const QString &fname, const QString &key, bool locval, QString &value)
 {
-    QSettings desktop(fname, QSettings::IniFormat);
-    desktop.setIniCodec(QTextCodec::codecForName("UTF-8"));
-    desktop.beginGroup("Desktop Entry");
-
-    QVariant val=desktop.value(QString("%1[%2]").arg(key, lang));
-
-    if (val.isValid()) {
-        value=val.toString();
+    if (DesktopTools::DesktopKeyValue(fname, key, locval, value))
         return true;
-    } else if ((val=desktop.value(QString("%1[%2]").arg(key, lang.left(2)))).isValid()) {
-        value=val.toString();
-        return true;
-    } else if ((val=desktop.value(key)).isValid()) {
-        value=val.toString();
-        return true;
-    } else {
+    else {
         Intercom->AddWarning(QCoreApplication::translate("Messages", "__context_descfile_wrn%1%2__").arg(key, fname));
         return false;
     }
 }
 
-bool Context::LoadExecFromDesktop(const QString &fname)
+bool Context::LoadExecFromDesktop(const QString &fname, QString *res)
 {
     QString exec;
-    if (LoadValueFromDesktop(fname, "Exec", "", exec)) {
+    if (LoadValueFromDesktop(fname, "Exec", false, exec)) {
         exec.replace(QRegExp("([^%])%[A-Za-z]"), "\\1");
 
         if (exec.startsWith("invoker")||exec.startsWith("/usr/bin/invoker")) {
@@ -306,7 +291,8 @@ bool Context::LoadExecFromDesktop(const QString &fname)
                 which.start("/usr/bin/which", QStringList(token));
                 if (which.waitForFinished()) {
                     if (!which.exitCode()) {
-                        SetCommand(exec.mid(exec.indexOf(token)));
+                        if (!res) SetCommand(exec.mid(exec.indexOf(token)));
+                            else *res=exec.mid(exec.indexOf(token));
                         cmd_found=true;
                         break;
                     }
@@ -315,10 +301,12 @@ bool Context::LoadExecFromDesktop(const QString &fname)
 
             if (!cmd_found) {
                 Intercom->AddWarning(QCoreApplication::translate("Messages", "__context_badinvoke_wrn__"));
-                SetCommand(exec);
+                if (!res) SetCommand(exec);
+                    else *res=exec;
             }
         } else
-            SetCommand(exec);
+            if (!res) SetCommand(exec);
+                else *res=exec;
 
         return true;
     } else
@@ -332,13 +320,7 @@ int Context::GetVerboseLevel()
 
 QString Context::GetIcon()
 {
-    if (icon.length()>0)
-        return (IconProvider::HasIcon(icon)?
-                    "image://icon/":
-                    (access(icon.toLocal8Bit().constData(), R_OK)?"image://theme/":"file://"))
-               +icon;
-    else
-        return icon;
+    return DesktopTools::DesktopIconPath(icon);
 }
 
 QString Context::GetRootName()

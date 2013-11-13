@@ -1,3 +1,10 @@
+hmtsu (0.2.0) unstable; urgency=low
+
+  * Unannounced new feature.
+  * Performance tweaks.
+
+ -- Lcferrum <lcferrum@yandex.com>  Wed, 13 Nov 2013 17:46:55 +0400
+
 hmtsu (0.1.3) unstable; urgency=low
 
   * Fixed handling of themed application icons.

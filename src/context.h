@@ -40,10 +40,10 @@ private:
     QString splash_lscape;
     QString icon;
     QStringList command;
-    bool LoadValueFromDesktop(const QString &fname, const QString &key, const QString &lang, QString &value);
-    bool LoadExecFromDesktop(const QString &fname);
+    bool LoadValueFromDesktop(const QString &fname, const QString &key, bool locval, QString &value);
+    bool LoadExecFromDesktop(const QString &fname, QString *res=NULL);
 public:
-    Context(int argc, char **argv, const QString &lang);
+    Context(int argc, char **argv);
     bool IfExit();
     int GetVerboseLevel();
     void ActuallyRun();
