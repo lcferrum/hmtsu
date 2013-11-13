@@ -65,6 +65,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     {
         ModeValidator ModesList(Ctx.CheckMode(), Ctx.CheckMode()==RunModes::PRINT);
         UserValidator UsersList(Ctx.GetTargetUser(), Ctx.CheckMode()==RunModes::PRINT);
+        DesktopTools AppList;
         PswTools PassCheck;
         ScopedIntercomHandler ViewerIntercomHandler;
         QmlApplicationViewer Viewer;
@@ -73,6 +74,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
         Viewer.engine()->addImageProvider("icon", new IconProvider());      //It is QDeclarativeEngine's responsibility to destroy added image providers
         Viewer.rootContext()->setContextProperty("objModesList", &ModesList);
         Viewer.rootContext()->setContextProperty("objUsersList", &UsersList);
+        Viewer.rootContext()->setContextProperty("objAppList", &AppList);
         Viewer.rootContext()->setContextProperty("objContext", &Ctx);
         Viewer.rootContext()->setContextProperty("objIntercom", &ViewerIntercomHandler);
         Viewer.rootContext()->setContextProperty("objPassCheck", &PassCheck);

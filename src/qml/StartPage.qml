@@ -52,7 +52,7 @@ Page {
             placeholderText: qsTr("__run__")
             inputMethodHints: Qt.ImhNoAutoUppercase|Qt.ImhNoPredictiveText
             platformStyle: TextFieldStyle {
-                //paddingRight: idBtnFileSelect.parent.width+15; //TODO: file select
+                paddingRight: idBtnFileSelect.parent.width+15;
             }
             platformSipAttributes: SipAttributes {
                 actionKeyLabel: qsTr("__done__")
@@ -69,14 +69,14 @@ Page {
                 anchors.verticalCenter: parent.verticalCenter
                 source: "image://theme/icon-m-toolbar-directory"
                 opacity: idBtnFileSelect.pressed?0.39:1
-                visible: false //TODO: file select
 
                 MouseArea {
                     id: idBtnFileSelect
                     anchors.fill: parent
 
                     onClicked: {
-                        //inputContext.reset(); //TODO: file select
+                        objAppList.PrepareList();
+                        idAppBrowserSheet.open();
                     }
                 }
             }
@@ -160,6 +160,37 @@ Page {
         titleText: qsTr("__users_list__")
         selectedIndex: model.GetInitialIndex()
         model: objUsersList
+    }
+
+    Sheet {
+        id: idAppBrowserSheet
+
+        acceptButtonText: "OK"
+        rejectButtonText: "Cancel"
+        acceptButton.enabled: idAppBrowserList.currentIndex!==-1
+
+        content: Flickable {
+            anchors.fill: parent
+            anchors.leftMargin: UiConstants.DefaultMargin
+            anchors.rightMargin: UiConstants.DefaultMargin
+            flickableDirection: Flickable.VerticalFlick
+
+            ListView {
+                id: idAppBrowserList
+                highlightFollowsCurrentItem: false
+                anchors.fill: parent
+
+                //model: objAppList
+
+                delegate: Text {
+                    text: name + ": " + icon
+                }
+            }
+        }
+
+        //onAccepted:
+        onRejected: idAppBrowserList.currentIndex=-1
+        Component.onCompleted: idAppBrowserList.currentIndex=-1
     }
 
     tools: ToolBarLayout {

@@ -13,13 +13,18 @@
 
 #include <QSettings>
 #include <QTextCodec>
+#include <QStringList>
+#include <QDir>
 #include "iconprovider.h"
 #include "desktoptools.h"
+
+#define APP_SCREEN_PATH     "/usr/share/applications/"
 
 QString DesktopTools::lang="";
 
 DesktopTools::DesktopTools():
-    QAbstractListModel(NULL)
+    QAbstractListModel(NULL),
+    DesktopList()
 {
 }
 
@@ -59,4 +64,58 @@ QString DesktopTools::DesktopIconPath(const QString &icon_value)
 void DesktopTools::SetDesktopLang(const QString &locale)
 {
     lang=locale;
+}
+
+int DesktopTools::rowCount(const QModelIndex &parent) const
+{
+    return parent.isValid()?0:DesktopList.count();
+}
+
+QVariant DesktopTools::data(const QModelIndex &index, int role) const
+{
+    if (index.row()<0||index.row()>=DesktopList.count())
+        return QVariant();
+
+    if (role==Qt::DisplayRole)
+        return DesktopList[index.row()].name;
+    else if (role==Qt::UserRole+1)
+        return DesktopIconPath(DesktopList[index.row()].icon_path);
+    else if (role==Qt::UserRole+2)
+        return APP_SCREEN_PATH+DesktopList[index.row()].full_path;
+
+    return QVariant();
+}
+
+QVariant DesktopTools::get(int index)
+{
+    if (index<0||index>=DesktopList.count())
+        return QVariant();
+
+    QMap<QString, QVariant> ReturnItem;
+    ReturnItem.insert("name", QVariant(DesktopList[index].name));
+    ReturnItem.insert("icon", QVariant(DesktopList[index].icon_path));
+    ReturnItem.insert("path", QVariant(DesktopList[index].full_path));
+
+    return QVariant(ReturnItem);
+}
+
+void DesktopTools::PrepareList()
+{
+    if (DesktopList.count()==0) {
+        QDir AppScreenDir;
+        AppScreenDir.setFilter(QDir::Files|QDir::NoSymLinks|QDir::NoDotAndDotDot|QDir::Readable|QDir::CaseSensitive);
+        AppScreenDir.setNameFilters(QStringList()<<"*.desktop");
+        AppScreenDir.setPath(APP_SCREEN_PATH);
+
+        QString icon;
+        QString name;
+        QString path;
+
+        foreach (const QString &file, AppScreenDir.entryList()) {
+            path=APP_SCREEN_PATH+file;
+            if (!DesktopKeyValue(path, "Name", true, name)) continue;
+            if (!DesktopKeyValue(path, "Icon", true, icon)) continue;
+            DesktopList.append(DesktopDescription(name, DesktopIconPath(icon), path));
+        }
+    }
 }

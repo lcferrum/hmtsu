@@ -60,7 +60,7 @@ QVariant ModeValidator::data(const QModelIndex &index, int role) const
 
     if (role==Qt::DisplayRole)
         return AvailableModes[index.row()].first;
-    else if (role == Qt::UserRole+1)
+    else if (role==Qt::UserRole+1)
         return AvailableModes[index.row()].second;
 
     return QVariant();
