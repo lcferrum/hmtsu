@@ -25,8 +25,7 @@
 #include <QFileInfo>
 #include "context.h"
 #include "common.h"
-#include "pswtools.h"   //ClearPsw()
-#include "desktoptools.h" //DesktopKeyValue() and DesktopIconPath()
+#include "pswtools.h"
 #include "hout.h"
 
 struct option long_options[] = {
@@ -63,7 +62,7 @@ Context::Context(int argc, char **argv):
 
     int opt=0;
     bool use_desktop_file=false;
-    QString desktop_file_path="";
+    DesktopFile CurDesktopFile;
 
     winsize argp;
     if (!ioctl(STDOUT_FILENO, TIOCGWINSZ, &argp)) {
@@ -97,8 +96,8 @@ Context::Context(int argc, char **argv):
                 break;
             case 'm':
                 if (!access(optarg, R_OK)) {
-                    desktop_file_path=optarg;
-                    if (LoadValueFromDesktop(optarg, "Comment", true, text)) message=ctx_msg_FULL;
+                    CurDesktopFile.Open(optarg);
+                    if (LoadValueFromDesktop(CurDesktopFile, "Comment", true, text)) message=ctx_msg_FULL;
                 } else {
                     text=QString::fromLocal8Bit(optarg);
                     message=ctx_msg_FULL;
@@ -109,8 +108,8 @@ Context::Context(int argc, char **argv):
                 break;
             case 'D':
                 if (!access(optarg, R_OK)) {
-                    desktop_file_path=optarg;
-                    if (LoadValueFromDesktop(optarg, "Name", true, text)) message=ctx_msg_DESC;
+                    CurDesktopFile.Open(optarg);
+                    if (LoadValueFromDesktop(CurDesktopFile, "Name", true, text)) message=ctx_msg_DESC;
                 } else {
                     text=QString::fromLocal8Bit(optarg);
                     message=ctx_msg_DESC;
@@ -143,9 +142,9 @@ Context::Context(int argc, char **argv):
     }
 
     if (use_desktop_file) {
-        if (desktop_file_path.length()>0) {
-            LoadValueFromDesktop(desktop_file_path, "Icon", true, icon);
-            LoadExecFromDesktop(desktop_file_path); //Sets appropriate action (ctx_act_CONTINUE/ctx_act_ASK_FOR_MORE) internally
+        if (CurDesktopFile.IfOpened()) {
+            LoadValueFromDesktop(CurDesktopFile, "Icon", true, icon);
+            LoadExecFromDesktop(CurDesktopFile); //Sets appropriate action (ctx_act_CONTINUE/ctx_act_ASK_FOR_MORE) internally
         } else {
             action=ctx_act_ASK_FOR_MORE;
             Intercom->AddError(QCoreApplication::translate("Messages", "__context_nodesktop_err__"));
@@ -254,20 +253,20 @@ void Context::SetPreserveEnv(bool flag)
     kpp_env=flag;
 }
 
-bool Context::LoadValueFromDesktop(const QString &fname, const QString &key, bool locval, QString &value)
+bool Context::LoadValueFromDesktop(const DesktopFile &CurDesktopFile, const QString &key, bool locval, QString &value)
 {
-    if (DesktopTools::DesktopKeyValue(fname, key, locval, value))
+    if (CurDesktopFile.DesktopKeyValue(key, locval, value))
         return true;
     else {
-        Intercom->AddWarning(QCoreApplication::translate("Messages", "__context_descfile_wrn%1%2__").arg(key, fname));
+        Intercom->AddWarning(QCoreApplication::translate("Messages", "__context_descfile_wrn%1%2__").arg(key, CurDesktopFile.Path()));
         return false;
     }
 }
 
-bool Context::LoadExecFromDesktop(const QString &fname, QString *res)
+bool Context::LoadExecFromDesktop(const DesktopFile &CurDesktopFile, QString *res)
 {
     QString exec;
-    if (LoadValueFromDesktop(fname, "Exec", false, exec)) {
+    if (LoadValueFromDesktop(CurDesktopFile, "Exec", false, exec)) {
         exec.replace(QRegExp("([^%])%[A-Za-z]"), "\\1");
 
         if (exec.startsWith("invoker")||exec.startsWith("/usr/bin/invoker")) {
@@ -320,7 +319,7 @@ int Context::GetVerboseLevel()
 
 QString Context::GetIcon()
 {
-    return DesktopTools::DesktopIconPath(icon);
+    return DesktopFile::DesktopIconPath(icon);
 }
 
 QString Context::GetRootName()

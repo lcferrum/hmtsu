@@ -27,7 +27,7 @@
 #include <QByteArray>
 #include <QProcess>
 #include "common.h"
-#include "pswtools.h"   //ClearPsw()
+#include "pswtools.h"
 #include "runmodes.h"
 #include "runtools.h"
 

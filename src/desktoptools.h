@@ -14,40 +14,21 @@
 #ifndef DESKTOPTOOLS_H
 #define DESKTOPTOOLS_H
 
-#include <QAbstractListModel>
-#include <QList>
+#include <QSettings>
 
-struct DesktopDescription {
-    QString name;
-    QString icon_path;
-    QString full_path;
-    DesktopDescription (const QString &name, const QString &icon_path, const QString &full_path):
-        name(name), icon_path(icon_path), full_path(full_path) {}
-    bool operator<(const DesktopDescription &var) const {
-        return name.localeAwareCompare(var.name)<0;
-    }
-};
-
-class DesktopTools: public QAbstractListModel {
-    Q_OBJECT
+class DesktopFile {
 private:
-    static QString lang;
-    QList<DesktopDescription> DesktopList;
+    QSettings* desktop;
+    QString lang;
 public:
-    DesktopTools();
-    static bool DesktopKeyValue(const QString &fname, const QString &key, bool locval, QString &value);
+    DesktopFile();
+    DesktopFile(const QString &path);
+    ~DesktopFile();
+    void Open(const QString &path);
+    bool IfOpened() const;
+    QString Path() const;
+    bool DesktopKeyValue(const QString &key, bool locval, QString &value) const;
     static QString DesktopIconPath(const QString &icon_value);
-    static void SetDesktopLang(const QString &locale);
-
-    //ListModel's standart functions implemetation:
-    Q_INVOKABLE QVariant get(int index);
-
-    //Overloaded functions:
-    int rowCount(const QModelIndex &parent=QModelIndex()) const;
-    QVariant data(const QModelIndex &index, int role=Qt::DisplayRole) const;
-
-    //Other functions exposed to QML:
-    Q_INVOKABLE void PrepareList();
 };
 
 #endif // DESKTOPTOOLS_H

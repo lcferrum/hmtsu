@@ -26,6 +26,14 @@ Page {
         pageStack.replace(idPassPage);
     }
 
+    Connections {
+        target: objAppList
+
+        onSignalListPopulated: {
+            idSheetBusy.visible=false;
+        }
+    }
+
     TopHeader {
         id: idBannerTop
         color: "#7DA4D3"
@@ -73,10 +81,15 @@ Page {
 
                 MouseArea {
                     id: idBtnFileSelect
-                    anchors.fill: parent
+                    anchors.right: idCommandText.right
+                    anchors.verticalCenter: idCommandItem.verticalCenter
+                    width: idCommandText.height
+                    height: idCommandText.height
 
                     onClicked: {
-                        objAppList.PrepareList();
+                        if (objAppList.PopulateList())
+                            idSheetBusy.visible=true;
+                        idCommandText.closeSoftwareInputPanel();
                         idAppBrowserSheet.open();
                     }
                 }
@@ -168,7 +181,14 @@ Page {
 
         acceptButtonText: "OK"
         rejectButtonText: "Cancel"
-        acceptButton.enabled: idAppBrowserList.currentIndex!==-1
+        acceptButton.enabled: idAppBrowserList.currentIndex!==-1&&!idSheetBusy.visible
+
+        title: BusyIndicator {
+            id: idSheetBusy
+            anchors.centerIn: parent
+            visible: false
+            running: visible
+        }
 
         content: Flickable {
             anchors.fill: parent

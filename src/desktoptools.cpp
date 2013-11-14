@@ -11,44 +11,63 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <QSettings>
+#include <QLocale>
 #include <QTextCodec>
-#include <QStringList>
-#include <QDir>
-#include <QtAlgorithms>
 #include "iconprovider.h"
 #include "desktoptools.h"
 
-#define APP_SCREEN_PATH     "/usr/share/applications/"
-
-QString DesktopTools::lang="";
-
-DesktopTools::DesktopTools():
-    QAbstractListModel(NULL),
-    DesktopList()
+DesktopFile::DesktopFile():
+    desktop(NULL), lang(QLocale::system().name())
 {
-    QHash<int, QByteArray> roles;
-    roles[Qt::DisplayRole]="name";
-    roles[Qt::UserRole+1]="icon";
-    roles[Qt::UserRole+2]="path";
-    setRoleNames(roles);
 }
 
-bool DesktopTools::DesktopKeyValue(const QString &fname, const QString &key, bool locval, QString &value)
+DesktopFile::DesktopFile(const QString &path):
+    desktop(NULL), lang(QLocale::system().name())
 {
-    QSettings desktop(fname, QSettings::IniFormat);
-    desktop.setIniCodec(QTextCodec::codecForName("UTF-8"));
-    desktop.beginGroup("Desktop Entry");
+    Open(path);
+}
 
-    QVariant val=locval?desktop.value(QString("%1[%2]").arg(key, lang)):desktop.value(key);
+DesktopFile::~DesktopFile()
+{
+    delete desktop;
+}
+
+void DesktopFile::Open(const QString &path)
+{
+    delete desktop;
+    desktop=new QSettings(path, QSettings::IniFormat);
+    desktop->setIniCodec(QTextCodec::codecForName("UTF-8"));
+    desktop->beginGroup("Desktop Entry");
+}
+
+bool DesktopFile::IfOpened() const
+{
+    return desktop;
+}
+
+QString DesktopFile::Path() const
+{
+    if (desktop) {
+        return desktop->fileName();
+    } else
+        return "";
+}
+
+
+bool DesktopFile::DesktopKeyValue(const QString &key, bool locval, QString &value) const
+{
+    if (!desktop)
+        return false;
+
+    QVariant val=locval?desktop->value(QString("%1[%2]").arg(key, lang)):desktop->value(key);
 
     if (val.isValid()) {
         value=val.toString();
         return true;
-    } else if (locval&&(val=desktop.value(QString("%1[%2]").arg(key, lang.left(2)))).isValid()) {
+    } else if (locval&&(val=desktop->value(QString("%1[%2]").arg(key, lang.left(2)))).isValid()) {
         value=val.toString();
         return true;
-    } else if (locval&&(val=desktop.value(key)).isValid()) {
+    } else if (locval&&(val=desktop->value(key)).isValid()) {
         value=val.toString();
         return true;
     } else {
@@ -56,7 +75,7 @@ bool DesktopTools::DesktopKeyValue(const QString &fname, const QString &key, boo
     }
 }
 
-QString DesktopTools::DesktopIconPath(const QString &icon_value)
+QString DesktopFile::DesktopIconPath(const QString &icon_value)
 {
     if (icon_value.length()>0)
         return (IconProvider::HasIcon(icon_value)?
@@ -65,64 +84,4 @@ QString DesktopTools::DesktopIconPath(const QString &icon_value)
                +icon_value;
     else
         return "";
-}
-
-void DesktopTools::SetDesktopLang(const QString &locale)
-{
-    lang=locale;
-}
-
-int DesktopTools::rowCount(const QModelIndex &parent) const
-{
-    return parent.isValid()?0:DesktopList.count();
-}
-
-QVariant DesktopTools::data(const QModelIndex &index, int role) const
-{
-    if (index.row()<0||index.row()>=DesktopList.count())
-        return QVariant();
-
-    if (role==Qt::DisplayRole)
-        return DesktopList[index.row()].name;
-    else if (role==Qt::UserRole+1)
-        return DesktopList[index.row()].icon_path;
-    else if (role==Qt::UserRole+2)
-        return DesktopList[index.row()].full_path;
-
-    return QVariant();
-}
-
-QVariant DesktopTools::get(int index)
-{
-    if (index<0||index>=DesktopList.count())
-        return QVariant();
-
-    QMap<QString, QVariant> ReturnItem;
-    ReturnItem.insert("name", QVariant(DesktopList[index].name));
-    ReturnItem.insert("icon", QVariant(DesktopList[index].icon_path));
-    ReturnItem.insert("path", QVariant(DesktopList[index].full_path));
-
-    return QVariant(ReturnItem);
-}
-
-void DesktopTools::PrepareList()
-{
-    if (DesktopList.count()==0) {
-        QDir AppScreenDir;
-        AppScreenDir.setFilter(QDir::Files|QDir::NoSymLinks|QDir::NoDotAndDotDot|QDir::Readable|QDir::CaseSensitive);
-        AppScreenDir.setNameFilters(QStringList()<<"*.desktop");
-        AppScreenDir.setPath(APP_SCREEN_PATH);
-
-        QString icon, name, path;
-
-        foreach (const QString &file, AppScreenDir.entryList()) {
-            path=APP_SCREEN_PATH+file;
-            if (DesktopKeyValue(path, "NotShowIn", false, name)&&name=="X-MeeGo") continue;
-            if (!DesktopKeyValue(path, "Name", true, name)) continue;
-            if (!DesktopKeyValue(path, "Icon", true, icon)) continue;
-            DesktopList.append(DesktopDescription(name, DesktopIconPath(icon), path));
-        }
-
-        qSort(DesktopList);
-    }
 }

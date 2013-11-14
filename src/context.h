@@ -19,6 +19,7 @@
 #include <QStringList>
 #include "runtools.h"
 #include "runmodes.h"
+#include "desktoptools.h"
 #include "commhandler.h"
 
 class Context: public QObject, protected IntercomHandler {
@@ -40,8 +41,8 @@ private:
     QString splash_lscape;
     QString icon;
     QStringList command;
-    bool LoadValueFromDesktop(const QString &fname, const QString &key, bool locval, QString &value);
-    bool LoadExecFromDesktop(const QString &fname, QString *res=NULL);
+    bool LoadValueFromDesktop(const DesktopFile &CurDesktopFile, const QString &key, bool locval, QString &value);
+    bool LoadExecFromDesktop(const DesktopFile &CurDesktopFile, QString *res=NULL);
 public:
     Context(int argc, char **argv);
     bool IfExit();

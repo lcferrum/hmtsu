@@ -12,7 +12,6 @@
  */
 
 #include <QtGui/QApplication>
-#include <QLocale>
 #include <QTranslator>
 #include <QGraphicsObject>
 #include <QtDeclarative>
@@ -27,6 +26,7 @@
 #include "contranslator.h"
 #include "iconprovider.h"
 #include "desktoptools.h"
+#include "desktopmodel.h"
 #include "qmlapplicationviewer.h"
 
 void SuppressQDebug(QtMsgType type, const char *msg)
@@ -39,9 +39,8 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
 {
     QScopedPointer<QApplication> App(createApplication(argc, argv));
 
-    QString locale=QLocale::system().name();
     QTranslator Translator;
-    if (!(Translator.load("tr_"+locale, ":/i18n")))
+    if (!(Translator.load("tr_"+QLocale::system().name(), ":/i18n")))
         Translator.load("tr_en", ":/i18n");
     App->installTranslator(&Translator);
 
@@ -50,7 +49,6 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     App->installTranslator(&ConsoleMsgs);
 
     IconProvider::SetToCurrentSystemTheme();
-    DesktopTools::SetDesktopLang(locale);
 
     Context Ctx(argc, argv);
 
@@ -65,7 +63,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     {
         ModeValidator ModesList(Ctx.CheckMode(), Ctx.CheckMode()==RunModes::PRINT);
         UserValidator UsersList(Ctx.GetTargetUser(), Ctx.CheckMode()==RunModes::PRINT);
-        DesktopTools AppList;
+        DesktopModel AppList;
         PswTools PassCheck;
         ScopedIntercomHandler ViewerIntercomHandler;
         QmlApplicationViewer Viewer;

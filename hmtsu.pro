@@ -25,7 +25,8 @@ SOURCES +=  src/main.cpp \
             src/hout.cpp \
             src/iconprovider.cpp \
             src/pswtools.cpp \
-            src/desktoptools.cpp
+            src/desktoptools.cpp \
+            src/desktopmodel.cpp
 
 HEADERS +=  src/context.h \
             src/runmodes.h \
@@ -38,7 +39,8 @@ HEADERS +=  src/context.h \
             src/hout.h \
             src/iconprovider.h \
             src/pswtools.h \
-            src/desktoptools.h
+            src/desktoptools.h \
+            src/desktopmodel.h
 
 # Things required for deployment and Harmattan boosting
 include(qmlapplicationviewer/qmlapplicationviewer.pri)
