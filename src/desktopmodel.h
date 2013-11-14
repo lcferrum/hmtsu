@@ -61,8 +61,8 @@ public:
     Q_INVOKABLE bool PopulateList();
 signals:
     void signalListPopulated();
-public slots:
-    void RecieveEntry(QString name, QString icon_path, QString full_path);
+private slots:
+    void ReceiveEntry(QString name, QString icon_path, QString full_path);
     void FinishList();
 };
 

@@ -50,6 +50,27 @@ Page {
         height: 80
         width: parent.width
 
+        MouseArea {
+            id: idBtnFileSelect
+            anchors.right: idCommandText.right
+            anchors.verticalCenter: parent.verticalCenter
+            width: idCommandText.height
+            height: idCommandText.height
+            z: idCommandText.z+1
+
+            Rectangle {
+                anchors.fill: parent
+                color: "#FF0000"
+            }
+
+            onClicked: {
+                if (objAppList.PopulateList())
+                    idSheetBusy.visible=true;
+                idCommandText.platformCloseSoftwareInputPanel();
+                idAppBrowserSheet.open();
+            }
+        }
+
         TextField {
             id: idCommandText
             anchors.left: parent.left
@@ -77,22 +98,6 @@ Page {
                 anchors.verticalCenter: parent.verticalCenter
                 source: "image://theme/icon-m-toolbar-directory"
                 opacity: idBtnFileSelect.pressed?0.39:1
-                z: idCommandText.z+1
-
-                MouseArea {
-                    id: idBtnFileSelect
-                    anchors.right: idCommandText.right
-                    anchors.verticalCenter: idCommandItem.verticalCenter
-                    width: idCommandText.height
-                    height: idCommandText.height
-
-                    onClicked: {
-                        if (objAppList.PopulateList())
-                            idSheetBusy.visible=true;
-                        idCommandText.closeSoftwareInputPanel();
-                        idAppBrowserSheet.open();
-                    }
-                }
             }
         }
     }

@@ -18,6 +18,7 @@
 #include "desktopmodel.h"
 
 #define APP_SCREEN_PATH     "/usr/share/applications/"
+#define THREAD_TIMEOUT      10000   //10 seconds
 
 DesktopModel::DesktopModel():
     QAbstractListModel(NULL),
@@ -29,13 +30,14 @@ DesktopModel::DesktopModel():
     roles[Qt::UserRole+2]="path";
     setRoleNames(roles);
 
-    connect(&SourceThread, SIGNAL(signalNewEntry(QString, QString, QString)), this, SLOT(RecieveEntry(QString, QString, QString)), Qt::QueuedConnection);
+    connect(&SourceThread, SIGNAL(signalNewEntry(QString, QString, QString)), this, SLOT(ReceiveEntry(QString, QString, QString)), Qt::QueuedConnection);
     connect(&SourceThread, SIGNAL(signalSourceDepleted()), this, SLOT(FinishList()), Qt::QueuedConnection);
 }
 
 DesktopModel::~DesktopModel()
 {
-    SourceThread.wait(10000);
+    if(!SourceThread.wait(THREAD_TIMEOUT))
+        SourceThread.terminate();
 }
 
 int DesktopModel::rowCount(const QModelIndex &parent) const
@@ -82,7 +84,7 @@ bool DesktopModel::PopulateList()
         return false;
 }
 
-void DesktopModel::RecieveEntry(QString name, QString icon_path, QString full_path)
+void DesktopModel::ReceiveEntry(QString name, QString icon_path, QString full_path)
 {
     DesktopList.append(DesktopDescription(name, icon_path, full_path));
 }
@@ -110,7 +112,7 @@ void DesktopSource::run()
         if (CurrentDesktop.DesktopKeyValue("NotShowIn", false, name)&&name=="X-MeeGo") continue;
         if (!CurrentDesktop.DesktopKeyValue("Name", true, name)) continue;
         if (!CurrentDesktop.DesktopKeyValue("Icon", true, icon)) continue;
-        signalNewEntry(name, DesktopFile::DesktopIconPath(icon), path);
+        signalNewEntry(name, DesktopFile::DesktopIconPath(icon), path); //"QPixmap: It is not safe to use pixmaps outside the GUI thread"
     }
 
     signalSourceDepleted();
