@@ -22,7 +22,7 @@ struct DesktopDescription {
     QString name;
     QString icon_path;
     QString full_path;
-    DesktopDescription (const QString &name, const QString &icon_path, const QString &full_path):
+    DesktopDescription(const QString &name, const QString &icon_path, const QString &full_path):
         name(name), icon_path(icon_path), full_path(full_path) {}
     bool operator<(const DesktopDescription &var) const {
         return name.localeAwareCompare(var.name)<0;

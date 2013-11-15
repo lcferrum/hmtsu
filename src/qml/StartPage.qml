@@ -50,27 +50,6 @@ Page {
         height: 80
         width: parent.width
 
-        MouseArea {
-            id: idBtnFileSelect
-            anchors.right: idCommandText.right
-            anchors.verticalCenter: parent.verticalCenter
-            width: idCommandText.height
-            height: idCommandText.height
-            z: idCommandText.z+1
-
-            Rectangle {
-                anchors.fill: parent
-                color: "#FF0000"
-            }
-
-            onClicked: {
-                if (objAppList.PopulateList())
-                    idSheetBusy.visible=true;
-                idCommandText.platformCloseSoftwareInputPanel();
-                idAppBrowserSheet.open();
-            }
-        }
-
         TextField {
             id: idCommandText
             anchors.left: parent.left
@@ -81,7 +60,7 @@ Page {
             placeholderText: qsTr("__run__")
             inputMethodHints: Qt.ImhNoAutoUppercase|Qt.ImhNoPredictiveText
             platformStyle: TextFieldStyle {
-                paddingRight: idBtnFileSelect.parent.width+15;
+                paddingRight: idBtnFileSelectIcon.width+15;
             }
             platformSipAttributes: SipAttributes {
                 actionKeyLabel: qsTr("__done__")
@@ -93,11 +72,25 @@ Page {
             }
 
             Image {
+                id: idBtnFileSelectIcon
                 anchors.right: parent.right
                 anchors.rightMargin: 10
                 anchors.verticalCenter: parent.verticalCenter
                 source: "image://theme/icon-m-toolbar-directory"
                 opacity: idBtnFileSelect.pressed?0.39:1
+            }
+        }
+
+        MouseArea {
+            id: idBtnFileSelect
+            anchors.right: idCommandText.right
+            anchors.verticalCenter: parent.verticalCenter
+            width: idCommandText.height
+            height: idCommandText.height
+
+            onClicked: {
+                idCommandText.platformCloseSoftwareInputPanel();
+                idAppBrowserSheet.open();
             }
         }
     }
@@ -213,6 +206,12 @@ Page {
                     text: name + ": " + icon
                 }
             }
+        }
+
+        onStatusChanged: {
+            if (status===DialogStatus.Open)
+                if (objAppList.PopulateList())
+                    idSheetBusy.visible=true;
         }
 
         //onAccepted:

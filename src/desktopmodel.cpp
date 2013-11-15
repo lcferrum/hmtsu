@@ -77,7 +77,6 @@ bool DesktopModel::PopulateList()
 {
     if (!populated) {
         populated=true;
-        beginResetModel();
         SourceThread.start();
         return true;
     } else
@@ -86,13 +85,17 @@ bool DesktopModel::PopulateList()
 
 void DesktopModel::ReceiveEntry(QString name, QString icon_path, QString full_path)
 {
-    DesktopList.append(DesktopDescription(name, icon_path, full_path));
+    //DesktopDescription new_item(name, DesktopFile::DesktopIconPath(icon_path), full_path);
+    DesktopDescription new_item(name, icon_path, full_path);
+    QList<DesktopDescription>::iterator target_it=qUpperBound(DesktopList.begin(), DesktopList.end(), new_item);
+    int target_ix=target_it-DesktopList.begin();
+    beginInsertRows(QModelIndex(), target_ix, target_ix);
+    DesktopList.insert(target_it, new_item);
+    endInsertRows();
 }
 
 void DesktopModel::FinishList()
 {
-    qSort(DesktopList);
-    endResetModel();
     signalListPopulated();
 }
 
@@ -113,6 +116,7 @@ void DesktopSource::run()
         if (!CurrentDesktop.DesktopKeyValue("Name", true, name)) continue;
         if (!CurrentDesktop.DesktopKeyValue("Icon", true, icon)) continue;
         signalNewEntry(name, DesktopFile::DesktopIconPath(icon), path); //"QPixmap: It is not safe to use pixmaps outside the GUI thread"
+        //signalNewEntry(name, icon, path);
     }
 
     signalSourceDepleted();
