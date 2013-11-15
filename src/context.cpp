@@ -312,6 +312,17 @@ bool Context::LoadExecFromDesktop(const DesktopFile &CurDesktopFile, QString *re
         return false;
 }
 
+QString Context::ForceDesktop(const QString &path)
+{
+    DesktopFile GuiApp(path);
+    QString cmdline;
+    if (LoadValueFromDesktop(GuiApp, "Name", true, text)) message=ctx_msg_DESC;
+        else message=ctx_msg_CMD;
+    LoadValueFromDesktop(GuiApp, "Icon", true, icon);
+    LoadExecFromDesktop(GuiApp, &cmdline);
+    return cmdline;
+}
+
 int Context::GetVerboseLevel()
 {
     return verbosity;

@@ -43,7 +43,6 @@ Item {
             width: 64
             height: 64
             fillMode: Image.PreserveAspectFit
-            //asynchronous: true
             smooth: true
             sourceSize.width: 64
             sourceSize.height: 64

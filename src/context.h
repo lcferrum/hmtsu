@@ -68,6 +68,7 @@ public:
     Q_INVOKABLE QString GetText();
     Q_INVOKABLE QString GetIcon();
     Q_INVOKABLE QString GetRootName();
+    Q_INVOKABLE QString ForceDesktop(const QString &path);
     Q_INVOKABLE void Run(QString psw, bool no_pass);
 };
 

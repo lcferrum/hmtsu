@@ -176,9 +176,9 @@ Page {
 
     Sheet {
         id: idAppBrowserSheet
-        acceptButtonText: "OK"
-        rejectButtonText: "Cancel"
-        acceptButton.enabled: idAppBrowserList.currentIndex!==-1&&!idSheetBusy.visible
+        acceptButtonText: qsTr("__open_app__")
+        rejectButtonText: qsTr("__cancel_app__")
+        acceptButton.enabled: idAppBrowserList.currentIndex!==-1
         property int lastIdx: -1
 
         title: BusyIndicator {
@@ -197,9 +197,20 @@ Page {
                 anchors.fill: parent
                 cacheBuffer: screen.displayWidth
                 currentIndex: -1
-                pressDelay: 100
-
+                pressDelay: 70
                 model: objAppList
+
+                header: Label {
+                    height: 58
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    anchors.leftMargin: UiConstants.DefaultMargin
+                    anchors.rightMargin: UiConstants.DefaultMargin
+                    verticalAlignment: Text.AlignVCenter
+                    font: UiConstants.HeaderFont
+                    color: "#282828"
+                    text: qsTr("__select_app__")
+                }
 
                 delegate: DesktopItem {
                     title: name
@@ -224,12 +235,10 @@ Page {
 
         onAccepted: {
             lastIdx=idAppBrowserList.currentIndex;
-            idCommandText.text=idAppBrowserList.currentItem.file;
+            idCommandText.text=objContext.ForceDesktop(idAppBrowserList.currentItem.file);
         }
 
         onRejected: idAppBrowserList.currentIndex=lastIdx
-
-        //Component.onCompleted: idAppBrowserList.currentIndex=-1
     }
 
     tools: ToolBarLayout {

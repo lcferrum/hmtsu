@@ -49,7 +49,7 @@
     </message>
     <message>
         <source>__runtools_fork_wrn_ECODE%1%2%3__</source>
-        <translation>Внимание - %1: Возвращен exit code %2, последние полученные данные: %3</translation>
+        <translation>Внимание - %1: Получен exit code %2: %3</translation>
     </message>
     <message>
         <source>__uservalidator_wronguser_err%1__</source>
@@ -160,6 +160,18 @@
     <message>
         <source>__done__</source>
         <translation>Готово</translation>
+    </message>
+    <message>
+        <source>__open_app__</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <source>__cancel_app__</source>
+        <translation>Отмена</translation>
+    </message>
+    <message>
+        <source>__select_app__</source>
+        <translation>Выберите приложение</translation>
     </message>
 </context>
 <context>

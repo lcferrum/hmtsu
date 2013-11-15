@@ -49,7 +49,7 @@
     </message>
     <message>
         <source>__runtools_fork_wrn_ECODE%1%2%3__</source>
-        <translation>Warning - %1: Exit code was %2 with last output: %3</translation>
+        <translation>Warning - %1: Exit code was %2: %3</translation>
     </message>
     <message>
         <source>__uservalidator_wronguser_err%1__</source>
@@ -160,6 +160,18 @@
     <message>
         <source>__done__</source>
         <translation>Done</translation>
+    </message>
+    <message>
+        <source>__open_app__</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <source>__cancel_app__</source>
+        <translation>Cancel</translation>
+    </message>
+    <message>
+        <source>__select_app__</source>
+        <translation>Select application</translation>
     </message>
 </context>
 <context>
