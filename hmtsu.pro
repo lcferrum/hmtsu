@@ -62,7 +62,8 @@ translate_qml {
                 src/qml/TopHeader.qml \
                 src/qml/GroupHeader.qml \
                 src/qml/OptionsItem.qml \
-                src/qml/OptionsSwitch.qml
+                src/qml/OptionsSwitch.qml \
+                src/qml/DesktopItem.qml
 }
 
 TRANSLATIONS =  data/i18n/tr_en.ts \

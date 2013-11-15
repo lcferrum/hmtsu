@@ -7,5 +7,6 @@
         <file>GroupHeader.qml</file>
         <file>OptionsItem.qml</file>
         <file>OptionsSwitch.qml</file>
+        <file>DesktopItem.qml</file>
     </qresource>
 </RCC>

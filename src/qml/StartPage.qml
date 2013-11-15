@@ -176,10 +176,10 @@ Page {
 
     Sheet {
         id: idAppBrowserSheet
-
         acceptButtonText: "OK"
         rejectButtonText: "Cancel"
         acceptButton.enabled: idAppBrowserList.currentIndex!==-1&&!idSheetBusy.visible
+        property int lastIdx: -1
 
         title: BusyIndicator {
             id: idSheetBusy
@@ -188,23 +188,31 @@ Page {
             running: visible
         }
 
-        content: Flickable {
+        content: Item {
             anchors.fill: parent
-            anchors.leftMargin: UiConstants.DefaultMargin
-            anchors.rightMargin: UiConstants.DefaultMargin
-            flickableDirection: Flickable.VerticalFlick
 
             ListView {
                 id: idAppBrowserList
                 highlightFollowsCurrentItem: false
                 anchors.fill: parent
-                cacheBuffer: 32
+                cacheBuffer: screen.displayWidth
+                currentIndex: -1
+                pressDelay: 100
 
                 model: objAppList
 
-                delegate: Text {
-                    text: name + ": " + icon
+                delegate: DesktopItem {
+                    title: name
+                    image: icon
+                    highlited: ListView.isCurrentItem
+                    property string file: path
+
+                    onClicked: idAppBrowserList.currentIndex=index;
                 }
+            }
+
+            ScrollDecorator {
+                flickableItem: idAppBrowserList
             }
         }
 
@@ -214,9 +222,14 @@ Page {
                     idSheetBusy.visible=true;
         }
 
-        //onAccepted:
-        onRejected: idAppBrowserList.currentIndex=-1
-        Component.onCompleted: idAppBrowserList.currentIndex=-1
+        onAccepted: {
+            lastIdx=idAppBrowserList.currentIndex;
+            idCommandText.text=idAppBrowserList.currentItem.file;
+        }
+
+        onRejected: idAppBrowserList.currentIndex=lastIdx
+
+        //Component.onCompleted: idAppBrowserList.currentIndex=-1
     }
 
     tools: ToolBarLayout {

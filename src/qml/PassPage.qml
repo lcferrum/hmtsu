@@ -136,7 +136,7 @@ Page {
 
             Row {
                 width: parent.width
-                spacing: parent.width>0?UiConstants.DefaultMargin:0
+                spacing: idAppIcon.width>0?UiConstants.DefaultMargin:0
 
                 Image {
                     id: idAppIcon
