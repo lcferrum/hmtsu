@@ -12,7 +12,6 @@
  */
 
 #include <QLocale>
-#include <QTextCodec>
 #include "iconprovider.h"
 #include "desktoptools.h"
 
@@ -36,7 +35,7 @@ void DesktopFile::Open(const QString &path)
 {
     delete desktop;
     desktop=new QSettings(path, QSettings::IniFormat);
-    desktop->setIniCodec(QTextCodec::codecForName("UTF-8"));
+    desktop->setIniCodec("UTF-8");
     desktop->beginGroup("Desktop Entry");
 }
 

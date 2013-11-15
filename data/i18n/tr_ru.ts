@@ -163,7 +163,7 @@
     </message>
     <message>
         <source>__open_app__</source>
-        <translation>OK</translation>
+        <translation>Выбрать</translation>
     </message>
     <message>
         <source>__cancel_app__</source>
