@@ -42,7 +42,7 @@ private:
     QString icon;
     QStringList command;
     bool LoadValueFromDesktop(const DesktopFile &CurDesktopFile, const QString &key, bool locval, QString &value);
-    bool LoadExecFromDesktop(const DesktopFile &CurDesktopFile, QString *res=NULL);
+    bool LoadExecFromDesktop(const DesktopFile &CurDesktopFile, QString &cmdline, QString &S, QString &L);
 public:
     Context(int argc, char **argv);
     bool IfExit();

@@ -143,8 +143,9 @@ Context::Context(int argc, char **argv):
 
     if (use_desktop_file) {
         if (CurDesktopFile.IfOpened()) {
+            QString cmdline;
             LoadValueFromDesktop(CurDesktopFile, "Icon", true, icon);
-            LoadExecFromDesktop(CurDesktopFile); //Sets appropriate action (ctx_act_CONTINUE/ctx_act_ASK_FOR_MORE) internally
+            if (LoadExecFromDesktop(CurDesktopFile, cmdline, splash, splash_lscape)) SetCommand(cmdline);   //Sets appropriate action (ctx_act_CONTINUE/ctx_act_ASK_FOR_MORE) internally
         } else {
             action=ctx_act_ASK_FOR_MORE;
             Intercom->AddError(QCoreApplication::translate("Messages", "__context_nodesktop_err__"));
@@ -263,7 +264,7 @@ bool Context::LoadValueFromDesktop(const DesktopFile &CurDesktopFile, const QStr
     }
 }
 
-bool Context::LoadExecFromDesktop(const DesktopFile &CurDesktopFile, QString *res)
+bool Context::LoadExecFromDesktop(const DesktopFile &CurDesktopFile, QString &cmdline, QString &S, QString &L)
 {
     QString exec;
     if (LoadValueFromDesktop(CurDesktopFile, "Exec", false, exec)) {
@@ -273,12 +274,16 @@ bool Context::LoadExecFromDesktop(const DesktopFile &CurDesktopFile, QString *re
             QRegExp SplashRx(" (--splash[ =]|-S ?)(.+) ");
             SplashRx.setMinimal(true);
             if (SplashRx.indexIn(exec)!=-1)
-                splash=SplashRx.cap(2);
+                S=SplashRx.cap(2);
+            else
+                S="";
 
             QRegExp SplashLscapeRx(" (--splash-landscape[ =]|-L ?)(.+) ");
             SplashLscapeRx.setMinimal(true);
             if (SplashLscapeRx.indexIn(exec)!=-1)
-                splash_lscape=SplashLscapeRx.cap(2);
+                L=SplashLscapeRx.cap(2);
+            else
+                L="";
 
             bool cmd_found=false;
 
@@ -290,8 +295,7 @@ bool Context::LoadExecFromDesktop(const DesktopFile &CurDesktopFile, QString *re
                 which.start("/usr/bin/which", QStringList(token));
                 if (which.waitForFinished()) {
                     if (!which.exitCode()) {
-                        if (!res) SetCommand(exec.mid(exec.indexOf(token)));
-                            else *res=exec.mid(exec.indexOf(token));
+                        cmdline=exec.mid(exec.indexOf(token));
                         cmd_found=true;
                         break;
                     }
@@ -300,12 +304,13 @@ bool Context::LoadExecFromDesktop(const DesktopFile &CurDesktopFile, QString *re
 
             if (!cmd_found) {
                 Intercom->AddWarning(QCoreApplication::translate("Messages", "__context_badinvoke_wrn__"));
-                if (!res) SetCommand(exec);
-                    else *res=exec;
+                cmdline=exec;
             }
-        } else
-            if (!res) SetCommand(exec);
-                else *res=exec;
+        } else {
+            cmdline=exec;
+            S="";
+            L="";
+        }
 
         return true;
     } else
@@ -318,8 +323,12 @@ QString Context::ForceDesktop(const QString &path)
     QString cmdline;
     if (LoadValueFromDesktop(GuiApp, "Name", true, text)) message=ctx_msg_DESC;
         else message=ctx_msg_CMD;
-    LoadValueFromDesktop(GuiApp, "Icon", true, icon);
-    LoadExecFromDesktop(GuiApp, &cmdline);
+    if (!LoadValueFromDesktop(GuiApp, "Icon", true, icon))
+        icon="";
+    if (!LoadExecFromDesktop(GuiApp, cmdline, splash, splash_lscape)) {
+        splash="";
+        splash_lscape="";
+    }
     return cmdline;
 }
 

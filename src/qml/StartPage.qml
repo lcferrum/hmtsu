@@ -197,7 +197,8 @@ Page {
                 anchors.fill: parent
                 cacheBuffer: screen.displayWidth
                 currentIndex: -1
-                pressDelay: 70
+                //pressDelay: 15
+                clip: true
                 model: objAppList
 
                 header: Label {
