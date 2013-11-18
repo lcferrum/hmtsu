@@ -197,7 +197,6 @@ Page {
                 anchors.fill: parent
                 cacheBuffer: screen.displayWidth
                 currentIndex: -1
-                //pressDelay: 15
                 clip: true
                 model: objAppList
 
@@ -216,10 +215,11 @@ Page {
                 delegate: DesktopItem {
                     title: name
                     image: icon
-                    highlited: ListView.isCurrentItem
+                    selected: ListView.isCurrentItem
                     property string file: path
 
                     onClicked: idAppBrowserList.currentIndex=index;
+                    onPressAndHold: idAppBrowserList.currentIndex=index;
                 }
             }
 

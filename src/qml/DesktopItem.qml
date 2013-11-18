@@ -22,6 +22,7 @@ Item {
     property string title: ""
     property string image: ""
     property bool highlited: false
+    property bool selected: false
 
     height: UiConstants.ListItemHeightDefault
     width: parent.width
@@ -63,26 +64,23 @@ Item {
 
     MouseArea {
         id: idClickArea
-
         anchors.fill: parent
-        onClicked: {
-            parent.clicked();
-        }
-        onPressAndHold: {
-            parent.pressAndHold();
-        }
+
+        onClicked: parent.clicked()
+
+        onPressAndHold: parent.pressAndHold()
     }
 
     states: [
         State {
-            name: "pressed"
-            when: idClickArea.pressed
+            name: "highlited"
+            when: highlited
             PropertyChanges { target: idBackgroundImage; visible: true; source: "image://theme/meegotouch-panel-background-pressed" }
             PropertyChanges { target: idNameLabel; color: "#797979" }
         },
         State {
-            name: "highlited"
-            when: highlited&&!idClickArea.pressed
+            name: "selected"
+            when: selected&&!highlited
             PropertyChanges { target: idBackgroundImage; visible: true; source: "image://theme/meegotouch-panel-background-selected" }
             PropertyChanges { target: idNameLabel; color: "#FFFFFF" }
         }
