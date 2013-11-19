@@ -17,7 +17,6 @@ import com.nokia.meego 1.1
 Item {
     signal clicked
     signal pressAndHold
-    property alias pressed: idClickArea.pressed
 
     property string title: ""
     property string subtitle: ""

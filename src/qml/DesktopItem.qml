@@ -17,11 +17,9 @@ import com.nokia.meego 1.1
 Item {
     signal clicked
     signal pressAndHold
-    property alias pressed: idClickArea.pressed
 
     property string title: ""
     property string image: ""
-    property bool highlited: false
     property bool selected: false
 
     height: UiConstants.ListItemHeightDefault
@@ -74,15 +72,24 @@ Item {
     states: [
         State {
             name: "highlited"
-            when: highlited
+            when: idClickArea.pressed
             PropertyChanges { target: idBackgroundImage; visible: true; source: "image://theme/meegotouch-panel-background-pressed" }
             PropertyChanges { target: idNameLabel; color: "#797979" }
         },
         State {
             name: "selected"
-            when: selected&&!highlited
+            when: selected&&!idClickArea.pressed
             PropertyChanges { target: idBackgroundImage; visible: true; source: "image://theme/meegotouch-panel-background-selected" }
             PropertyChanges { target: idNameLabel; color: "#FFFFFF" }
         }
     ]
+
+    transitions: Transition {   //This transition acts as delay for state change between "default" and "highlited"
+        from: ""                //It ensures that there is no unnecessary "highlited" state right before "selected"
+        to: "highlited"
+        SequentialAnimation {
+            PauseAnimation { duration: 70 }
+            PropertyAction { targets: [idBackgroundImage, idNameLabel]; properties: "visible, source, color" }
+        }
+    }
 }

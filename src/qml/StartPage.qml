@@ -83,10 +83,11 @@ Page {
 
         MouseArea {
             id: idBtnFileSelect
-            anchors.right: idCommandText.right
-            anchors.verticalCenter: parent.verticalCenter
-            width: idCommandText.height
-            height: idCommandText.height
+            anchors.right: parent.right
+            anchors.left: idCommandText.right
+            anchors.leftMargin: -idCommandText.platformStyle.paddingRight+1
+            anchors.top: parent.top
+            anchors.bottom: parent.bottom
 
             onClicked: {
                 idCommandText.platformCloseSoftwareInputPanel();
@@ -201,7 +202,7 @@ Page {
                 model: objAppList
 
                 header: Label {
-                    height: 58
+                    height: screen.currentOrientation===Screen.Landscape?53:58
                     anchors.left: parent.left
                     anchors.right: parent.right
                     anchors.leftMargin: UiConstants.DefaultMargin
@@ -218,8 +219,7 @@ Page {
                     selected: ListView.isCurrentItem
                     property string file: path
 
-                    onClicked: idAppBrowserList.currentIndex=index;
-                    onPressAndHold: idAppBrowserList.currentIndex=index;
+                    onClicked: idAppBrowserList.currentIndex=index
                 }
             }
 
