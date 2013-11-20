@@ -11,31 +11,20 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef MODESMODEL_H
-#define MODESMODEL_H
+#ifndef USERVALIDATOR_H
+#define USERVALIDATOR_H
 
-#include <QObject>
 #include <QAbstractListModel>
-#include "runmodes.h"
+#include <QStringList>
 #include "commhandler.h"
 
-struct ModePair {
-    QString first;
-    RunModes::QmlEnum second;
-    ModePair(const QString &first, RunModes::QmlEnum second):
-        first(first), second(second) {}
-    bool operator==(const ModePair &var) const {
-        return second==var.second;
-    }
-};
-
-class ModeValidator: public QAbstractListModel, protected IntercomHandler {
+class UsersModel: public QAbstractListModel, protected IntercomHandler {
     Q_OBJECT
 private:
-    QList<ModePair> AvailableModes;
+    QStringList AvailableUsers;
     int ini_idx;
 public:
-    ModeValidator(RunModes::QmlEnum mode, bool skip);
+    UsersModel(QString user, bool skip);
 
     //ListModel's standart functions implemetation:
     Q_INVOKABLE QVariant get(int index);
@@ -49,4 +38,5 @@ public:
     Q_INVOKABLE int GetInitialIndex();
 };
 
-#endif // MODESMODEL_H
+
+#endif // USERVALIDATOR_H

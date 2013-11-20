@@ -17,8 +17,6 @@ LIBS += -lcrypt -lutil -lX11
 
 SOURCES +=  src/main.cpp \
             src/context.cpp \
-            src/modevalidator.cpp \
-            src/uservalidator.cpp \
             src/commhandler.cpp \
             src/runtools.cpp \
             src/contranslator.cpp \
@@ -26,12 +24,12 @@ SOURCES +=  src/main.cpp \
             src/iconprovider.cpp \
             src/pswtools.cpp \
             src/desktoptools.cpp \
-            src/desktopmodel.cpp
+            src/desktopmodel.cpp \
+            src/usersmodel.cpp \
+            src/modesmodel.cpp
 
 HEADERS +=  src/context.h \
             src/runmodes.h \
-            src/modevalidator.h \
-            src/uservalidator.h \
             src/commhandler.h \
             src/runtools.h \
             src/common.h \
@@ -40,7 +38,9 @@ HEADERS +=  src/context.h \
             src/iconprovider.h \
             src/pswtools.h \
             src/desktoptools.h \
-            src/desktopmodel.h
+            src/desktopmodel.h \
+            src/modesmodel.h \
+            src/usersmodel.h
 
 # Things required for deployment and Harmattan boosting
 include(qmlapplicationviewer/qmlapplicationviewer.pri)

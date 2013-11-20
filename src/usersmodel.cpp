@@ -13,9 +13,9 @@
 
 #include <pwd.h>
 #include <QCoreApplication>
-#include "uservalidator.h"
+#include "usersmodel.h"
 
-UserValidator::UserValidator(QString user, bool skip):
+UsersModel::UsersModel(QString user, bool skip):
     QAbstractListModel(NULL),
     AvailableUsers(), ini_idx(-1)
 {
@@ -35,15 +35,15 @@ UserValidator::UserValidator(QString user, bool skip):
     AvailableUsers.sort();
 
     if ((ini_idx=AvailableUsers.indexOf(user))==-1)
-        Intercom->AddError(QCoreApplication::translate("Messages", "__uservalidator_wronguser_err%1__").arg(user));
+        Intercom->AddError(QCoreApplication::translate("Messages", "__UsersModel_wronguser_err%1__").arg(user));
 }
 
-int UserValidator::rowCount(const QModelIndex &parent) const
+int UsersModel::rowCount(const QModelIndex &parent) const
 {
     return parent.isValid()?0:AvailableUsers.count();
 }
 
-QVariant UserValidator::data(const QModelIndex &index, int role) const
+QVariant UsersModel::data(const QModelIndex &index, int role) const
 {
     if (index.row()<0||index.row()>=AvailableUsers.count())
         return QVariant();
@@ -54,7 +54,7 @@ QVariant UserValidator::data(const QModelIndex &index, int role) const
     return QVariant();
 }
 
-QVariant UserValidator::get(int index)
+QVariant UsersModel::get(int index)
 {
     if (index<0||index>=AvailableUsers.count())
         return QVariant();
@@ -65,7 +65,7 @@ QVariant UserValidator::get(int index)
     return QVariant(ReturnItem);
 }
 
-int UserValidator::GetInitialIndex()
+int UsersModel::GetInitialIndex()
 {
     return ini_idx;
 }

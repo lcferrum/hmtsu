@@ -15,9 +15,9 @@
 #include <QCoreApplication>
 #include <QStringList>
 #include <QProcess>
-#include "modevalidator.h"
+#include "modesmodel.h"
 
-ModeValidator::ModeValidator(RunModes::QmlEnum mode, bool skip):
+ModesModel::ModesModel(RunModes::QmlEnum mode, bool skip):
     QAbstractListModel(NULL),
     AvailableModes(), ini_idx(-1)
 {
@@ -42,18 +42,18 @@ ModeValidator::ModeValidator(RunModes::QmlEnum mode, bool skip):
         AvailableModes.append(ModePair("ariadne", RunModes::ARIADNE));
 
     if (AvailableModes.count()<=0)
-        Intercom->AddError(QCoreApplication::translate("Messages", "__modevalidator_nomodes_err__"));
+        Intercom->AddError(QCoreApplication::translate("Messages", "__ModesModel_nomodes_err__"));
 
     if ((ini_idx=AvailableModes.indexOf(ModePair("", mode)))==-1)
-        Intercom->AddError(QCoreApplication::translate("Messages", "__modevalidator_wrongmode_err__"));
+        Intercom->AddError(QCoreApplication::translate("Messages", "__ModesModel_wrongmode_err__"));
 }
 
-int ModeValidator::rowCount(const QModelIndex &parent) const
+int ModesModel::rowCount(const QModelIndex &parent) const
 {
     return parent.isValid()?0:AvailableModes.count();
 }
 
-QVariant ModeValidator::data(const QModelIndex &index, int role) const
+QVariant ModesModel::data(const QModelIndex &index, int role) const
 {
     if (index.row()<0||index.row()>=AvailableModes.count())
         return QVariant();
@@ -66,7 +66,7 @@ QVariant ModeValidator::data(const QModelIndex &index, int role) const
     return QVariant();
 }
 
-QVariant ModeValidator::get(int index)
+QVariant ModesModel::get(int index)
 {
     if (index<0||index>=AvailableModes.count())
         return QVariant();
@@ -78,7 +78,7 @@ QVariant ModeValidator::get(int index)
     return QVariant(ReturnItem);
 }
 
-int ModeValidator::GetInitialIndex()
+int ModesModel::GetInitialIndex()
 {
     return ini_idx;
 }

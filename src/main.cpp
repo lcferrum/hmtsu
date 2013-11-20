@@ -18,8 +18,8 @@
 #include <QDebug>
 #include "context.h"
 #include "runmodes.h"
-#include "modevalidator.h"
-#include "uservalidator.h"
+#include "modesmodel.h"
+#include "usersmodel.h"
 #include "pswtools.h"
 #include "commhandler.h"
 #include "common.h"
@@ -61,8 +61,8 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     if (Ctx.GetVerboseLevel()<4) qInstallMsgHandler(SuppressQDebug);        //DEBUG verbosity included in levels greater than 3
 
     {
-        ModeValidator ModesList(Ctx.CheckMode(), Ctx.CheckMode()==RunModes::PRINT);
-        UserValidator UsersList(Ctx.GetTargetUser(), Ctx.CheckMode()==RunModes::PRINT);
+        ModesModel ModesList(Ctx.CheckMode(), Ctx.CheckMode()==RunModes::PRINT);
+        UsersModel UsersList(Ctx.GetTargetUser(), Ctx.CheckMode()==RunModes::PRINT);
         DesktopModel AppList;
         PswTools PassCheck;
         ScopedIntercomHandler ViewerIntercomHandler;

@@ -83,27 +83,12 @@ Page {
     Component.onCompleted: {
         objIntercom.SetCustomExitCode(CANCELED_EXIT_CODE);
         objPassCheck.PrepareForCheck(objContext.Mode, objContext.TargetUser);
-        //if (!objContext.IfContinue()) idPassInput.forceActiveFocus();
-    }
-
-    Connections {
-        target: platformWindow
-
-        onActiveChanged: {
-            //if (platformWindow.active&&status===PageStatus.Active)
-            //    idPassInput.forceActiveFocus();
-        }
-    }
-
-    onStatusChanged: {
-        if (status===PageStatus.Active)
-            //idPassInput.forceActiveFocus();
-            idNoVkbFlickerTimer.start();
+        idNoVkbFlickerTimer.start();
     }
 
     Timer {
         id: idNoVkbFlickerTimer
-        interval: 200   //Obtained through trial and error method
+        interval: 350   //Obtained through trial and error method
         repeat: false
 
         onTriggered: idPassInput.forceActiveFocus()
