@@ -8,14 +8,6 @@
         <translation>&lt;big&gt;&lt;b&gt;Error: Missing options&lt;/b&gt;&lt;/big&gt;&lt;br&gt;You need to provide &lt;i&gt;&amp;#8209;&amp;#8209;description&lt;/i&gt; or &lt;i&gt;&amp;#8209;&amp;#8209;message&lt;/i&gt; with &lt;i&gt;&amp;#8209;&amp;#8209;print&amp;#8209;pass&lt;/i&gt; option</translation>
     </message>
     <message>
-        <source>__modevalidator_nomodes_err__</source>
-        <translation>&lt;big&gt;&lt;b&gt;Error: Missing tools&lt;/b&gt;&lt;/big&gt;&lt;br&gt;No user substitute tools were found</translation>
-    </message>
-    <message>
-        <source>__modevalidator_wrongmode_err__</source>
-        <translation>&lt;big&gt;&lt;b&gt;Error: Wrong tool&lt;/b&gt;&lt;/big&gt;&lt;br&gt;Selected user substitute tool was not found</translation>
-    </message>
-    <message>
         <source>__pswchecker_err__</source>
         <translation>&lt;big&gt;&lt;b&gt;Error: Password check failed&lt;/b&gt;&lt;/big&gt;&lt;br&gt;Password can&apos;t be retrieved</translation>
     </message>
@@ -52,16 +44,24 @@
         <translation>Warning - %1: Exit code was %2: %3</translation>
     </message>
     <message>
-        <source>__uservalidator_wronguser_err%1__</source>
-        <translation>&lt;big&gt;&lt;b&gt;Error: Wrong user&lt;/b&gt;&lt;/big&gt;&lt;br&gt;User %1 does not exist</translation>
-    </message>
-    <message>
         <source>__context_badinvoke_wrn__</source>
         <translation>Warning: Can not parse invoker parametres (will be used unchanged in command)</translation>
     </message>
     <message>
         <source>__context_nodesktop_err__</source>
         <translation>&lt;big&gt;&lt;b&gt;Error: Wrong argument&lt;/b&gt;&lt;/big&gt;&lt;br&gt;You need to provide a valid file name in &lt;i&gt;&amp;#8209;&amp;#8209;description&lt;/i&gt; or &lt;i&gt;&amp;#8209;&amp;#8209;message&lt;/i&gt; with &lt;i&gt;&amp;#8209;&amp;#8209;force&amp;#8209;desktop&lt;/i&gt; option</translation>
+    </message>
+    <message>
+        <source>__modesmodel_nomodes_err__</source>
+        <translation>&lt;big&gt;&lt;b&gt;Error: Missing tools&lt;/b&gt;&lt;/big&gt;&lt;br&gt;No user substitute tools were found</translation>
+    </message>
+    <message>
+        <source>__modesmodel_wrongmode_err__</source>
+        <translation>&lt;big&gt;&lt;b&gt;Error: Wrong tool&lt;/b&gt;&lt;/big&gt;&lt;br&gt;Selected user substitute tool was not found</translation>
+    </message>
+    <message>
+        <source>__usersmodel_wronguser_err%1__</source>
+        <translation>&lt;big&gt;&lt;b&gt;Error: Wrong user&lt;/b&gt;&lt;/big&gt;&lt;br&gt;User %1 does not exist</translation>
     </message>
 </context>
 <context>
@@ -119,7 +119,7 @@
     </message>
     <message>
         <source>__run__</source>
-        <translation>Command to run</translation>
+        <translation>Enter command or select app</translation>
     </message>
     <message>
         <source>__user__</source>
@@ -172,6 +172,10 @@
     <message>
         <source>__select_app__</source>
         <translation>Select application</translation>
+    </message>
+    <message>
+        <source>__app_selected__</source>
+        <translation>Desktop applied.</translation>
     </message>
 </context>
 <context>

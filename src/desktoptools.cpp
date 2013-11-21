@@ -77,9 +77,9 @@ bool DesktopFile::DesktopKeyValue(const QString &key, bool locval, QString &valu
 QString DesktopFile::DesktopIconPath(const QString &icon_value)
 {
     if (icon_value.length()>0)
-        return (IconProvider::HasIcon(icon_value)?
-                    "image://icon/":
-                    (access(icon_value.toLocal8Bit().constData(), R_OK)?"image://theme/":"file://"))
+        return (access(icon_value.toLocal8Bit().constData(), R_OK)?
+                    (IconProvider::HasIcon(icon_value)?"image://icon/":"image://theme/"):
+                    "file://")
                +icon_value;
     else
         return "";

@@ -50,9 +50,6 @@ public:
     DesktopModel();
     ~DesktopModel();
 
-    //ListModel's standart functions implemetation:
-    Q_INVOKABLE QVariant get(int index);
-
     //Overloaded functions:
     int rowCount(const QModelIndex &parent=QModelIndex()) const;
     QVariant data(const QModelIndex &index, int role=Qt::DisplayRole) const;
@@ -60,7 +57,7 @@ public:
     //Other functions exposed to QML:
     Q_INVOKABLE bool PopulateList();
 signals:
-    void signalListPopulated();
+    void signalModelBusy(bool busy);
 private slots:
     void ReceiveEntry(QString name, QString icon_path, QString full_path);
     void FinishList();

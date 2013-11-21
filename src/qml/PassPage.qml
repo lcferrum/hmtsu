@@ -13,7 +13,7 @@
 
 import QtQuick 1.1
 import com.nokia.meego 1.1
-import com.lcferrum.hmtsu 1.0   //created at runtime
+import com.lcferrum.hmtsu 1.0   //Created at runtime
 
 Page {
     property int propAtsRemain: MAX_PSW_ATTEMPTS

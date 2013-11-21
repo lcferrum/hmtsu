@@ -60,23 +60,11 @@ QVariant DesktopModel::data(const QModelIndex &index, int role) const
     return QVariant();
 }
 
-QVariant DesktopModel::get(int index)
-{
-    if (index<0||index>=DesktopList.count())
-        return QVariant();
-
-    QMap<QString, QVariant> ReturnItem;
-    ReturnItem.insert("name", QVariant(DesktopList[index].name));
-    ReturnItem.insert("icon", QVariant(DesktopList[index].icon_path));
-    ReturnItem.insert("path", QVariant(DesktopList[index].full_path));
-
-    return QVariant(ReturnItem);
-}
-
 bool DesktopModel::PopulateList()
 {
     if (!populated) {
         populated=true;
+        signalModelBusy(true);
         SourceThread.start();
         return true;
     } else
@@ -96,7 +84,7 @@ void DesktopModel::ReceiveEntry(QString name, QString icon_path, QString full_pa
 
 void DesktopModel::FinishList()
 {
-    signalListPopulated();
+    signalModelBusy(false);
 }
 
 void DesktopSource::run()

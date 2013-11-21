@@ -35,7 +35,7 @@ UsersModel::UsersModel(QString user, bool skip):
     AvailableUsers.sort();
 
     if ((ini_idx=AvailableUsers.indexOf(user))==-1)
-        Intercom->AddError(QCoreApplication::translate("Messages", "__UsersModel_wronguser_err%1__").arg(user));
+        Intercom->AddError(QCoreApplication::translate("Messages", "__usersmodel_wronguser_err%1__").arg(user));
 }
 
 int UsersModel::rowCount(const QModelIndex &parent) const

@@ -42,10 +42,10 @@ ModesModel::ModesModel(RunModes::QmlEnum mode, bool skip):
         AvailableModes.append(ModePair("ariadne", RunModes::ARIADNE));
 
     if (AvailableModes.count()<=0)
-        Intercom->AddError(QCoreApplication::translate("Messages", "__ModesModel_nomodes_err__"));
+        Intercom->AddError(QCoreApplication::translate("Messages", "__modesmodel_nomodes_err__"));
 
     if ((ini_idx=AvailableModes.indexOf(ModePair("", mode)))==-1)
-        Intercom->AddError(QCoreApplication::translate("Messages", "__ModesModel_wrongmode_err__"));
+        Intercom->AddError(QCoreApplication::translate("Messages", "__modesmodel_wrongmode_err__"));
 }
 
 int ModesModel::rowCount(const QModelIndex &parent) const

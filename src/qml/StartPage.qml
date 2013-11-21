@@ -13,7 +13,7 @@
 
 import QtQuick 1.1
 import com.nokia.meego 1.1
-import com.lcferrum.hmtsu 1.0   //created at runtime
+import com.lcferrum.hmtsu 1.0   //Created at runtime
 
 Page {
     function fnContinue() {
@@ -24,14 +24,6 @@ Page {
         objContext.TargetUser=idDialogUser.model.get(idDialogUser.selectedIndex).name;
         objContext.SetCommand(idCommandText.text);
         pageStack.replace(idPassPage);
-    }
-
-    Connections {
-        target: objAppList
-
-        onSignalListPopulated: {
-            idSheetBusy.visible=false;
-        }
     }
 
     TopHeader {
@@ -90,6 +82,10 @@ Page {
             anchors.bottom: parent.bottom
 
             onClicked: {
+                if (idAppBrowserList.currentIndex!==-1)
+                    idAppBrowserList.positionViewAtIndex(idAppBrowserList.currentIndex, ListView.Center);
+                else
+                    idAppBrowserList.positionViewAtBeginning();
                 idCommandText.platformCloseSoftwareInputPanel();
                 idAppBrowserSheet.open();
             }
@@ -182,13 +178,6 @@ Page {
         acceptButton.enabled: idAppBrowserList.currentIndex!==-1
         property int lastIdx: -1
 
-        title: BusyIndicator {
-            id: idSheetBusy
-            anchors.centerIn: parent
-            visible: false
-            running: visible
-        }
-
         content: Item {
             anchors.fill: parent
 
@@ -211,6 +200,20 @@ Page {
                     font: UiConstants.HeaderFont
                     color: "#282828"
                     text: qsTr("__select_app__")
+
+                    BusyIndicator {
+                        id: idSheetBusy
+                        anchors.right: parent.right
+                        anchors.verticalCenter: parent.verticalCenter
+                        visible: false
+                        running: visible
+
+                        Connections {   //Should declare Connections here because idSheetBusy is not visible outside ListView's header
+                            target: objAppList
+
+                            onSignalModelBusy: idSheetBusy.visible=busy
+                        }
+                    }
                 }
 
                 delegate: DesktopItem {
@@ -230,13 +233,13 @@ Page {
 
         onStatusChanged: {
             if (status===DialogStatus.Open)
-                if (objAppList.PopulateList())
-                    idSheetBusy.visible=true;
+                objAppList.PopulateList();
         }
 
         onAccepted: {
             lastIdx=idAppBrowserList.currentIndex;
             idCommandText.text=objContext.ForceDesktop(idAppBrowserList.currentItem.file);
+            objIntercom.AddInfo(qsTr("__app_selected__"));
         }
 
         onRejected: idAppBrowserList.currentIndex=lastIdx

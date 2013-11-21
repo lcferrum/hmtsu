@@ -47,6 +47,11 @@ Item {
             sourceSize.height: 64
             anchors.verticalCenter: parent.verticalCenter
             source: image
+
+            onStatusChanged: {
+                if (status===Image.Error)
+                    source="image://theme/icon-l-default-application";
+            }
         }
 
         Label {
@@ -79,7 +84,7 @@ Item {
         State {
             name: "selected"
             when: selected&&!idClickArea.pressed
-            PropertyChanges { target: idBackgroundImage; visible: true; source: "image://theme/meegotouch-panel-background-selected" }
+            PropertyChanges { target: idBackgroundImage; visible: true; source: "image://theme/color"+theme.colorScheme+"-meegotouch-panel-background-selected" }
             PropertyChanges { target: idNameLabel; color: "#FFFFFF" }
         }
     ]

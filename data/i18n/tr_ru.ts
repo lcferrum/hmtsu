@@ -8,14 +8,6 @@
         <translation>&lt;big&gt;&lt;b&gt;Ошибка: Не хватает параметров&lt;/b&gt;&lt;/big&gt;&lt;br&gt;Вместе с параметром &lt;i&gt;&amp;#8209;&amp;#8209;print&amp;#8209;pass&lt;/i&gt; необходимо использовать параметр &lt;i&gt;&amp;#8209;&amp;#8209;description&lt;/i&gt; или &lt;i&gt;&amp;#8209;&amp;#8209;message&lt;/i&gt;</translation>
     </message>
     <message>
-        <source>__modevalidator_nomodes_err__</source>
-        <translation>&lt;big&gt;&lt;b&gt;Ошибка: Нужные методы отсутствуют&lt;/b&gt;&lt;/big&gt;&lt;br&gt;Не было найдено ни однога метода смены пользователя</translation>
-    </message>
-    <message>
-        <source>__modevalidator_wrongmode_err__</source>
-        <translation>&lt;big&gt;&lt;b&gt;Ошибка: Несуществующий метод&lt;/b&gt;&lt;/big&gt;&lt;br&gt;Выбранный метод смены пользователя не найден</translation>
-    </message>
-    <message>
         <source>__pswchecker_err__</source>
         <translation>&lt;big&gt;&lt;b&gt;Ошибка: Не удалось проверить пароль&lt;/b&gt;&lt;/big&gt;&lt;br&gt;Сведения о пароле не могут быть получены</translation>
     </message>
@@ -52,16 +44,24 @@
         <translation>Внимание - %1: Получен exit code %2: %3</translation>
     </message>
     <message>
-        <source>__uservalidator_wronguser_err%1__</source>
-        <translation>&lt;big&gt;&lt;b&gt;Ошибка: Несуществующий пользователь&lt;/b&gt;&lt;/big&gt;&lt;br&gt;Пользователь %1 не найден</translation>
-    </message>
-    <message>
         <source>__context_badinvoke_wrn__</source>
         <translation>Внимание: Не удалось интерпретировать параметры invoker (применятся в команде без изменений)</translation>
     </message>
     <message>
         <source>__context_nodesktop_err__</source>
         <translation>&lt;big&gt;&lt;b&gt;Ошибка: Неверный аргумент&lt;/b&gt;&lt;/big&gt;&lt;br&gt;Вместе с параметром &lt;i&gt;&amp;#8209;&amp;#8209;force&amp;#8209;desktop&lt;/i&gt; необходимо использовать существующее имя файла в параметрах &lt;i&gt;&amp;#8209;&amp;#8209;description&lt;/i&gt; или &lt;i&gt;&amp;#8209;&amp;#8209;message&lt;/i&gt;</translation>
+    </message>
+    <message>
+        <source>__modesmodel_nomodes_err__</source>
+        <translation>&lt;big&gt;&lt;b&gt;Ошибка: Нужные методы отсутствуют&lt;/b&gt;&lt;/big&gt;&lt;br&gt;Не было найдено ни однога метода смены пользователя</translation>
+    </message>
+    <message>
+        <source>__modesmodel_wrongmode_err__</source>
+        <translation>&lt;big&gt;&lt;b&gt;Ошибка: Несуществующий метод&lt;/b&gt;&lt;/big&gt;&lt;br&gt;Выбранный метод смены пользователя не найден</translation>
+    </message>
+    <message>
+        <source>__usersmodel_wronguser_err%1__</source>
+        <translation>&lt;big&gt;&lt;b&gt;Ошибка: Несуществующий пользователь&lt;/b&gt;&lt;/big&gt;&lt;br&gt;Пользователь %1 не найден</translation>
     </message>
 </context>
 <context>
@@ -119,7 +119,7 @@
     </message>
     <message>
         <source>__run__</source>
-        <translation>Команда для запуска</translation>
+        <translation>Введите команду или выберите приложение</translation>
     </message>
     <message>
         <source>__user__</source>
@@ -172,6 +172,10 @@
     <message>
         <source>__select_app__</source>
         <translation>Выберите приложение</translation>
+    </message>
+    <message>
+        <source>__app_selected__</source>
+        <translation>Desktop applied.</translation>
     </message>
 </context>
 <context>

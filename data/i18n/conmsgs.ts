@@ -9,38 +9,28 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/context.cpp" line="160"/>
+        <location filename="../../src/context.cpp" line="161"/>
         <source>__context_printpass_err__</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/context.cpp" line="302"/>
+        <location filename="../../src/context.cpp" line="306"/>
         <source>__context_badinvoke_wrn__</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/context.cpp" line="261"/>
+        <location filename="../../src/context.cpp" line="262"/>
         <source>__context_descfile_wrn%1%2__</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/context.cpp" line="150"/>
+        <location filename="../../src/context.cpp" line="151"/>
         <source>__context_nodesktop_err__</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/context.cpp" line="239"/>
+        <location filename="../../src/context.cpp" line="240"/>
         <source>__context_wordexp_wrn__</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../src/modevalidator.cpp" line="45"/>
-        <source>__modevalidator_nomodes_err__</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../src/modevalidator.cpp" line="48"/>
-        <source>__modevalidator_wrongmode_err__</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -79,8 +69,18 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/uservalidator.cpp" line="38"/>
-        <source>__uservalidator_wronguser_err%1__</source>
+        <location filename="../../src/modesmodel.cpp" line="45"/>
+        <source>__modesmodel_nomodes_err__</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/modesmodel.cpp" line="48"/>
+        <source>__modesmodel_wrongmode_err__</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/usersmodel.cpp" line="38"/>
+        <source>__usersmodel_wronguser_err%1__</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -132,13 +132,13 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/qml/PassPage.qml" line="115"/>
+        <location filename="../../src/qml/PassPage.qml" line="104"/>
         <source>__enter_pass__</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/qml/PassPage.qml" line="172"/>
-        <location filename="../../src/qml/PassPage.qml" line="184"/>
+        <location filename="../../src/qml/PassPage.qml" line="161"/>
+        <location filename="../../src/qml/PassPage.qml" line="173"/>
         <source>__launch__</source>
         <translation type="unfinished"></translation>
     </message>
@@ -151,73 +151,78 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/qml/StartPage.qml" line="44"/>
+        <location filename="../../src/qml/StartPage.qml" line="36"/>
         <source>__start__</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/qml/StartPage.qml" line="60"/>
+        <location filename="../../src/qml/StartPage.qml" line="52"/>
         <source>__run__</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/qml/StartPage.qml" line="66"/>
+        <location filename="../../src/qml/StartPage.qml" line="58"/>
         <source>__done__</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/qml/StartPage.qml" line="122"/>
+        <location filename="../../src/qml/StartPage.qml" line="119"/>
         <source>__common__</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/qml/StartPage.qml" line="126"/>
+        <location filename="../../src/qml/StartPage.qml" line="123"/>
         <source>__user__</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/qml/StartPage.qml" line="135"/>
+        <location filename="../../src/qml/StartPage.qml" line="132"/>
         <source>__mode_select__</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/qml/StartPage.qml" line="144"/>
+        <location filename="../../src/qml/StartPage.qml" line="141"/>
         <source>__advanced__</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/qml/StartPage.qml" line="148"/>
+        <location filename="../../src/qml/StartPage.qml" line="145"/>
         <source>__login_switch__</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/qml/StartPage.qml" line="155"/>
+        <location filename="../../src/qml/StartPage.qml" line="152"/>
         <source>__env_switch__</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/qml/StartPage.qml" line="165"/>
+        <location filename="../../src/qml/StartPage.qml" line="162"/>
         <source>__modes_list__</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/qml/StartPage.qml" line="172"/>
+        <location filename="../../src/qml/StartPage.qml" line="169"/>
         <source>__users_list__</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/qml/StartPage.qml" line="179"/>
+        <location filename="../../src/qml/StartPage.qml" line="176"/>
         <source>__open_app__</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/qml/StartPage.qml" line="180"/>
+        <location filename="../../src/qml/StartPage.qml" line="177"/>
         <source>__cancel_app__</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/qml/StartPage.qml" line="212"/>
+        <location filename="../../src/qml/StartPage.qml" line="202"/>
         <source>__select_app__</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/qml/StartPage.qml" line="242"/>
+        <source>__app_selected__</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
