@@ -24,18 +24,19 @@ Item {
     height: UiConstants.ListItemHeightDefault
     width: parent.width
 
-    Item {
+    Row {
         anchors.fill: parent
+        spacing: UiConstants.DefaultMargin
         opacity: parent.enabled?1:0.52
 
         Column {
             anchors.verticalCenter: parent.verticalCenter
-            width: parent.width-idSwitchArea.width-16
+            width: parent.width-idSwitchArea.width-UiConstants.DefaultMargin
 
             Label {
                 font: UiConstants.TitleFont
                 color: "#282828"
-                text: parent.parent.parent.title
+                text: title
                 width: parent.width
                 elide: Text.ElideRight
             }
@@ -43,26 +44,19 @@ Item {
             Label {
                 font: UiConstants.SubtitleFont
                 color: "#505050"
-                text: parent.parent.parent.subtitle
+                text: subtitle
                 visible: text.length>0
                 width: parent.width
                 elide: Text.ElideRight
             }
         }
-    }
-
-    Item {
-        anchors.right: parent.right
-        height: parent.height
 
         Switch {
             id: idSwitchArea
             anchors.verticalCenter: parent.verticalCenter
-            anchors.right: parent.right
-            enabled: parent.enabled
+            enabled: parent.parent.enabled
 
             onCheckedChanged: parent.parent.checkedChanged()
         }
     }
-
 }

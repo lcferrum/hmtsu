@@ -34,17 +34,18 @@ Item {
         source: "image://theme/meegotouch-panel-background-pressed"
     }
 
-    Item {
+    Row {
         anchors.fill: parent
+        spacing: UiConstants.DefaultMargin
 
         Column {
             anchors.verticalCenter: parent.verticalCenter
-            width: parent.width-48
+            width: parent.width-idIndicator.width-parent.spacing
 
             Label {
                 font: UiConstants.TitleFont
                 color: idClickArea.pressed?"#797979":"#282828"
-                text: parent.parent.parent.title
+                text: title
                 width: parent.width
                 elide: Text.ElideRight
             }
@@ -52,22 +53,17 @@ Item {
             Label {
                 font: UiConstants.SubtitleFont
                 color: idClickArea.pressed?"#797979":"#505050"
-                text: parent.parent.parent.subtitle
+                text: subtitle
                 visible: text.length>0
                 width: parent.width
                 elide: Text.ElideRight
             }
         }
-    }
-
-    Item {
-        anchors.right: parent.right
-        height: parent.height
-        opacity: idClickArea.pressed?0.39:1
 
         Image {
+            id: idIndicator
+            opacity: idClickArea.pressed?0.39:1
             anchors.verticalCenter: parent.verticalCenter
-            anchors.right: parent.right
             source: tumbler?"image://theme/meegotouch-combobox-indicator":"image://theme/icon-m-common-drilldown-arrow"
         }
     }
