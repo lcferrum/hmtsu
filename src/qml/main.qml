@@ -97,7 +97,7 @@ PageStackWindow {
                 anchors.right: parent.right
                 font.pixelSize: UiConstants.GroupHeaderFont.pixelSize
                 font.bold: true
-                color: "grey";
+                color: "grey"
             }
 
             Label {
@@ -108,7 +108,7 @@ PageStackWindow {
                 anchors.leftMargin: UiConstants.DefaultMargin
                 anchors.rightMargin: UiConstants.DefaultMargin
                 font.pixelSize: UiConstants.GroupHeaderFont.pixelSize
-                color: "grey";
+                color: "grey"
             }
         }
     }

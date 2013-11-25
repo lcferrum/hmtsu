@@ -177,6 +177,7 @@ Page {
         rejectButtonText: qsTr("__cancel_app__")
         acceptButton.enabled: idAppBrowserList.currentIndex!==-1
         property int lastIdx: -1
+        property bool selected: false
 
         content: Item {
             anchors.fill: parent
@@ -234,15 +235,20 @@ Page {
         onStatusChanged: {
             if (status===DialogStatus.Open)
                 objAppList.PopulateList();
+            if (status===DialogStatus.Closed&&selected)
+                objIntercom.AddInfo(qsTr("__app_selected__"));
         }
 
         onAccepted: {
+            selected=true;
             lastIdx=idAppBrowserList.currentIndex;
             idCommandText.text=objContext.ForceDesktop(idAppBrowserList.currentItem.file);
-            objIntercom.AddInfo(qsTr("__app_selected__"));
         }
 
-        onRejected: idAppBrowserList.currentIndex=lastIdx
+        onRejected: {
+            selected=false;
+            idAppBrowserList.currentIndex=lastIdx
+        }
     }
 
     tools: ToolBarLayout {
