@@ -29,17 +29,17 @@ PageStackWindow {
         }
     }
 
-    Component.onCompleted: {
-        theme.colorScheme=8;
-        idIntercomDelayedStartTimer.start();
+    Connections {
+        target: platformWindow
+
+        onActiveChanged: {
+            if (platformWindow.active)
+                objIntercom.Start();
+        }
     }
 
-    Timer {
-        id: idIntercomDelayedStartTimer
-        interval: 100   //Obtained through trial and error method
-        repeat: false
-
-        onTriggered: objIntercom.Start()
+    Component.onCompleted: {
+        theme.colorScheme=8;
     }
 
     Component {

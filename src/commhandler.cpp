@@ -34,11 +34,10 @@ Intercommunication::Intercommunication():
 void Intercommunication::AddError(const QString &msg)
 {
     if (!error) {
-        if (started) {
+        if (started)
             signalError(QVariant(msg));
-        } else {
+        else
             err_msg=msg;
-        }
         exit_code=ERROR_EXIT_CODE;
         error=true;
     }
@@ -65,22 +64,20 @@ void Intercommunication::AddSafeWarning(const QString &msg)
 void Intercommunication::AddWarning(const QString &msg)
 {
     if (!error&&warning_msgs_enabled) {
-        if (started) {
+        if (started)
             Notify(msg, cmm_ntf_WARNING);
-        } else {
+        else
             MessageQueue.append(qMakePair(msg, cmm_ntf_WARNING));
-        }
     }
 }
 
 void Intercommunication::AddInfo(const QString &msg)
 {
     if (!error&&general_msgs_enabled) {
-        if (started) {
+        if (started)
             Notify(msg, cmm_ntf_INFO);
-        } else {
+        else
             MessageQueue.append(qMakePair(msg, cmm_ntf_INFO));
-        }
     }
 }
 
@@ -113,12 +110,12 @@ bool Intercommunication::IfError()
 void Intercommunication::Start()
 {
     if (!started) {
+        started=true;
         if (error) {
             signalError(QVariant(err_msg));
         } else {
             foreach(qKeepCommas(const QPair<QString, cmm_ntfs> &msg), MessageQueue)
                 Notify(msg.first, msg.second);
-            started=true;
         }
     }
 }
