@@ -76,7 +76,7 @@ Item {
 
     states: [
         State {
-            name: "highlited"
+            name: "highlighted"
             when: idClickArea.pressed
             PropertyChanges { target: idBackgroundImage; visible: true; source: "image://theme/meegotouch-panel-background-pressed" }
             PropertyChanges { target: idNameLabel; color: "#797979" }
@@ -89,9 +89,9 @@ Item {
         }
     ]
 
-    transitions: Transition {   //This transition acts as delay for state change between "default" and "highlited"
-        from: ""                //It ensures that there is no unnecessary "highlited" state right before "selected"
-        to: "highlited"
+    transitions: Transition {   //This transition acts as delay for state change between "default" and "highlighted"
+        from: ""                //It ensures that there is no unnecessary "highlighted" state right before "selected"
+        to: "highlighted"
         SequentialAnimation {
             PauseAnimation { duration: 70 }
             PropertyAction { targets: [idBackgroundImage, idNameLabel]; properties: "visible, source, color" }
