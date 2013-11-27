@@ -175,7 +175,7 @@
     </message>
     <message>
         <source>__app_selected__</source>
-        <translation>Desktop applied.</translation>
+        <translation>HMTsu будет использовать описание выбранного приложения.</translation>
     </message>
 </context>
 <context>

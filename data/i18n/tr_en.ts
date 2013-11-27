@@ -175,7 +175,7 @@
     </message>
     <message>
         <source>__app_selected__</source>
-        <translation>Desktop applied.</translation>
+        <translation>Launch description will be updated with application details.</translation>
     </message>
 </context>
 <context>
