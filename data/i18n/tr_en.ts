@@ -175,7 +175,7 @@
     </message>
     <message>
         <source>__app_selected__</source>
-        <translation>Launch description will be updated with application details.</translation>
+        <translation>Details of selected application will be used to run it</translation>
     </message>
 </context>
 <context>

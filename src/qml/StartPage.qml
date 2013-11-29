@@ -26,6 +26,17 @@ Page {
         pageStack.replace(idPassPage);
     }
 
+    Component.onCompleted: {
+        if (!objIntercom.IfError()) {
+            if (objModesList.PopulateList()) {
+                idDialogMode.selectedIndex=objModesList.Find(objContext.Mode);
+                if (idDialogMode.selectedIndex===-1)
+                    objIntercom.AddError(qsTr("__modesmodel_wrongmode_err__"));
+            } else
+                objIntercom.AddError(qsTr("__modesmodel_nomodes_err__"));
+        }
+    }
+
     TopHeader {
         id: idBannerTop
         color: "#7DA4D3"
@@ -160,7 +171,6 @@ Page {
     SelectionDialog {
         id: idDialogMode
         titleText: qsTr("__modes_list__")
-        selectedIndex: model.GetInitialIndex()
         model: objModesList
     }
 
@@ -177,7 +187,6 @@ Page {
         rejectButtonText: qsTr("__cancel_app__")
         acceptButton.enabled: idAppBrowserList.currentIndex!==-1
         property int lastIdx: -1
-        property bool selected: false
 
         content: Item {
             anchors.fill: parent
@@ -191,29 +200,15 @@ Page {
                 clip: true
                 model: objAppList
 
-                header: Label {
-                    height: screen.currentOrientation===Screen.Landscape?53:58
-                    anchors.left: parent.left
-                    anchors.right: parent.right
-                    anchors.leftMargin: UiConstants.DefaultMargin
-                    anchors.rightMargin: UiConstants.DefaultMargin
-                    verticalAlignment: Text.AlignVCenter
-                    font: UiConstants.HeaderFont
-                    color: "#282828"
-                    text: qsTr("__select_app__")
+                header: DesktopHeader {
+                    title: qsTr("__select_app__")
+                    subtitle: qsTr("__app_selected__")
+                    landscape: screen.currentOrientation===Screen.Landscape
 
-                    BusyIndicator {
-                        id: idSheetBusy
-                        anchors.right: parent.right
-                        anchors.verticalCenter: parent.verticalCenter
-                        visible: false
-                        running: visible
+                    Connections {   //Should declare Connections here because DesktopHeader is not visible outside ListView's header
+                        target: objAppList
 
-                        Connections {   //Should declare Connections here because idSheetBusy is not visible outside ListView's header
-                            target: objAppList
-
-                            onSignalModelBusy: idSheetBusy.visible=busy
-                        }
+                        onSignalModelBusy: processing=busy
                     }
                 }
 
@@ -235,20 +230,14 @@ Page {
         onStatusChanged: {
             if (status===DialogStatus.Open)
                 objAppList.PopulateList();
-            if (status===DialogStatus.Closed&&selected)
-                objIntercom.AddInfo(qsTr("__app_selected__"));
         }
 
         onAccepted: {
-            selected=true;
             lastIdx=idAppBrowserList.currentIndex;
             idCommandText.text=objContext.ForceDesktop(idAppBrowserList.currentItem.file);
         }
 
-        onRejected: {
-            selected=false;
-            idAppBrowserList.currentIndex=lastIdx
-        }
+        onRejected: idAppBrowserList.currentIndex=lastIdx
     }
 
     tools: ToolBarLayout {

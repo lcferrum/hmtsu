@@ -52,7 +52,7 @@ OTHER_FILES +=  qtc_packaging/debian_harmattan/rules \
                 qtc_packaging/debian_harmattan/control \
                 qtc_packaging/debian_harmattan/compat \
                 qtc_packaging/debian_harmattan/changelog \
-                qtc_packaging/debian_harmattan/hmtsu.links
+                qtc_packaging/debian_harmattan/hmtsu.links \
 
 # Hack for lupdate
 translate_qml {
@@ -63,7 +63,8 @@ translate_qml {
                 src/qml/GroupHeader.qml \
                 src/qml/OptionsItem.qml \
                 src/qml/OptionsSwitch.qml \
-                src/qml/DesktopItem.qml
+                src/qml/DesktopItem.qml \
+                src/qml/DesktopHeader.qml
 }
 
 TRANSLATIONS =  data/i18n/tr_en.ts \

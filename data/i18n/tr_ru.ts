@@ -175,7 +175,7 @@
     </message>
     <message>
         <source>__app_selected__</source>
-        <translation>HMTsu будет использовать описание выбранного приложения.</translation>
+        <translation>Детали выбранного приложения будут использованы для запуска</translation>
     </message>
 </context>
 <context>

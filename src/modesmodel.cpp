@@ -17,35 +17,55 @@
 #include <QProcess>
 #include "modesmodel.h"
 
-ModesModel::ModesModel(RunModes::QmlEnum mode, bool skip):
+ModesModel::ModesModel():
     QAbstractListModel(NULL),
-    AvailableModes(), ini_idx(-1)
+    AvailableModes(), populated(false)
 {
     QHash<int, QByteArray> roles;
     roles[Qt::DisplayRole]="name";
     roles[Qt::UserRole+1]="mode";
     setRoleNames(roles);
 
-    if (skip||Intercom->IfError()) return;
 
-    if (!access("/bin/devel-su", R_OK))
-        AvailableModes.append(ModePair("devel-su", RunModes::SU));
-    if (!access("/usr/bin/sudo", R_OK)) {
-        QProcess dpkg;
-        dpkg.start("/usr/bin/dpkg", QStringList()<<"-s"<<"opensudo");
-        if (dpkg.waitForFinished()&&!dpkg.exitCode())
-            AvailableModes.append(ModePair("opensudo", RunModes::SUDO));
-        else
-            AvailableModes.append(ModePair("sudo", RunModes::SUDO));
-    }
-    if (!access("/usr/bin/ariadne", R_OK))
-        AvailableModes.append(ModePair("ariadne", RunModes::ARIADNE));
 
-    if (AvailableModes.count()<=0)
+    /*if (AvailableModes.count()<=0)
         Intercom->AddError(QCoreApplication::translate("Messages", "__modesmodel_nomodes_err__"));
 
     if ((ini_idx=AvailableModes.indexOf(ModePair("", mode)))==-1)
-        Intercom->AddError(QCoreApplication::translate("Messages", "__modesmodel_wrongmode_err__"));
+        Intercom->AddError(QCoreApplication::translate("Messages", "__modesmodel_wrongmode_err__"));*/
+}
+
+bool ModesModel::PopulateList()
+{
+    if (!populated) {
+        beginResetModel();
+
+        if (!access("/bin/devel-su", R_OK))
+            AvailableModes.append(ModePair("devel-su", RunModes::SU));
+        if (!access("/usr/bin/sudo", R_OK)) {
+            QProcess dpkg;
+            dpkg.start("/usr/bin/dpkg", QStringList()<<"-s"<<"opensudo");
+            if (dpkg.waitForFinished()&&!dpkg.exitCode())
+                AvailableModes.append(ModePair("opensudo", RunModes::SUDO));
+            else
+                AvailableModes.append(ModePair("sudo", RunModes::SUDO));
+        }
+        if (!access("/usr/bin/ariadne", R_OK))
+            AvailableModes.append(ModePair("ariadne", RunModes::ARIADNE));
+
+        endResetModel();
+
+        if (AvailableModes.count()<=0)
+            return false;
+        else
+            return true;
+    } else
+        return false;
+}
+
+int ModesModel::Find(RunModes::QmlEnum mode)
+{
+    return AvailableModes.indexOf(ModePair("", mode));
 }
 
 int ModesModel::rowCount(const QModelIndex &parent) const
@@ -76,9 +96,4 @@ QVariant ModesModel::get(int index)
     ReturnItem.insert("mode", QVariant(AvailableModes[index].second));
 
     return QVariant(ReturnItem);
-}
-
-int ModesModel::GetInitialIndex()
-{
-    return ini_idx;
 }

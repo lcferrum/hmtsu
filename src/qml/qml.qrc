@@ -8,5 +8,6 @@
         <file>OptionsItem.qml</file>
         <file>OptionsSwitch.qml</file>
         <file>DesktopItem.qml</file>
+        <file>DesktopHeader.qml</file>
     </qresource>
 </RCC>
