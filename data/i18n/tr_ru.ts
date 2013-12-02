@@ -175,7 +175,7 @@
     </message>
     <message>
         <source>__app_selected__</source>
-        <translation>Детали выбранного приложения будут использованы для запуска</translation>
+        <translation>Информация о выбранном приложении будет использована для запуска</translation>
     </message>
 </context>
 <context>
