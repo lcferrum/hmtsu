@@ -26,17 +26,6 @@ Page {
         pageStack.replace(idPassPage);
     }
 
-    Component.onCompleted: {
-        if (!objIntercom.IfError()) {
-            if (objModesList.PopulateList()) {
-                idDialogMode.selectedIndex=objModesList.Find(objContext.Mode);
-                if (idDialogMode.selectedIndex===-1)
-                    objIntercom.AddError(qsTr("__modesmodel_wrongmode_err__"));
-            } else
-                objIntercom.AddError(qsTr("__modesmodel_nomodes_err__"));
-        }
-    }
-
     TopHeader {
         id: idBannerTop
         color: "#7DA4D3"
@@ -171,6 +160,7 @@ Page {
     SelectionDialog {
         id: idDialogMode
         titleText: qsTr("__modes_list__")
+		selectedIndex: model.GetInitialIndex()
         model: objModesList
     }
 

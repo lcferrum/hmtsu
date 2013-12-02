@@ -33,10 +33,9 @@ class ModesModel: public QAbstractListModel, protected IntercomHandler {
     Q_OBJECT
 private:
     QList<ModePair> AvailableModes;
-    bool populated;
-    int Find(RunModes::QmlEnum mode);
+    int ini_idx;
 public:
-    ModesModel();
+    ModesModel(RunModes::QmlEnum mode, bool skip);
 
     //ListModel's standard functions implemetation:
     Q_INVOKABLE QVariant get(int index);
@@ -47,10 +46,7 @@ public:
     QVariant data(const QModelIndex &index, int role=Qt::DisplayRole) const;
 
     //Other functions exposed to QML:
-    Q_INVOKABLE int Find(/* RunModes::QmlEnum */ int mode) {    //Non-local Q_ENUMS can't be used in Q_INVOKABLE - use this hack
-        return Find(static_cast<RunModes::QmlEnum>(mode));      //Should be fixed in Qt5
-    }
-    Q_INVOKABLE bool PopulateList();
+    Q_INVOKABLE int GetInitialIndex();
 };
 
 #endif // MODESMODEL_H

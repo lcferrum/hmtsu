@@ -35,6 +35,7 @@ private:
     void Notify(const QString &msg, cmm_ntfs type);
 public:
     Intercommunication();
+    bool IfError();
     int GetExitCode();
     void AddSafeError(const QString &msg);
     void AddSafeWarning(const QString &msg);
@@ -49,7 +50,6 @@ public:
     Q_INVOKABLE void AddError(const QString &msg);
     Q_INVOKABLE void AddWarning(const QString &msg);
     Q_INVOKABLE void AddInfo(const QString &msg);
-    Q_INVOKABLE bool IfError();
 signals:
     void signalError(QVariant msg);
 };

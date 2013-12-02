@@ -26,7 +26,7 @@ private:
 public:
     UsersModel(QString user, bool skip);
 
-    //ListModel's standart functions implemetation:
+    //ListModel's standard functions implemetation:
     Q_INVOKABLE QVariant get(int index);
     Q_PROPERTY(int count READ rowCount CONSTANT)
 

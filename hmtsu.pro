@@ -52,7 +52,7 @@ OTHER_FILES +=  qtc_packaging/debian_harmattan/rules \
                 qtc_packaging/debian_harmattan/control \
                 qtc_packaging/debian_harmattan/compat \
                 qtc_packaging/debian_harmattan/changelog \
-                qtc_packaging/debian_harmattan/hmtsu.links \
+                qtc_packaging/debian_harmattan/hmtsu.links
 
 # Hack for lupdate
 translate_qml {

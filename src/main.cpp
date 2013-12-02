@@ -62,7 +62,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     if (Ctx.GetVerboseLevel()<4) qInstallMsgHandler(SuppressQDebug);        //DEBUG verbosity included in levels greater than 3
 
     {
-        ModesModel ModesList;
+        ModesModel ModesList(Ctx.CheckMode(), Ctx.CheckMode()==RunModes::PRINT);
         UsersModel UsersList(Ctx.GetTargetUser(), Ctx.CheckMode()==RunModes::PRINT);
         DesktopModel AppList;
         PswTools PassCheck;

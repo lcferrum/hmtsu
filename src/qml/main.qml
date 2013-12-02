@@ -13,7 +13,6 @@
 
 import QtQuick 1.1
 import com.nokia.meego 1.1
-import com.lcferrum.hmtsu 1.0   //Created at runtime
 
 PageStackWindow {
     showStatusBar: false

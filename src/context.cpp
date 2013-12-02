@@ -397,7 +397,7 @@ void PrintUsage(const QString &exe, const QString &su)
                     4);
     Hout::Separator("LEVEL   DESCRIPTION", 4);
     Hout::Separator("-----   ", 4, '-');
-    Hout::Paragraph("No pop-ups, only error dialogs and standart/error output.",
+    Hout::Paragraph("No pop-ups, only error dialogs and standard/error output.",
                     12, "0 - ");
     Hout::Paragraph("General informational pop-up messages.",
                     12, "1 - ");

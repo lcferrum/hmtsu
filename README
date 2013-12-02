@@ -61,7 +61,7 @@ Usage (when launched from terminal):
     Each level includes the previous levels as well.    
     LEVEL   DESCRIPTION    
     -----   --------------------------------------------------------- 
-        0 - No pop-ups, only error dialogs and standart/error output.    
+        0 - No pop-ups, only error dialogs and standard/error output.    
         1 - General informational pop-up messages.    
         2 - Error pop-up messages.    
         3 - Warning pop-up messages (default level).    
