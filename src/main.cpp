@@ -40,8 +40,8 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     QScopedPointer<QApplication> App(createApplication(argc, argv));
 
     QTranslator Translator;
-    //if (!(Translator.load("tr_"+QLocale::system().name(), ":/i18n")))
-    if (!(Translator.load("tr_ru", ":/i18n")))
+    if (!(Translator.load("tr_"+QLocale::system().name(), ":/i18n")))
+    //if (!(Translator.load("tr_ru", ":/i18n")))
         Translator.load("tr_en", ":/i18n");
     App->installTranslator(&Translator);
 
