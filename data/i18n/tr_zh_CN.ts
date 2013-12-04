@@ -175,7 +175,7 @@
     </message>
     <message>
         <source>__app_selected__</source>
-        <translation>将以其他用户运行</translation>
+        <translation>将以其他用户权限运行</translation>
     </message>
 </context>
 <context>
