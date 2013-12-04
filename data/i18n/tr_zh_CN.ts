@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.0" language="zh_CN">
+<context>
+    <name>Messages</name>
+    <message>
+        <source>__context_printpass_err__</source>
+        <translation>&lt;big&gt;&lt;b&gt;错误:选项丢失&lt;/b&gt;&lt;/big&gt;&lt;br&gt;需要在&lt;i&gt;&amp;#8209;&amp;#8209;print&amp;#8209;pass&lt;/i&gt;选项中提供&lt;i&gt;&amp;#8209;&amp;#8209;说明&lt;/i&gt;或&lt;i&gt;&amp;#8209;&amp;#8209;信息&lt;/i&gt;</translation>
+    </message>
+    <message>
+        <source>__pswchecker_err__</source>
+        <translation>&lt;big&gt;&lt;b&gt;错误: 密码验证失败&lt;/b&gt;&lt;/big&gt;&lt;br&gt;无法通过验证</translation>
+    </message>
+    <message>
+        <source>__pswchecker_not_sudoer_err__</source>
+        <translation>&lt;big&gt;&lt;b&gt;错误: 不是sudo用户&lt;/b&gt;&lt;/big&gt;&lt;br&gt;当前用户无sudo使用权限</translation>
+    </message>
+    <message>
+        <source>__context_verbosity_err__</source>
+        <translation>&lt;big&gt;&lt;b&gt;错误:代码冗长&lt;/b&gt;&lt;/big&gt;&lt;br&gt;代码必须为0-4之间的整数</translation>
+    </message>
+    <message>
+        <source>__context_wordexp_wrn__</source>
+        <translation>警告:无法解析命令行(leaving as-is)</translation>
+    </message>
+    <message>
+        <source>__context_descfile_wrn%1%2__</source>
+        <translation>警告:无法从桌面文件%2加载&quot;%1&quot;</translation>
+    </message>
+    <message>
+        <source>__runtools_fork_err_BASE%1%2__</source>
+        <translation>启动错误%1: %2</translation>
+    </message>
+    <message>
+        <source>__runtools_fork_err_BADPSW%1__</source>
+        <translation>错误: %1需要输入密码</translation>
+    </message>
+    <message>
+        <source>__runtools_fork_wrn_NOPSW%1__</source>
+        <translation>警告 - %1未输入密码</translation>
+    </message>
+    <message>
+        <source>__runtools_fork_wrn_ECODE%1%2%3__</source>
+        <translation>警告 - %1:退出代码为%2: %3</translation>
+    </message>
+    <message>
+        <source>__context_badinvoke_wrn__</source>
+        <translation>警告:无法解析调用程序参数(将使用原来命令行)</translation>
+    </message>
+    <message>
+        <source>__context_nodesktop_err__</source>
+        <translation>&lt;big&gt;&lt;b&gt;错误:参数错误&lt;/b&gt;&lt;/big&gt;&lt;br&gt;需要在&lt;i&gt;&amp;#8209;&amp;#8209;force&amp;#8209;desktop&lt;/i&gt; 选项中提供有效的&lt;i&gt;&amp;#8209;&amp;#8209;说明&lt;/i&gt;或&lt;i&gt;&amp;#8209;&amp;#8209;信息&lt;/i&gt;</translation>
+    </message>
+    <message>
+        <source>__modesmodel_nomodes_err__</source>
+        <translation>&lt;big&gt;&lt;b&gt;错误:工具丢失&lt;/b&gt;&lt;/big&gt;&lt;br&gt;未找到用户切换工具</translation>
+    </message>
+    <message>
+        <source>__modesmodel_wrongmode_err__</source>
+        <translation>&lt;big&gt;&lt;b&gt;错误:工具错误&lt;/b&gt;&lt;/big&gt;&lt;br&gt;未发现已选择的用户切换工具</translation>
+    </message>
+    <message>
+        <source>__usersmodel_wronguser_err%1__</source>
+        <translation>&lt;big&gt;&lt;b&gt;错误:用户错误&lt;/b&gt;&lt;/big&gt;&lt;br&gt;用户%1不存在</translation>
+    </message>
+</context>
+<context>
+    <name>PassPage</name>
+    <message>
+        <source>__enter_pass__</source>
+        <translation>请输入密码</translation>
+    </message>
+    <message>
+        <source>__launch__</source>
+        <translation>确定</translation>
+    </message>
+    <message>
+        <source>__pass_ok__</source>
+        <translation>密码已验证,正在启动</translation>
+    </message>
+    <message>
+        <source>__pass_wrong_end__</source>
+        <translation>密码不正确,取消执行</translation>
+    </message>
+    <message>
+        <source>__pass_not_needed__</source>
+        <translation>无需密码</translation>
+    </message>
+    <message>
+        <source>__default_sudo_root_msg%D__</source>
+        <translation>输入密码授予程序&quot;%D&quot;修改系统关键部分的权限</translation>
+    </message>
+    <message>
+        <source>__default_root_msg%D__</source>
+        <translation>输入管理员密码授予程序&quot;%D&quot;修改系统关键部分的权限</translation>
+    </message>
+    <message>
+        <source>__default_sudo_msg%U%D__</source>
+        <translation>输入密码授权程序&quot;%D&quot;以&quot;%U&quot;用户权限运行</translation>
+    </message>
+    <message>
+        <source>__default_msg%U%D__</source>
+        <translation>输入用户&quot;%U&quot;密码运行程序&quot;%D&quot;</translation>
+    </message>
+    <message>
+        <source>__pass_wrong_cnt%R__</source>
+        <translation>密码错误,请再试一次.尝试继续:&quot;%R&quot;</translation>
+    </message>
+    <message>
+        <source>__default_ariadne_msg%U%D__</source>
+        <translation>输入管理员密码授权程序&quot;%D&quot;以&quot;%u&quot;权限运行</translation>
+    </message>
+</context>
+<context>
+    <name>StartPage</name>
+    <message>
+        <source>__start__</source>
+        <translation>运行</translation>
+    </message>
+    <message>
+        <source>__run__</source>
+        <translation>输入命令行或选择程序</translation>
+    </message>
+    <message>
+        <source>__user__</source>
+        <translation>用户组</translation>
+    </message>
+    <message>
+        <source>__login_switch__</source>
+        <translation>登陆shell</translation>
+    </message>
+    <message>
+        <source>__env_switch__</source>
+        <translation>保护系统环境配置</translation>
+    </message>
+    <message>
+        <source>__mode_select__</source>
+        <translation>工具</translation>
+    </message>
+    <message>
+        <source>__advanced__</source>
+        <translation>高级</translation>
+    </message>
+    <message>
+        <source>__common__</source>
+        <translation>常规</translation>
+    </message>
+    <message>
+        <source>__modes_list__</source>
+        <translation>工具</translation>
+    </message>
+    <message>
+        <source>__users_list__</source>
+        <translation>用户组</translation>
+    </message>
+    <message>
+        <source>__command_text_empty__</source>
+        <translation>警告:命令行为空</translation>
+    </message>
+    <message>
+        <source>__done__</source>
+        <translation>完成</translation>
+    </message>
+    <message>
+        <source>__open_app__</source>
+        <translation>选择程序</translation>
+    </message>
+    <message>
+        <source>__cancel_app__</source>
+        <translation>取消</translation>
+    </message>
+    <message>
+        <source>__select_app__</source>
+        <translation>选择程序</translation>
+    </message>
+    <message>
+        <source>__app_selected__</source>
+        <translation>将以其他用户运行</translation>
+    </message>
+</context>
+<context>
+    <name>main</name>
+    <message>
+        <source>__error_close__</source>
+        <translation>关闭</translation>
+    </message>
+    <message>
+        <source>__hmtsu_description__</source>
+        <translation>&lt;style type=&apos;text/css&apos;&gt;a:link{color:#5183d7}&lt;/style&gt;HMTsu是一款类似gksu的工具,支持devel&amp;#8209;su, sudo和ariadne. 更多信息请参考位于&lt;a href=&quot;https://github.com/lcferrum/hmtsu&quot;&gt;GitHub项目主页&lt;/a&gt;.</translation>
+    </message>
+</context>
+</TS>

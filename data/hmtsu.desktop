@@ -5,6 +5,7 @@ Type=Application
 Terminal=false
 Name=HMTsu
 Comment=HMTsu is a gksu-like tool, frontend to devel-su, sudo and ariadne
+Comment[zh]=HMTsu是一款类似gksu的工具,支持devel-su,sudo和ariadne
 Exec=/usr/bin/invoker --type=d -s /opt/hmtsu/bin/hmtsu
 Icon=/usr/share/icons/hicolor/80x80/apps/hmtsu80.png
 X-HildonDesk-ShowInToolbar=true
