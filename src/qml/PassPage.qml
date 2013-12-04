@@ -87,6 +87,17 @@ Page {
     }
 
     Timer {
+        id: idRunTimer
+        interval: 1000
+        repeat: false
+
+        onTriggered: {
+            objContext.Run(idPassInput.text, propNoPass);
+            Qt.quit();
+        }
+    }
+
+    Timer {
         id: idNoVkbFlickerTimer
         interval: 350   //Obtained through trial and error method
         repeat: false

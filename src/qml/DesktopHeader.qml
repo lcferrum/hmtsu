@@ -14,48 +14,45 @@
 import QtQuick 1.1
 import com.nokia.meego 1.1
 
-Item {
+Row {
     property string title: ""
     property string subtitle: ""
     property bool processing: false
     property bool landscape: false
 
+    anchors.left: parent.left
+    anchors.right: parent.right
+    anchors.leftMargin: UiConstants.DefaultMargin
+    anchors.rightMargin: UiConstants.DefaultMargin
     height: idText.height+(landscape?11:16)
-    width: parent.width
+    spacing: UiConstants.DefaultMargin
 
-    Row {
-        anchors.fill: parent
-        anchors.leftMargin: UiConstants.DefaultMargin
-        anchors.rightMargin: UiConstants.DefaultMargin
-        spacing: UiConstants.DefaultMargin
+    Column {
+        id: idText
+        anchors.verticalCenter: parent.verticalCenter
+        width: parent.width-idIndicator.width-parent.spacing
 
-        Column {
-            id: idText
-            anchors.verticalCenter: parent.verticalCenter
-            width: parent.width-idIndicator.width-parent.spacing
-
-            Label {
-                font: UiConstants.HeaderFont
-                color: "#282828"
-                text: title
-                width: parent.width
-                elide: Text.ElideRight
-            }
-
-            Label {
-                font: UiConstants.SubtitleFont
-                color: "#505050"
-                text: subtitle
-                visible: text.length>0
-                width: parent.width
-            }
+        Label {
+            font: UiConstants.HeaderFont
+            color: "#282828"
+            text: title
+            width: parent.width
+            elide: Text.ElideRight
         }
 
-        BusyIndicator {
-            id: idIndicator
-            anchors.verticalCenter: parent.verticalCenter
-            opacity: running?1:0    //Using opacity here, instead of visibility, so that Row will be properly aligned
-            running: processing
+        Label {
+            font: UiConstants.SubtitleFont
+            color: "#505050"
+            text: subtitle
+            visible: text.length>0
+            width: parent.width
         }
+    }
+
+    BusyIndicator {
+        id: idIndicator
+        anchors.verticalCenter: parent.verticalCenter
+        opacity: running?1:0    //Using opacity here, instead of visibility, so that Row will be properly aligned
+        running: processing
     }
 }
