@@ -175,7 +175,7 @@
     </message>
     <message>
         <source>__app_selected__</source>
-        <translation>Это приложение можно будет запустить под другим пользователем</translation>
+        <translation>которое нужно запустить под другим пользователем</translation>
     </message>
 </context>
 <context>

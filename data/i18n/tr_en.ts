@@ -175,7 +175,7 @@
     </message>
     <message>
         <source>__app_selected__</source>
-        <translation>It will be possible to run selected application as another user</translation>
+        <translation>that should be run as another user</translation>
     </message>
 </context>
 <context>
