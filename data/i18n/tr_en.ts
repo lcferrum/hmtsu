@@ -21,7 +21,7 @@
     </message>
     <message>
         <source>__context_wordexp_wrn__</source>
-        <translation>Warning: Can not parse command line (leaving as-is)</translation>
+        <translation>Warning: Can not parse command line (leaving it as is)</translation>
     </message>
     <message>
         <source>__context_descfile_wrn%1%2__</source>
@@ -45,7 +45,7 @@
     </message>
     <message>
         <source>__context_badinvoke_wrn__</source>
-        <translation>Warning: Can not parse invoker parametres (will be used unchanged in command)</translation>
+        <translation>Warning: Can not parse invoker parametres (will use original command)</translation>
     </message>
     <message>
         <source>__context_nodesktop_err__</source>

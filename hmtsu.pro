@@ -69,6 +69,7 @@ translate_qml {
 
 TRANSLATIONS =  data/i18n/tr_en.ts \
                 data/i18n/tr_ru.ts \
+                data/i18n/tr_zh_CN.ts \
                 data/i18n/conmsgs.ts
 
 CODECFORSRC = UTF-8

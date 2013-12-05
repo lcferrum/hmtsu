@@ -3,5 +3,6 @@
         <file>i18n/tr_en.qm</file>
         <file>i18n/tr_ru.qm</file>
         <file>i18n/conmsgs.qm</file>
+        <file>i18n/tr_zh_CN.qm</file>
     </qresource>
 </RCC>

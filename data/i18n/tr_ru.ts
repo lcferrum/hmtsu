@@ -45,7 +45,7 @@
     </message>
     <message>
         <source>__context_badinvoke_wrn__</source>
-        <translation>Внимание: Не удалось интерпретировать параметры invoker (применятся в команде без изменений)</translation>
+        <translation>Внимание: Не удалось интерпретировать параметры invoker (будет использована первоначальная команда)</translation>
     </message>
     <message>
         <source>__context_nodesktop_err__</source>

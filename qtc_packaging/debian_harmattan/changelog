@@ -1,6 +1,7 @@
 hmtsu (0.2.0) unstable; urgency=low
 
-  * Unannounced new feature.
+  * Added ability to select application to run from installed applications list.
+  * Added Chinese translation (thanks to gwmgdemj)
   * Performance tweaks.
 
  -- Lcferrum <lcferrum@yandex.com>  Wed, 13 Nov 2013 17:46:55 +0400

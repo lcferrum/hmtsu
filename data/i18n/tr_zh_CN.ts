@@ -5,7 +5,7 @@
     <name>Messages</name>
     <message>
         <source>__context_printpass_err__</source>
-        <translation>&lt;big&gt;&lt;b&gt;错误:选项丢失&lt;/b&gt;&lt;/big&gt;&lt;br&gt;需要在&lt;i&gt;&amp;#8209;&amp;#8209;print&amp;#8209;pass&lt;/i&gt;选项中提供&lt;i&gt;&amp;#8209;&amp;#8209;说明&lt;/i&gt;或&lt;i&gt;&amp;#8209;&amp;#8209;信息&lt;/i&gt;</translation>
+        <translation>&lt;big&gt;&lt;b&gt;错误:选项丢失&lt;/b&gt;&lt;/big&gt;&lt;br&gt;需要在&lt;i&gt;&amp;#8209;&amp;#8209;print&amp;#8209;pass&lt;/i&gt;选项中提供&lt;i&gt;&amp;#8209;&amp;#8209;description&lt;/i&gt;或&lt;i&gt;&amp;#8209;&amp;#8209;message&lt;/i&gt;</translation>
     </message>
     <message>
         <source>__pswchecker_err__</source>
@@ -21,7 +21,7 @@
     </message>
     <message>
         <source>__context_wordexp_wrn__</source>
-        <translation>警告:无法解析命令行(leaving as-is)</translation>
+        <translation>警告:无法解析命令行(离开它，因为它是)</translation>
     </message>
     <message>
         <source>__context_descfile_wrn%1%2__</source>
@@ -49,7 +49,7 @@
     </message>
     <message>
         <source>__context_nodesktop_err__</source>
-        <translation>&lt;big&gt;&lt;b&gt;错误:参数错误&lt;/b&gt;&lt;/big&gt;&lt;br&gt;需要在&lt;i&gt;&amp;#8209;&amp;#8209;force&amp;#8209;desktop&lt;/i&gt; 选项中提供有效的&lt;i&gt;&amp;#8209;&amp;#8209;说明&lt;/i&gt;或&lt;i&gt;&amp;#8209;&amp;#8209;信息&lt;/i&gt;</translation>
+        <translation>&lt;big&gt;&lt;b&gt;错误:参数错误&lt;/b&gt;&lt;/big&gt;&lt;br&gt;需要在&lt;i&gt;&amp;#8209;&amp;#8209;force&amp;#8209;desktop&lt;/i&gt; 选项中提供有效的&lt;i&gt;&amp;#8209;&amp;#8209;description&lt;/i&gt;或&lt;i&gt;&amp;#8209;&amp;#8209;message&lt;/i&gt;</translation>
     </message>
     <message>
         <source>__modesmodel_nomodes_err__</source>
@@ -108,7 +108,7 @@
     </message>
     <message>
         <source>__default_ariadne_msg%U%D__</source>
-        <translation>输入管理员密码授权程序&quot;%D&quot;以&quot;%u&quot;权限运行</translation>
+        <translation>输入管理员密码授权程序&quot;%D&quot;以&quot;%U&quot;权限运行</translation>
     </message>
 </context>
 <context>
