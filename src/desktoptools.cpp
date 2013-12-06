@@ -16,12 +16,12 @@
 #include "desktoptools.h"
 
 DesktopFile::DesktopFile():
-    desktop(NULL), lang(QLocale::system().name())
+    desktop(NULL), lang_full(QLocale::system().name()), lang_short(QLocale::system().language())
 {
 }
 
 DesktopFile::DesktopFile(const QString &path):
-    desktop(NULL), lang(QLocale::system().name())
+    desktop(NULL), lang_full(QLocale::system().name()), lang_short(QLocale::system().language())
 {
     Open(path);
 }
@@ -58,12 +58,12 @@ bool DesktopFile::DesktopKeyValue(const QString &key, bool locval, QString &valu
     if (!desktop)
         return false;
 
-    QVariant val=locval?desktop->value(QString("%1[%2]").arg(key, lang)):desktop->value(key);
+    QVariant val=locval?desktop->value(QString("%1[%2]").arg(key, lang_full)):desktop->value(key);
 
     if (val.isValid()) {
         value=val.toString();
         return true;
-    } else if (locval&&(val=desktop->value(QString("%1[%2]").arg(key, lang.left(2)))).isValid()) {
+    } else if (locval&&(val=desktop->value(QString("%1[%2]").arg(key, lang_short))).isValid()) {
         value=val.toString();
         return true;
     } else if (locval&&(val=desktop->value(key)).isValid()) {

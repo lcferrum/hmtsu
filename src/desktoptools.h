@@ -19,7 +19,8 @@
 class DesktopFile {
 private:
     QSettings* desktop;
-    QString lang;
+    QString lang_full;
+    QString lang_short;
 public:
     DesktopFile();
     DesktopFile(const QString &path);

@@ -17,7 +17,6 @@
 #include "desktoptools.h"
 #include "desktopmodel.h"
 
-#define APP_SCREEN_PATH     "/usr/share/applications/"
 #define THREAD_TIMEOUT      10000   //10 seconds
 
 DesktopModel::DesktopModel():
@@ -93,17 +92,16 @@ void DesktopSource::run()
     DesktopFile CurrentDesktop;
     AppScreenDir.setFilter(QDir::Files|QDir::NoSymLinks|QDir::NoDotAndDotDot|QDir::Readable|QDir::CaseSensitive);
     AppScreenDir.setNameFilters(QStringList()<<"*.desktop");
-    AppScreenDir.setPath(APP_SCREEN_PATH);
+    AppScreenDir.setPath("/usr/share/applications/");
 
-    QString icon, name, path;
+    QString icon, name;
 
-    foreach (const QString &file, AppScreenDir.entryList()) {
-        path=APP_SCREEN_PATH+file;
-        CurrentDesktop.Open(path);
+    foreach (const QFileInfo &file, AppScreenDir.entryInfoList()) {
+        CurrentDesktop.Open(file.absoluteFilePath());
         if (CurrentDesktop.DesktopKeyValue("NotShowIn", false, name)&&name=="X-MeeGo") continue;
         if (!CurrentDesktop.DesktopKeyValue("Name", true, name)) continue;
         if (!CurrentDesktop.DesktopKeyValue("Icon", true, icon)) continue;
-        signalNewEntry(name, DesktopFile::DesktopIconPath(icon), path); //"QPixmap: It is not safe to use pixmaps outside the GUI thread"
+        signalNewEntry(name, DesktopFile::DesktopIconPath(icon), file.absoluteFilePath());  //"QPixmap: It is not safe to use pixmaps outside the GUI thread"
         //signalNewEntry(name, icon, path);
     }
 
