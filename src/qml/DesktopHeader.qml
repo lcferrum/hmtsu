@@ -30,7 +30,7 @@ Row {
     Column {
         id: idText
         anchors.verticalCenter: parent.verticalCenter
-        width: parent.width-idIndicator.width-parent.spacing
+        width: parent.width-idIndicator.width-parent.spacing    //False-positive binding loop
 
         Label {
             font: UiConstants.HeaderFont
