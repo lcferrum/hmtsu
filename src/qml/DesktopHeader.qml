@@ -30,7 +30,7 @@ Row {
     Column {
         id: idText
         anchors.verticalCenter: parent.verticalCenter
-        width: parent.width-idIndicator.width-parent.spacing    //False-positive binding loop
+        width: parent.width-idIndicator.width-parent.spacing    //QML detects binding loop here
 
         Label {
             font: UiConstants.HeaderFont
