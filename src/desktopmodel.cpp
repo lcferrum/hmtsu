@@ -14,7 +14,8 @@
 #include <QStringList>
 #include <QDir>
 #include <QtAlgorithms>
-#include "desktoptools.h"
+#include <MDesktopEntry>
+#include "iconprovider.h"
 #include "desktopmodel.h"
 
 #define THREAD_TIMEOUT      10000   //10 seconds
@@ -72,7 +73,7 @@ bool DesktopModel::PopulateList()
 
 void DesktopModel::ReceiveEntry(QString name, QString icon_path, QString full_path)
 {
-    //DesktopDescription new_item(name, DesktopFile::DesktopIconPath(icon_path), full_path);
+    //DesktopDescription new_item(name, IconProvider::ConvertPath(icon_path), full_path);
     DesktopDescription new_item(name, icon_path, full_path);
     QList<DesktopDescription>::iterator target_it=qUpperBound(DesktopList.begin(), DesktopList.end(), new_item);
     int target_ix=target_it-DesktopList.begin();
@@ -89,20 +90,16 @@ void DesktopModel::FinishList()
 void DesktopSource::run()
 {
     QDir AppScreenDir;
-    DesktopFile CurrentDesktop;
     AppScreenDir.setFilter(QDir::Files|QDir::NoSymLinks|QDir::NoDotAndDotDot|QDir::Readable|QDir::CaseSensitive);
     AppScreenDir.setNameFilters(QStringList()<<"*.desktop");
     AppScreenDir.setPath("/usr/share/applications/");
 
-    QString icon, name;
-
     foreach (const QFileInfo &file, AppScreenDir.entryInfoList()) {
-        CurrentDesktop.Open(file.absoluteFilePath());
-        if (CurrentDesktop.DesktopKeyValue("NotShowIn", false, name)&&name=="X-MeeGo") continue;
-        if (!CurrentDesktop.DesktopKeyValue("Name", true, name)) continue;
-        if (!CurrentDesktop.DesktopKeyValue("Icon", true, icon)) continue;
-        signalNewEntry(name, DesktopFile::DesktopIconPath(icon), file.absoluteFilePath());  //"QPixmap: It is not safe to use pixmaps outside the GUI thread"
-        //signalNewEntry(name, icon, path);
+        MDesktopEntry CurrentDesktop(file.absoluteFilePath());
+        if (!CurrentDesktop.isValid()) continue;
+        if (CurrentDesktop.notShowIn().contains("X-MeeGo")) continue;
+        signalNewEntry(CurrentDesktop.name(), IconProvider::ConvertPath(CurrentDesktop.icon()), file.absoluteFilePath());    //"QPixmap: It is not safe to use pixmaps outside the GUI thread"
+        //signalNewEntry(CurrentDesktop.name(), CurrentDesktop.icon(), file.absoluteFilePath());
     }
 
     signalSourceDepleted();

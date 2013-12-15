@@ -4,32 +4,35 @@
 <context>
     <name>Messages</name>
     <message>
-        <location filename="../../src/context.cpp" line="136"/>
+        <location filename="../../src/context.cpp" line="138"/>
         <source>__context_verbosity_err__</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/context.cpp" line="161"/>
+        <location filename="../../src/context.cpp" line="163"/>
         <source>__context_printpass_err__</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/context.cpp" line="306"/>
+        <location filename="../../src/context.cpp" line="332"/>
         <source>__context_badinvoke_wrn__</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/context.cpp" line="262"/>
+        <location filename="../../src/context.cpp" line="265"/>
+        <location filename="../../src/context.cpp" line="276"/>
+        <location filename="../../src/context.cpp" line="287"/>
+        <location filename="../../src/context.cpp" line="343"/>
         <source>__context_descfile_wrn%1%2__</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/context.cpp" line="151"/>
+        <location filename="../../src/context.cpp" line="153"/>
         <source>__context_nodesktop_err__</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/context.cpp" line="240"/>
+        <location filename="../../src/context.cpp" line="242"/>
         <source>__context_wordexp_wrn__</source>
         <translation type="unfinished"></translation>
     </message>
@@ -132,13 +135,13 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/qml/PassPage.qml" line="104"/>
+        <location filename="../../src/qml/PassPage.qml" line="115"/>
         <source>__enter_pass__</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/qml/PassPage.qml" line="161"/>
-        <location filename="../../src/qml/PassPage.qml" line="173"/>
+        <location filename="../../src/qml/PassPage.qml" line="172"/>
+        <location filename="../../src/qml/PassPage.qml" line="184"/>
         <source>__launch__</source>
         <translation type="unfinished"></translation>
     </message>
@@ -216,12 +219,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/qml/StartPage.qml" line="202"/>
+        <location filename="../../src/qml/StartPage.qml" line="194"/>
         <source>__select_app__</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/qml/StartPage.qml" line="242"/>
+        <location filename="../../src/qml/StartPage.qml" line="195"/>
         <source>__app_selected__</source>
         <translation type="unfinished"></translation>
     </message>

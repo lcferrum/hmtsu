@@ -13,6 +13,7 @@
 
 #include <QIcon>
 #include <MGConfItem>
+#include <unistd.h>
 #include "iconprovider.h"
 
 QPixmap IconProvider::requestPixmap(const QString &id, QSize *size, const QSize &requestedSize)
@@ -31,7 +32,13 @@ void IconProvider::SetToCurrentSystemTheme()
     QIcon::setThemeName(CurrentTheme.value().toString());
 }
 
-bool IconProvider::HasIcon(const QString &name)
+QString IconProvider::ConvertPath(const QString &icon_path)
 {
-    return QIcon::hasThemeIcon(name);
+    if (icon_path.length()>0)
+        return (access(icon_path.toLocal8Bit().constData(), R_OK)?
+                    (QIcon::hasThemeIcon(icon_path)?"image://icon/":"image://theme/"):
+                    "file://")
+               +icon_path;
+    else
+        return "";
 }

@@ -19,10 +19,12 @@
 #include <pwd.h>
 #include <iostream>
 #include <QCoreApplication>
+#include <QScopedPointer>
 #include <QRegExp>
 #include <QStringList>
 #include <QProcess>
 #include <QFileInfo>
+#include "iconprovider.h"
 #include "context.h"
 #include "common.h"
 #include "pswtools.h"
@@ -62,7 +64,7 @@ Context::Context(int argc, char **argv):
 
     int opt=0;
     bool use_desktop_file=false;
-    DesktopFile CurDesktopFile;
+    QScopedPointer<MDesktopEntry> CurDesktopFile(NULL);
 
     winsize argp;
     if (!ioctl(STDOUT_FILENO, TIOCGWINSZ, &argp)) {
@@ -96,8 +98,8 @@ Context::Context(int argc, char **argv):
                 break;
             case 'm':
                 if (!access(optarg, R_OK)) {
-                    CurDesktopFile.Open(optarg);
-                    if (LoadValueFromDesktop(CurDesktopFile, "Comment", true, text)) message=ctx_msg_FULL;
+                    CurDesktopFile.reset(new MDesktopEntry(optarg));
+                    if (LoadCommentFromDesktop(CurDesktopFile.data(), text)) message=ctx_msg_FULL;
                 } else {
                     text=QString::fromLocal8Bit(optarg);
                     message=ctx_msg_FULL;
@@ -108,8 +110,8 @@ Context::Context(int argc, char **argv):
                 break;
             case 'D':
                 if (!access(optarg, R_OK)) {
-                    CurDesktopFile.Open(optarg);
-                    if (LoadValueFromDesktop(CurDesktopFile, "Name", true, text)) message=ctx_msg_DESC;
+                    CurDesktopFile.reset(new MDesktopEntry(optarg));
+                    if (LoadNameFromDesktop(CurDesktopFile.data(), text)) message=ctx_msg_DESC;
                 } else {
                     text=QString::fromLocal8Bit(optarg);
                     message=ctx_msg_DESC;
@@ -142,10 +144,10 @@ Context::Context(int argc, char **argv):
     }
 
     if (use_desktop_file) {
-        if (CurDesktopFile.IfOpened()) {
+        if (CurDesktopFile) {
             QString cmdline;
-            LoadValueFromDesktop(CurDesktopFile, "Icon", true, icon);
-            if (LoadExecFromDesktop(CurDesktopFile, cmdline, splash, splash_lscape)) SetCommand(cmdline);   //Sets appropriate action (ctx_act_CONTINUE/ctx_act_ASK_FOR_MORE) internally
+            LoadIconFromDesktop(CurDesktopFile.data(), icon);
+            if (LoadExecFromDesktop(CurDesktopFile.data(), cmdline, splash, splash_lscape)) SetCommand(cmdline);   //Sets appropriate action (ctx_act_CONTINUE/ctx_act_ASK_FOR_MORE) internally
         } else {
             action=ctx_act_ASK_FOR_MORE;
             Intercom->AddError(QCoreApplication::translate("Messages", "__context_nodesktop_err__"));
@@ -254,20 +256,44 @@ void Context::SetPreserveEnv(bool flag)
     kpp_env=flag;
 }
 
-bool Context::LoadValueFromDesktop(const DesktopFile &CurDesktopFile, const QString &key, bool locval, QString &value)
+bool Context::LoadNameFromDesktop(const MDesktopEntry *CurDesktopFile, QString &value)
 {
-    if (CurDesktopFile.DesktopKeyValue(key, locval, value))
+    if (CurDesktopFile->isValid()) {
+        value=CurDesktopFile->name();
         return true;
-    else {
-        Intercom->AddWarning(QCoreApplication::translate("Messages", "__context_descfile_wrn%1%2__").arg(key, CurDesktopFile.Path()));
+    } else {
+        Intercom->AddWarning(QCoreApplication::translate("Messages", "__context_descfile_wrn%1%2__").arg("Name", CurDesktopFile->fileName()));
         return false;
     }
 }
 
-bool Context::LoadExecFromDesktop(const DesktopFile &CurDesktopFile, QString &cmdline, QString &S, QString &L)
+bool Context::LoadCommentFromDesktop(const MDesktopEntry *CurDesktopFile, QString &value)
 {
-    QString exec;
-    if (LoadValueFromDesktop(CurDesktopFile, "Exec", false, exec)) {
+    if (CurDesktopFile->isValid()) {
+        value=CurDesktopFile->comment();
+        return true;
+    } else {
+        Intercom->AddWarning(QCoreApplication::translate("Messages", "__context_descfile_wrn%1%2__").arg("Comment", CurDesktopFile->fileName()));
+        return false;
+    }
+}
+
+bool Context::LoadIconFromDesktop(const MDesktopEntry *CurDesktopFile, QString &value)
+{
+    if (CurDesktopFile->isValid()) {
+        value=CurDesktopFile->icon();
+        return true;
+    } else {
+        Intercom->AddWarning(QCoreApplication::translate("Messages", "__context_descfile_wrn%1%2__").arg("Icon", CurDesktopFile->fileName()));
+        return false;
+    }
+}
+
+bool Context::LoadExecFromDesktop(const MDesktopEntry *CurDesktopFile, QString &cmdline, QString &S, QString &L)
+{
+    if (CurDesktopFile->isValid()) {
+        QString exec=CurDesktopFile->exec();
+
         exec.replace(QRegExp("([^%])%[A-Za-z]"), "\\1");
 
         if (exec.startsWith("invoker")||exec.startsWith("/usr/bin/invoker")) {
@@ -313,19 +339,21 @@ bool Context::LoadExecFromDesktop(const DesktopFile &CurDesktopFile, QString &cm
         }
 
         return true;
-    } else
+    } else {
+        Intercom->AddWarning(QCoreApplication::translate("Messages", "__context_descfile_wrn%1%2__").arg("Exec", CurDesktopFile->fileName()));
         return false;
+    }
 }
 
 QString Context::ForceDesktop(const QString &path)
 {
-    DesktopFile GuiApp(path);
+    MDesktopEntry GuiApp(path);
     QString cmdline;
-    if (LoadValueFromDesktop(GuiApp, "Name", true, text)) message=ctx_msg_DESC;
+    if (LoadNameFromDesktop(&GuiApp, text)) message=ctx_msg_DESC;
         else message=ctx_msg_CMD;
-    if (!LoadValueFromDesktop(GuiApp, "Icon", true, icon))
+    if (!LoadIconFromDesktop(&GuiApp, icon))
         icon="";
-    if (!LoadExecFromDesktop(GuiApp, cmdline, splash, splash_lscape)) {
+    if (!LoadExecFromDesktop(&GuiApp, cmdline, splash, splash_lscape)) {
         splash="";
         splash_lscape="";
     }
@@ -339,7 +367,7 @@ int Context::GetVerboseLevel()
 
 QString Context::GetIcon()
 {
-    return DesktopFile::DesktopIconPath(icon);
+    return IconProvider::ConvertPath(icon);
 }
 
 QString Context::GetRootName()

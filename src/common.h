@@ -14,7 +14,7 @@
 #ifndef COMMON_H
 #define COMMON_H
 
-#define HMTSU_VERSION_STRING "v 0.2.0"
+#define HMTSU_VERSION_STRING "v 0.2.1"
 #define HMTSU_COPYRIGHT_STRING "2013 Lcferrum"
 
 #define NORMAL_EXIT_CODE    0

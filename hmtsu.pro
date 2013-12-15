@@ -10,7 +10,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 # Harmattan boosting through applauncherd daemon requires qdeclarative-boostable
-# MNotification and MGConfItem uses meegotouch
+# MNotification, MDesktopEntry and MGConfItem uses meegotouch
 CONFIG += qdeclarative-boostable meegotouch
 
 LIBS += -lcrypt -lutil -lX11
@@ -23,7 +23,6 @@ SOURCES +=  src/main.cpp \
             src/hout.cpp \
             src/iconprovider.cpp \
             src/pswtools.cpp \
-            src/desktoptools.cpp \
             src/desktopmodel.cpp \
             src/usersmodel.cpp \
             src/modesmodel.cpp
@@ -37,7 +36,6 @@ HEADERS +=  src/context.h \
             src/hout.h \
             src/iconprovider.h \
             src/pswtools.h \
-            src/desktoptools.h \
             src/desktopmodel.h \
             src/modesmodel.h \
             src/usersmodel.h

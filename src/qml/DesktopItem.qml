@@ -46,7 +46,7 @@ Item {
             sourceSize.width: 64
             sourceSize.height: 64
             anchors.verticalCenter: parent.verticalCenter
-            source: image
+            source: image===""?"image://theme/icon-l-default-application":image
 
             onStatusChanged: {
                 if (status===Image.Error)

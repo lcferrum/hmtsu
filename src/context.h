@@ -17,9 +17,9 @@
 #include <QString>
 #include <QDeclarativeContext>
 #include <QStringList>
+#include <MDesktopEntry>
 #include "runtools.h"
 #include "runmodes.h"
-#include "desktoptools.h"
 #include "commhandler.h"
 
 class Context: public QObject, protected IntercomHandler {
@@ -41,8 +41,10 @@ private:
     QString splash_lscape;
     QString icon;
     QStringList command;
-    bool LoadValueFromDesktop(const DesktopFile &CurDesktopFile, const QString &key, bool locval, QString &value);
-    bool LoadExecFromDesktop(const DesktopFile &CurDesktopFile, QString &cmdline, QString &S, QString &L);
+    bool LoadNameFromDesktop(const MDesktopEntry *CurDesktopFile, QString &value);                              //Warning: CurDesktopFile can't be NULL!
+    bool LoadCommentFromDesktop(const MDesktopEntry *CurDesktopFile, QString &value);                           //Warning: CurDesktopFile can't be NULL!
+    bool LoadIconFromDesktop(const MDesktopEntry *CurDesktopFile, QString &value);                              //Warning: CurDesktopFile can't be NULL!
+    bool LoadExecFromDesktop(const MDesktopEntry *CurDesktopFile, QString &cmdline, QString &S, QString &L);    //Warning: CurDesktopFile can't be NULL!
 public:
     Context(int argc, char **argv);
     bool IfExit();
