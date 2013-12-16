@@ -383,8 +383,9 @@ QString Context::GetRootName()
     }
 }
 
-void Context::Run(QString psw, bool no_pass)
+void Context::PrepareToRun(QString psw, bool no_pass)
 {
+    delete Tools;
     switch (run_mode) {
         case RunModes::PRINT:
             Tools=new PrintRunTools(psw, no_pass);
@@ -402,7 +403,7 @@ void Context::Run(QString psw, bool no_pass)
     PswTools::ClearPsw(psw);
 }
 
-void Context::ActuallyRun()
+void Context::Run()
 {
     if (Tools) {
         Tools->Run(user, login, kpp_env, command, splash, splash_lscape);

@@ -89,7 +89,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
         App->exec();
     }
 
-    Ctx.ActuallyRun();
+    Ctx.Run();
 
     return IntercomHandler::GetExitCode();
 }

@@ -25,13 +25,15 @@ using namespace std;
 Q_DECLARE_METATYPE(RunModes::QmlEnum)
 
 PswTools::PswTools():
-    QObject(NULL), prepared(false), user_record(NULL)
+    QObject(NULL), prepared(false), no_pass(false), pw_passwd()
 {
 }
 
 void PswTools::PrepareForCheck(RunModes::QmlEnum mode, const QString &target_user)
 {
     if (!prepared) {
+        passwd *user_record;
+
         do {
             errno=0;
             user_record=(mode==RunModes::SU)?
@@ -53,6 +55,7 @@ void PswTools::PrepareForCheck(RunModes::QmlEnum mode, const QString &target_use
                 return;
             }
 
+        pw_passwd=user_record->pw_passwd;
         prepared=true;
     }
 }
@@ -60,8 +63,10 @@ void PswTools::PrepareForCheck(RunModes::QmlEnum mode, const QString &target_use
 bool PswTools::CheckSuNoPass()
 {
     //if (user_record->pw_uid==getuid()||!getuid())
-    if (getuid()==ROOT_UID)
+    if (getuid()==ROOT_UID) {
+        no_pass=true;
         signalNoPsw();
+    }
 
     return true;
 }
@@ -74,8 +79,10 @@ bool PswTools::CheckSudoNoPass()
     sudo.waitForFinished();
     QByteArray output=sudo.readAllStandardError();
 
-    if (!sudo.exitCode())
+    if (!sudo.exitCode()) {
+        no_pass=true;
         signalNoPsw();
+    }
 
     return output.length()==0||output.endsWith(":\n");
 }
@@ -83,20 +90,24 @@ bool PswTools::CheckSudoNoPass()
 void PswTools::PswCheck(QString psw)
 {
     if (prepared) {
-        char *psw_hash=NULL;
-
-        psw_hash=crypt(psw.toLocal8Bit().constData(), user_record->pw_passwd);
-        ClearPsw(psw);
-
-        if (!psw_hash) {
-            Intercom->AddError(QCoreApplication::translate("Messages", "__pswchecker_err__"));
+        if (no_pass) {
+            signalPswOk(psw, true);
         } else {
-            if (strcmp(user_record->pw_passwd, psw_hash))
-                signalPswBad();
-            else
-                signalPswOk();
+            char *psw_hash=NULL;
+
+            psw_hash=crypt(psw.toLocal8Bit().constData(), pw_passwd.constData());
+
+            if (!psw_hash) {
+                Intercom->AddError(QCoreApplication::translate("Messages", "__pswchecker_err__"));
+            } else {
+                if (strcmp(pw_passwd.constData(), psw_hash))
+                    signalPswBad();
+                else
+                    signalPswOk(psw, false);
+            }
         }
     }
+    ClearPsw(psw);
 }
 
 void PswTools::ClearPsw(QString &psw)

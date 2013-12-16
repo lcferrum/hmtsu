@@ -49,7 +49,7 @@ public:
     Context(int argc, char **argv);
     bool IfExit();
     int GetVerboseLevel();
-    void ActuallyRun();
+    void Run();
 
     //Properties exposed to QML:
     Q_PROPERTY(RunModes::QmlEnum Mode READ CheckMode WRITE ChangeMode) //N.B.: non-local Q_ENUMS can't be used in Q_INVOKABLE, should be fixed in Qt5
@@ -71,7 +71,7 @@ public:
     Q_INVOKABLE QString GetIcon();
     Q_INVOKABLE QString GetRootName();
     Q_INVOKABLE QString ForceDesktop(const QString &path);
-    Q_INVOKABLE void Run(QString psw, bool no_pass);
+    Q_INVOKABLE void PrepareToRun(QString psw, bool no_pass);
 };
 
 #endif // CONTEXT_H

@@ -16,8 +16,8 @@ import com.nokia.meego 1.1
 import com.lcferrum.hmtsu 1.0   //Created at runtime
 
 Page {
-    property int propAtsRemain: MAX_PSW_ATTEMPTS
-    property bool propNoPass: false
+    property int propAtsRemainPri: MAX_PSW_ATTEMPTS
+    property int propAtsRemainSec: MAX_PSW_ATTEMPTS
 
     function fnGetMessage() {
         if (!objContext.IfCustomMessage()) {
@@ -37,13 +37,18 @@ Page {
             idBtnLaunch.enabled=false;
             idPassInput.platformCloseSoftwareInputPanel();
             idPassInput.readOnly=true;
-            idRunTimer.start();
-        } else if (propNoPass) {
-            objIntercom.SetCustomExitCode(NORMAL_EXIT_CODE);
-            idBtnLaunch.enabled=false;
+            objContext.PrepareToRun(idPassInput.text, false);
             idRunTimer.start();
         } else {
-            objPassCheck.PswCheck(idPassInput.text);
+            propAtsRemainPri--;
+            if (propAtsRemainPri>=0) {
+                objPassCheck.PswCheck(idPassInput.text);
+            }
+            if (propAtsRemainPri<=0) {
+                idBtnLaunch.enabled=false;
+                idPassInput.platformCloseSoftwareInputPanel();
+                idPassInput.readOnly=true;
+            }
         }
     }
 
@@ -56,26 +61,24 @@ Page {
             idPassInput.platformCloseSoftwareInputPanel();
             idPassInput.readOnly=true;
             objIntercom.AddInfo(qsTr("__pass_ok__"));
+            objContext.PrepareToRun(psw, no_pass);
             idRunTimer.start();
         }
 
         onSignalPswBad: {
-            propAtsRemain--;
+            propAtsRemainSec--;
             idPassInput.errorHighlight=true;
-            if (propAtsRemain>0) {
-                objIntercom.AddInfo(qsTr("__pass_wrong_cnt%R__").replace("%R", propAtsRemain));
+            if (propAtsRemainSec>0) {
+                objIntercom.AddInfo(qsTr("__pass_wrong_cnt%R__").replace("%R", propAtsRemainSec));
             } else {
                 objIntercom.SetCustomExitCode(DENIED_EXIT_CODE);
-                idBtnLaunch.enabled=false;
-                idPassInput.platformCloseSoftwareInputPanel();
-                idPassInput.readOnly=true;
                 objIntercom.AddInfo(qsTr("__pass_wrong_end__"));
             }
         }
 
         onSignalNoPsw: {
-            propNoPass=true;
             idPassInput.readOnly=true;
+            idPassInput.text="";
             idPassInput.placeholderText=qsTr("__pass_not_needed__");
         }
     }
@@ -91,10 +94,7 @@ Page {
         interval: 1000
         repeat: false
 
-        onTriggered: {
-            objContext.Run(idPassInput.text, propNoPass);
-            Qt.quit();
-        }
+        onTriggered: Qt.quit()
     }
 
     Timer {

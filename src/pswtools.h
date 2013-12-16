@@ -15,6 +15,7 @@
 #define PSWCHECKER_H
 
 #include <QObject>
+#include <QByteArray>
 #include <pwd.h>
 #include "runmodes.h"
 #include "commhandler.h"
@@ -24,7 +25,8 @@ class PswTools: public QObject, protected IntercomHandler {
     Q_OBJECT
 private:
     bool prepared;
-    passwd *user_record;
+    bool no_pass;
+    QByteArray pw_passwd;
     void PrepareForCheck(RunModes::QmlEnum mode, const QString &target_user);
     bool CheckSuNoPass();
     bool CheckSudoNoPass();
@@ -38,7 +40,7 @@ public:
     }
     Q_INVOKABLE void PswCheck(QString psw);
 signals:
-    void signalPswOk();
+    void signalPswOk(QString psw, bool no_pass);
     void signalPswBad();
     void signalNoPsw();
 };
