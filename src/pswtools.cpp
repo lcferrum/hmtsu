@@ -29,7 +29,7 @@ PswTools::PswTools():
 {
 }
 
-void PswTools::PrepareForCheck(RunModes::QmlEnum mode, const QString &target_user)
+QVariant PswTools::PrepareForCheck(RunModes::QmlEnum mode, const QString &target_user)
 {
     if (!prepared) {
         passwd *user_record;
@@ -43,7 +43,7 @@ void PswTools::PrepareForCheck(RunModes::QmlEnum mode, const QString &target_use
 
         if (!user_record) {
             Intercom->AddError(QCoreApplication::translate("Messages", "__pswchecker_err__"));
-            return;
+            return QVariant();
         }
 
         if (mode==RunModes::SU)
@@ -52,12 +52,14 @@ void PswTools::PrepareForCheck(RunModes::QmlEnum mode, const QString &target_use
         if (mode==RunModes::SUDO)
             if (!CheckSudoNoPass()) {
                 Intercom->AddError(QCoreApplication::translate("Messages", "__pswchecker_not_sudoer_err__"));
-                return;
+                return QVariant();
             }
 
         pw_passwd=user_record->pw_passwd;
         prepared=true;
-    }
+        return QVariant(no_pass);
+    } else
+        return QVariant();
 }
 
 bool PswTools::CheckSuNoPass()
@@ -65,7 +67,6 @@ bool PswTools::CheckSuNoPass()
     //if (user_record->pw_uid==getuid()||!getuid())
     if (getuid()==ROOT_UID) {
         no_pass=true;
-        signalNoPsw();
     }
 
     return true;
@@ -81,17 +82,16 @@ bool PswTools::CheckSudoNoPass()
 
     if (!sudo.exitCode()) {
         no_pass=true;
-        signalNoPsw();
     }
 
     return output.length()==0||output.endsWith(":\n");
 }
 
-void PswTools::PswCheck(QString psw)
+QVariant PswTools::PswCheck(const QString &psw)
 {
     if (prepared) {
         if (no_pass) {
-            signalPswOk(psw, true);
+            return QVariant(true);
         } else {
             char *psw_hash=NULL;
 
@@ -101,13 +101,13 @@ void PswTools::PswCheck(QString psw)
                 Intercom->AddError(QCoreApplication::translate("Messages", "__pswchecker_err__"));
             } else {
                 if (strcmp(pw_passwd.constData(), psw_hash))
-                    signalPswBad();
+                    return QVariant(false);
                 else
-                    signalPswOk(psw, false);
+                    return QVariant(psw);
             }
         }
     }
-    ClearPsw(psw);
+    return QVariant();
 }
 
 void PswTools::ClearPsw(QString &psw)
