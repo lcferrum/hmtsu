@@ -40,7 +40,7 @@ Page {
             objContext.PrepareToRun(idPassInput.text, false);
             idRunTimer.start();
         } else {
-            propAtsRemainPri--;
+            /*propAtsRemainPri--;
             if (propAtsRemainPri>=0) {
                 objPassCheck.PswCheck(idPassInput.text);
             }
@@ -48,7 +48,7 @@ Page {
                 idBtnLaunch.enabled=false;
                 idPassInput.platformCloseSoftwareInputPanel();
                 idPassInput.readOnly=true;
-            }
+            }*/
         }
     }
 
@@ -76,16 +76,17 @@ Page {
             }
         }
 
-        onSignalNoPsw: {
-            idPassInput.readOnly=true;
-            idPassInput.text="";
-            idPassInput.placeholderText=qsTr("__pass_not_needed__");
-        }
     }
 
     Component.onCompleted: {
         objIntercom.SetCustomExitCode(CANCELED_EXIT_CODE);
-        objPassCheck.PrepareForCheck(objContext.Mode, objContext.TargetUser);
+
+        if (objPassCheck.PrepareForCheck(objContext.Mode, objContext.TargetUser)===true) {
+            idPassInput.readOnly=true;
+            idPassInput.text="";
+            idPassInput.placeholderText=qsTr("__pass_not_needed__");
+        }
+
         idNoVkbFlickerTimer.start();
     }
 
