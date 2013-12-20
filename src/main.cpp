@@ -15,7 +15,6 @@
 #include <QTranslator>
 #include <QGraphicsObject>
 #include <QtDeclarative>
-#include <QDebug>
 #include "context.h"
 #include "runmodes.h"
 #include "modesmodel.h"
@@ -27,12 +26,6 @@
 #include "iconprovider.h"
 #include "desktopmodel.h"
 #include "qmlapplicationviewer.h"
-
-void SuppressQDebug(QtMsgType type, const char *msg)
-{
-     Q_UNUSED(type);
-     Q_UNUSED(msg);
-}
 
 Q_DECL_EXPORT int main(int argc, char *argv[])
 {
@@ -53,11 +46,6 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
 
     if (Ctx.IfExit())
         return IntercomHandler::GetExitCode();
-
-    if (Ctx.GetVerboseLevel()<1) IntercomHandler::DisableGeneralMsgs();     //GENERAL verbosity included in levels greater than 0
-    if (Ctx.GetVerboseLevel()<2) IntercomHandler::DisableErrorMsgs();       //ERRORS verbosity included in levels greater than 1
-    if (Ctx.GetVerboseLevel()<3) IntercomHandler::DisableWarningMsgs();     //WARNINGS verbosity included in levels greater than 2
-    if (Ctx.GetVerboseLevel()<4) qInstallMsgHandler(SuppressQDebug);        //DEBUG verbosity included in levels greater than 3
 
     {
         ModesModel ModesList(Ctx.CheckMode(), Ctx.CheckMode()==RunModes::PRINT);

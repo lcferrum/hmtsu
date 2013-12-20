@@ -31,38 +31,37 @@ Page {
     }
 
     function fnCheckPassword(psw) {
-        if (objContext.Mode===RunModes.PRINT) {
-            objIntercom.SetCustomExitCode(NORMAL_EXIT_CODE);
-            idBtnLaunch.enabled=false;
-            idPassInput.platformCloseSoftwareInputPanel();
-            idPassInput.readOnly=true;
-            objContext.PrepareToRun(psw, false);
-            idRunTimer.start();
-        } else {
-            var check_result=objPassCheck.PswCheck(psw);
-            if (check_result===false) {
-                propAtsRemain--;
-                idPassInput.errorHighlight=true;
-                if (propAtsRemain>0) {
-                    objIntercom.AddInfo(qsTr("__pass_wrong_cnt%R__").replace("%R", propAtsRemain));
-                } else {
-                    objIntercom.SetCustomExitCode(DENIED_EXIT_CODE);
-                    idBtnLaunch.enabled=false;
-                    idPassInput.platformCloseSoftwareInputPanel();
-                    idPassInput.readOnly=true;
-                    objIntercom.AddInfo(qsTr("__pass_wrong_end__"));
-                }
-            } else if (check_result===true) {
+        if (propAtsRemain>0) {
+            if (objContext.Mode===RunModes.PRINT) {
                 objIntercom.SetCustomExitCode(NORMAL_EXIT_CODE);
                 idBtnLaunch.enabled=false;
                 idPassInput.platformCloseSoftwareInputPanel();
                 idPassInput.readOnly=true;
-                objIntercom.AddInfo(qsTr("__pass_ok__"));
-                if (check_result===true)
-                    objContext.PrepareToRun(psw, objPassCheck.IfNoPass());
-                else
-                    objContext.PrepareToRun(psw, objPassCheck.IfNoPass());
+                objContext.PrepareToRun(psw, false);
                 idRunTimer.start();
+            } else {
+                var check_result=objPassCheck.PswCheck(psw);
+                if (check_result===false) {
+                    propAtsRemain--;
+                    idPassInput.errorHighlight=true;
+                    if (propAtsRemain>0) {
+                        objIntercom.AddInfo(qsTr("__pass_wrong_cnt%R__").replace("%R", propAtsRemain));
+                    } else {
+                        objIntercom.SetCustomExitCode(DENIED_EXIT_CODE);
+                        idBtnLaunch.enabled=false;
+                        idPassInput.platformCloseSoftwareInputPanel();
+                        idPassInput.readOnly=true;
+                        objIntercom.AddInfo(qsTr("__pass_wrong_end__"));
+                    }
+                } else if (check_result===true) {
+                    objIntercom.SetCustomExitCode(NORMAL_EXIT_CODE);
+                    idBtnLaunch.enabled=false;
+                    idPassInput.platformCloseSoftwareInputPanel();
+                    idPassInput.readOnly=true;
+                    objIntercom.AddInfo(qsTr("__pass_ok__"));
+                    objContext.PrepareToRun(psw, objPassCheck.IfNoPass());
+                    idRunTimer.start();
+                }
             }
         }
     }

@@ -120,19 +120,19 @@ void Intercommunication::Start()
     }
 }
 
-void Intercommunication::DisableErrorMsgs()
+void Intercommunication::ToggleErrorMsgs(bool state)
 {
-    error_msgs_enabled=false;
+    error_msgs_enabled=state;
 }
 
-void Intercommunication::DisableWarningMsgs()
+void Intercommunication::ToggleWarningMsgs(bool state)
 {
-    warning_msgs_enabled=false;
+    warning_msgs_enabled=state;
 }
 
-void Intercommunication::DisableGeneralMsgs()
+void Intercommunication::ToggleGeneralMsgs(bool state)
 {
-    general_msgs_enabled=false;
+    general_msgs_enabled=state;
 }
 
 bool Intercommunication::IfErrorMsgsDisabled()
@@ -164,19 +164,4 @@ int IntercomHandler::GetExitCode()
 {
     if (Intercom) return Intercom->GetExitCode();
         else return NORMAL_EXIT_CODE;
-}
-
-void IntercomHandler::DisableErrorMsgs()
-{
-    if (Intercom) Intercom->DisableErrorMsgs();
-}
-
-void IntercomHandler::DisableWarningMsgs()
-{
-    if (Intercom) Intercom->DisableWarningMsgs();
-}
-
-void IntercomHandler::DisableGeneralMsgs()
-{
-    if (Intercom) Intercom->DisableGeneralMsgs();
 }

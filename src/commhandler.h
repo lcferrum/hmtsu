@@ -40,9 +40,9 @@ public:
     void AddSafeError(const QString &msg);
     void AddSafeWarning(const QString &msg);
     bool IfErrorMsgsDisabled();
-    void DisableErrorMsgs();
-    void DisableWarningMsgs();
-    void DisableGeneralMsgs();
+    void ToggleErrorMsgs(bool state);
+    void ToggleWarningMsgs(bool state);
+    void ToggleGeneralMsgs(bool state);
 
     //Functions exposed to QML:
     Q_INVOKABLE void SetCustomExitCode(int code);
@@ -63,9 +63,6 @@ public:
     IntercomHandler();
     virtual ~IntercomHandler()=0;   //A trick to make class abstract (N.B.: destructor IS implemented and NEVER overloaded). Works only with destructors.
     static int GetExitCode();
-    static void DisableErrorMsgs();
-    static void DisableWarningMsgs();
-    static void DisableGeneralMsgs();
 };
 
 class ScopedIntercomHandler: protected IntercomHandler {

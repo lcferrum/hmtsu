@@ -29,7 +29,7 @@ PswTools::PswTools():
 {
 }
 
-QVariant PswTools::PrepareForCheck(RunModes::QmlEnum mode, const QString &target_user)
+bool PswTools::PrepareForCheck(RunModes::QmlEnum mode, const QString &target_user)
 {
     if (!prepared) {
         passwd *user_record;
@@ -43,7 +43,7 @@ QVariant PswTools::PrepareForCheck(RunModes::QmlEnum mode, const QString &target
 
         if (!user_record) {
             Intercom->AddError(QCoreApplication::translate("Messages", "__pswchecker_err__"));
-            return QVariant();
+            return false;
         }
 
         if (mode==RunModes::SU)
@@ -52,14 +52,14 @@ QVariant PswTools::PrepareForCheck(RunModes::QmlEnum mode, const QString &target
         if (mode==RunModes::SUDO)
             if (!CheckSudoNoPass()) {
                 Intercom->AddError(QCoreApplication::translate("Messages", "__pswchecker_not_sudoer_err__"));
-                return QVariant();
+                return false;
             }
 
         pw_passwd=user_record->pw_passwd;
         prepared=true;
-        return QVariant(no_pass);
+        return no_pass;
     } else
-        return QVariant();
+        return false;
 }
 
 bool PswTools::CheckSuNoPass()
@@ -87,7 +87,7 @@ bool PswTools::CheckSudoNoPass()
     return output.length()==0||output.endsWith(":\n");
 }
 
-QVariant PswTools::PswCheck(QString psw)
+QVariant PswTools::PswCheck(const QString &psw)
 {
     if (prepared) {
         if (no_pass) {
@@ -96,7 +96,6 @@ QVariant PswTools::PswCheck(QString psw)
             char *psw_hash=NULL;
 
             psw_hash=crypt(psw.toLocal8Bit().constData(), pw_passwd.constData());
-            ClearPsw(psw);
 
             if (!psw_hash) {
                 Intercom->AddError(QCoreApplication::translate("Messages", "__pswchecker_err__"));
@@ -114,10 +113,4 @@ QVariant PswTools::PswCheck(QString psw)
 bool PswTools::IfNoPass()
 {
     return no_pass;
-}
-
-void PswTools::ClearPsw(QString &psw)
-{
-    psw.fill('\0');
-    psw.clear();
 }

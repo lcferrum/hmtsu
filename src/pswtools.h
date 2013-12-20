@@ -27,18 +27,17 @@ private:
     bool prepared;
     bool no_pass;
     QByteArray pw_passwd;
-    QVariant PrepareForCheck(RunModes::QmlEnum mode, const QString &target_user);
+    bool PrepareForCheck(RunModes::QmlEnum mode, const QString &target_user);
     bool CheckSuNoPass();
     bool CheckSudoNoPass();
 public:
     PswTools();
-    static void ClearPsw(QString &psw);
 
     //Functions exposed to QML:
-    Q_INVOKABLE QVariant PrepareForCheck(/* RunModes::QmlEnum */ int mode, const QString &target_user) {    //Non-local Q_ENUMS can't be used in Q_INVOKABLE - use this hack
-        return PrepareForCheck(static_cast<RunModes::QmlEnum>(mode), target_user);                          //Should be fixed in Qt5
+    Q_INVOKABLE bool PrepareForCheck(/* RunModes::QmlEnum */ int mode, const QString &target_user) {    //Non-local Q_ENUMS can't be used in Q_INVOKABLE - use this hack
+        return PrepareForCheck(static_cast<RunModes::QmlEnum>(mode), target_user);                      //Should be fixed in Qt5
     }
-    Q_INVOKABLE QVariant PswCheck(QString psw);
+    Q_INVOKABLE QVariant PswCheck(const QString &psw);
     Q_INVOKABLE bool IfNoPass();
 };
 

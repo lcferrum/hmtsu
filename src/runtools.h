@@ -32,6 +32,7 @@ protected:
     bool Launch(char **cmd, const QString &path, const QString &splash, const QString &splash_lscape);
     char** StringListToArray(const QStringList &list);
     void DeleteStringArray(char **arr);
+    void ClearPsw();
 public:
     RunTools(const QString &psw, bool no_pass);
     virtual void Run(const QString &user, bool login, bool kpp_env, const QStringList &command, const QString &splash, const QString &splash_lscape)=0;

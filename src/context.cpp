@@ -47,6 +47,12 @@ struct option long_options[] = {
     {NULL, 0, NULL, 0}
 };
 
+void SuppressQDebug(QtMsgType type, const char *msg)
+{
+     Q_UNUSED(type);
+     Q_UNUSED(msg);
+}
+
 void PrintUsage(const QString &exe, const QString &su);
 void PrintVersion();
 
@@ -70,6 +76,8 @@ Context::Context(int argc, char **argv):
     if (!ioctl(STDOUT_FILENO, TIOCGWINSZ, &argp)) {
         Hout::SetTerminalSize(argp.ws_col);
     }
+
+    ApplyVerboseLevel();
 
     while ((opt=getopt_long(argc, argv, "?hvu:lpm:kSwaD:fV:", long_options, NULL))!=-1) {
         switch (opt) {
@@ -138,6 +146,7 @@ Context::Context(int argc, char **argv):
                         Intercom->AddError(QCoreApplication::translate("Messages", "__context_verbosity_err__"));
                         return;
                     }
+                    ApplyVerboseLevel();
                 }
                 break;
         }
@@ -258,7 +267,7 @@ void Context::SetPreserveEnv(bool flag)
 
 bool Context::LoadNameFromDesktop(const MDesktopEntry *CurDesktopFile, QString &value)
 {
-    if (CurDesktopFile->isValid()) {
+    if (CurDesktopFile&&CurDesktopFile->isValid()) {
         value=CurDesktopFile->name();
         return true;
     } else {
@@ -269,7 +278,7 @@ bool Context::LoadNameFromDesktop(const MDesktopEntry *CurDesktopFile, QString &
 
 bool Context::LoadCommentFromDesktop(const MDesktopEntry *CurDesktopFile, QString &value)
 {
-    if (CurDesktopFile->isValid()) {
+    if (CurDesktopFile&&CurDesktopFile->isValid()) {
         value=CurDesktopFile->comment();
         return true;
     } else {
@@ -280,7 +289,7 @@ bool Context::LoadCommentFromDesktop(const MDesktopEntry *CurDesktopFile, QStrin
 
 bool Context::LoadIconFromDesktop(const MDesktopEntry *CurDesktopFile, QString &value)
 {
-    if (CurDesktopFile->isValid()) {
+    if (CurDesktopFile&&CurDesktopFile->isValid()) {
         value=CurDesktopFile->icon();
         return true;
     } else {
@@ -291,7 +300,7 @@ bool Context::LoadIconFromDesktop(const MDesktopEntry *CurDesktopFile, QString &
 
 bool Context::LoadExecFromDesktop(const MDesktopEntry *CurDesktopFile, QString &cmdline, QString &S, QString &L)
 {
-    if (CurDesktopFile->isValid()) {
+    if (CurDesktopFile&&CurDesktopFile->isValid()) {
         QString exec=CurDesktopFile->exec();
 
         exec.replace(QRegExp("([^%])%[A-Za-z]"), "\\1");
@@ -360,9 +369,16 @@ QString Context::ForceDesktop(const QString &path)
     return cmdline;
 }
 
-int Context::GetVerboseLevel()
+void Context::ApplyVerboseLevel()
 {
-    return verbosity;
+    if (verbosity>0) Intercom->ToggleGeneralMsgs(true); //GENERAL verbosity included in levels greater than 0
+        else Intercom->ToggleGeneralMsgs(false);
+    if (verbosity>1) Intercom->ToggleErrorMsgs(true);   //ERRORS verbosity included in levels greater than 1
+        else Intercom->ToggleErrorMsgs(false);
+    if (verbosity>2) Intercom->ToggleWarningMsgs(true); //WARNINGS verbosity included in levels greater than 2
+        else Intercom->ToggleWarningMsgs(false);
+    if (verbosity>3) qInstallMsgHandler(0);             //DEBUG verbosity included in levels greater than 3
+        else qInstallMsgHandler(SuppressQDebug);
 }
 
 QString Context::GetIcon()
@@ -383,7 +399,7 @@ QString Context::GetRootName()
     }
 }
 
-void Context::PrepareToRun(QString psw, bool no_pass)
+void Context::PrepareToRun(const QString &psw, bool no_pass)
 {
     delete Tools;
     switch (run_mode) {
@@ -400,7 +416,6 @@ void Context::PrepareToRun(QString psw, bool no_pass)
             Tools=new AriadneRunTools(psw, no_pass);
             break;
     }
-    PswTools::ClearPsw(psw);
 }
 
 void Context::Run()

@@ -41,14 +41,14 @@ private:
     QString splash_lscape;
     QString icon;
     QStringList command;
-    bool LoadNameFromDesktop(const MDesktopEntry *CurDesktopFile, QString &value);                              //Warning: CurDesktopFile can't be NULL!
-    bool LoadCommentFromDesktop(const MDesktopEntry *CurDesktopFile, QString &value);                           //Warning: CurDesktopFile can't be NULL!
-    bool LoadIconFromDesktop(const MDesktopEntry *CurDesktopFile, QString &value);                              //Warning: CurDesktopFile can't be NULL!
-    bool LoadExecFromDesktop(const MDesktopEntry *CurDesktopFile, QString &cmdline, QString &S, QString &L);    //Warning: CurDesktopFile can't be NULL!
+    void ApplyVerboseLevel();
+    bool LoadNameFromDesktop(const MDesktopEntry *CurDesktopFile, QString &value);
+    bool LoadCommentFromDesktop(const MDesktopEntry *CurDesktopFile, QString &value);
+    bool LoadIconFromDesktop(const MDesktopEntry *CurDesktopFile, QString &value);
+    bool LoadExecFromDesktop(const MDesktopEntry *CurDesktopFile, QString &cmdline, QString &S, QString &L);
 public:
     Context(int argc, char **argv);
     bool IfExit();
-    int GetVerboseLevel();
     void Run();
 
     //Properties exposed to QML:
@@ -71,7 +71,7 @@ public:
     Q_INVOKABLE QString GetIcon();
     Q_INVOKABLE QString GetRootName();
     Q_INVOKABLE QString ForceDesktop(const QString &path);
-    Q_INVOKABLE void PrepareToRun(QString psw, bool no_pass);
+    Q_INVOKABLE void PrepareToRun(const QString &psw, bool no_pass);
 };
 
 #endif // CONTEXT_H
