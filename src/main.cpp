@@ -52,7 +52,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
         UsersModel UsersList(Ctx.GetTargetUser(), Ctx.CheckMode()==RunModes::PRINT);
         DesktopModel AppList;
         PswTools PassCheck;
-        ScopedIntercomHandler ViewerIntercomHandler;
+        ScopedIntercomHandler ViewerIntercom;
         QmlApplicationViewer Viewer;
 
         qmlRegisterUncreatableType<RunModes>("com.lcferrum.hmtsu", 1, 0, "RunModes", "Exports RunModes enum to QML");
@@ -61,7 +61,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
         Viewer.rootContext()->setContextProperty("objUsersList", &UsersList);
         Viewer.rootContext()->setContextProperty("objAppList", &AppList);
         Viewer.rootContext()->setContextProperty("objContext", &Ctx);
-        Viewer.rootContext()->setContextProperty("objIntercom", &ViewerIntercomHandler);
+        Viewer.rootContext()->setContextProperty("objIntercom", &ViewerIntercom);
         Viewer.rootContext()->setContextProperty("objPassCheck", &PassCheck);
         Viewer.rootContext()->setContextProperty("HMTSU_VERSION_STRING", HMTSU_VERSION_STRING IF_DEBUG(" (DEBUG)"));
         Viewer.rootContext()->setContextProperty("HMTSU_COPYRIGHT_STRING", HMTSU_COPYRIGHT_STRING);
