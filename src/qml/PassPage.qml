@@ -16,8 +16,7 @@ import com.nokia.meego 1.1
 import com.lcferrum.hmtsu 1.0   //Created at runtime
 
 Page {
-    property int propAtsRemainPri: MAX_PSW_ATTEMPTS
-    property int propAtsRemainSec: MAX_PSW_ATTEMPTS
+    property int propAtsRemain: MAX_PSW_ATTEMPTS
 
     function fnGetMessage() {
         if (!objContext.IfCustomMessage()) {
@@ -31,51 +30,41 @@ Page {
         }
     }
 
-    function fnCheckPassword() {
+    function fnCheckPassword(psw) {
         if (objContext.Mode===RunModes.PRINT) {
             objIntercom.SetCustomExitCode(NORMAL_EXIT_CODE);
             idBtnLaunch.enabled=false;
             idPassInput.platformCloseSoftwareInputPanel();
             idPassInput.readOnly=true;
-            objContext.PrepareToRun(idPassInput.text, false);
+            objContext.PrepareToRun(psw, false);
             idRunTimer.start();
         } else {
-            /*propAtsRemainPri--;
-            if (propAtsRemainPri>=0) {
-                objPassCheck.PswCheck(idPassInput.text);
-            }
-            if (propAtsRemainPri<=0) {
+            var check_result=objPassCheck.PswCheck(psw);
+            if (check_result===false) {
+                propAtsRemain--;
+                idPassInput.errorHighlight=true;
+                if (propAtsRemain>0) {
+                    objIntercom.AddInfo(qsTr("__pass_wrong_cnt%R__").replace("%R", propAtsRemain));
+                } else {
+                    objIntercom.SetCustomExitCode(DENIED_EXIT_CODE);
+                    idBtnLaunch.enabled=false;
+                    idPassInput.platformCloseSoftwareInputPanel();
+                    idPassInput.readOnly=true;
+                    objIntercom.AddInfo(qsTr("__pass_wrong_end__"));
+                }
+            } else if (check_result===true) {
+                objIntercom.SetCustomExitCode(NORMAL_EXIT_CODE);
                 idBtnLaunch.enabled=false;
                 idPassInput.platformCloseSoftwareInputPanel();
                 idPassInput.readOnly=true;
-            }*/
-        }
-    }
-
-    Connections {
-        target: objPassCheck
-
-        onSignalPswOk: {
-            objIntercom.SetCustomExitCode(NORMAL_EXIT_CODE);
-            idBtnLaunch.enabled=false;
-            idPassInput.platformCloseSoftwareInputPanel();
-            idPassInput.readOnly=true;
-            objIntercom.AddInfo(qsTr("__pass_ok__"));
-            objContext.PrepareToRun(psw, no_pass);
-            idRunTimer.start();
-        }
-
-        onSignalPswBad: {
-            propAtsRemainSec--;
-            idPassInput.errorHighlight=true;
-            if (propAtsRemainSec>0) {
-                objIntercom.AddInfo(qsTr("__pass_wrong_cnt%R__").replace("%R", propAtsRemainSec));
-            } else {
-                objIntercom.SetCustomExitCode(DENIED_EXIT_CODE);
-                objIntercom.AddInfo(qsTr("__pass_wrong_end__"));
+                objIntercom.AddInfo(qsTr("__pass_ok__"));
+                if (check_result===true)
+                    objContext.PrepareToRun(psw, objPassCheck.IfNoPass());
+                else
+                    objContext.PrepareToRun(psw, objPassCheck.IfNoPass());
+                idRunTimer.start();
             }
         }
-
     }
 
     Component.onCompleted: {
@@ -174,7 +163,7 @@ Page {
                         actionKeyHighlighted: true
                     }
 
-                    Keys.onReturnPressed: fnCheckPassword()
+                    Keys.onReturnPressed: fnCheckPassword(idPassInput.text)
 
                     onTextChanged: errorHighlight=false
                 }
@@ -184,7 +173,7 @@ Page {
                     anchors.horizontalCenter: parent.horizontalCenter
                     text: qsTr("__launch__")
 
-                    onClicked: fnCheckPassword()
+                    onClicked: fnCheckPassword(idPassInput.text)
                 }
             }
         }

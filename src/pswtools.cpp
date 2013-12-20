@@ -87,7 +87,7 @@ bool PswTools::CheckSudoNoPass()
     return output.length()==0||output.endsWith(":\n");
 }
 
-QVariant PswTools::PswCheck(const QString &psw)
+QVariant PswTools::PswCheck(QString psw)
 {
     if (prepared) {
         if (no_pass) {
@@ -96,6 +96,7 @@ QVariant PswTools::PswCheck(const QString &psw)
             char *psw_hash=NULL;
 
             psw_hash=crypt(psw.toLocal8Bit().constData(), pw_passwd.constData());
+            ClearPsw(psw);
 
             if (!psw_hash) {
                 Intercom->AddError(QCoreApplication::translate("Messages", "__pswchecker_err__"));
@@ -103,11 +104,16 @@ QVariant PswTools::PswCheck(const QString &psw)
                 if (strcmp(pw_passwd.constData(), psw_hash))
                     return QVariant(false);
                 else
-                    return QVariant(psw);
+                    return QVariant(true);
             }
         }
     }
     return QVariant();
+}
+
+bool PswTools::IfNoPass()
+{
+    return no_pass;
 }
 
 void PswTools::ClearPsw(QString &psw)

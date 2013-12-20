@@ -38,7 +38,8 @@ public:
     Q_INVOKABLE QVariant PrepareForCheck(/* RunModes::QmlEnum */ int mode, const QString &target_user) {    //Non-local Q_ENUMS can't be used in Q_INVOKABLE - use this hack
         return PrepareForCheck(static_cast<RunModes::QmlEnum>(mode), target_user);                          //Should be fixed in Qt5
     }
-    Q_INVOKABLE QVariant PswCheck(const QString &psw);
+    Q_INVOKABLE QVariant PswCheck(QString psw);
+    Q_INVOKABLE bool IfNoPass();
 };
 
 #endif // PSWCHECKER_H
