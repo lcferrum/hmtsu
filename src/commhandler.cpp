@@ -159,9 +159,3 @@ IntercomHandler::~IntercomHandler()
 {
     if (!--ref_count) delete Intercom;
 }
-
-int IntercomHandler::GetExitCode()
-{
-    if (Intercom) return Intercom->GetExitCode();
-        else return NORMAL_EXIT_CODE;
-}

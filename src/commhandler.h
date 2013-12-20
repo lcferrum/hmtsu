@@ -62,12 +62,14 @@ protected:
 public:
     IntercomHandler();
     virtual ~IntercomHandler()=0;   //A trick to make class abstract (N.B.: destructor IS implemented and NEVER overloaded). Works only with destructors.
-    static int GetExitCode();
 };
 
 class ScopedIntercomHandler: protected IntercomHandler {
 public:
     Intercommunication* operator&() {
+        return Intercom;
+    }
+    Intercommunication* operator->() {
         return Intercom;
     }
 };
