@@ -9,6 +9,7 @@ Homepage: https://github.com/lcferrum
 Package: hmtsu
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
+Recommends: busybox (>= 1.20) | which, busybox-symlinks-procps (>= 1.20) | procps, dpkg
 Description: HMTsu is a frontend to devel-su, sudo and ariadne.
  Inspired by gksu, it's primary purpose is to run graphical programs
  that need root without the need to run an terminal emulator and using

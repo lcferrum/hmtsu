@@ -423,6 +423,7 @@ void Context::Run()
     if (Tools) {
         Tools->Run(user, login, kpp_env, command, splash, splash_lscape);
         delete Tools;
+        Tools=NULL;
     }
 }
 

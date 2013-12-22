@@ -22,8 +22,6 @@
 
 using namespace std;
 
-Q_DECLARE_METATYPE(RunModes::QmlEnum)
-
 PswTools::PswTools():
     QObject(NULL), prepared(false), no_pass(false), pw_passwd()
 {
@@ -62,14 +60,12 @@ bool PswTools::PrepareForCheck(RunModes::QmlEnum mode, const QString &target_use
         return false;
 }
 
-bool PswTools::CheckSuNoPass()
+void PswTools::CheckSuNoPass()
 {
     //if (user_record->pw_uid==getuid()||!getuid())
     if (getuid()==ROOT_UID) {
         no_pass=true;
     }
-
-    return true;
 }
 
 bool PswTools::CheckSudoNoPass()

@@ -28,7 +28,7 @@ private:
     bool no_pass;
     QByteArray pw_passwd;
     bool PrepareForCheck(RunModes::QmlEnum mode, const QString &target_user);
-    bool CheckSuNoPass();
+    void CheckSuNoPass();
     bool CheckSudoNoPass();
 public:
     PswTools();
