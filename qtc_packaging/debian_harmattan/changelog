@@ -1,3 +1,11 @@
+hmtsu (0.2.2) unstable; urgency=low
+
+  * Fixed preserve environment option not working in devel-su when HMTsu is launched with invoker.
+  * Fixed application splash screen not showing when password not needed.
+  * Better warning pop-ups.
+
+ -- Lcferrum <lcferrum@yandex.com>  Wed, 25 Dec 2013 12:23:07 +0400
+
 hmtsu (0.2.1) unstable; urgency=low
 
   * Better .desktop file handling.

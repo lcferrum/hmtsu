@@ -62,7 +62,7 @@ bool PswTools::PrepareForCheck(RunModes::QmlEnum mode, const QString &target_use
 
 void PswTools::CheckSuNoPass()
 {
-    //if (user_record->pw_uid==getuid()||!getuid())
+    //if (user_record->pw_uid==getuid()||getuid()==ROOT_UID) {
     if (getuid()==ROOT_UID) {
         no_pass=true;
     }

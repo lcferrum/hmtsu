@@ -70,8 +70,8 @@ void SuRunTools::Run(const QString &user, bool login, bool kpp_env, const QStrin
 
     args.append(path);
     if (login) args.append("-");
-    args.append(user);
     if (kpp_env) args.append("-p");
+    args.append(user);
     args.append("-c");
     args.append(QuotedJoin(command));
 
@@ -225,6 +225,8 @@ bool RunTools::Launch(char **cmd, const QString &path, const QString &splash, co
         IF_DEBUG(qDebug()<<"Tool pid is"<<pid;)
 
         usleep(PARENT_HANDICAP);
+        if (!password_needed)                                       //If password not needed -> show splash screen immidiately
+            TryToShowSplash(pid, splash, splash_lscape);            //Try to show splash screen
         forever {
             FD_ZERO(&rfds);                                         //Value of fd_set after timeout or error is undefined -> reset every iteration
             FD_SET(master_fd, &rfds);
@@ -274,13 +276,13 @@ bool RunTools::Launch(char **cmd, const QString &path, const QString &splash, co
                 if (WaitForNoEcho(master_fd, false)) {              //Child is ready for password -> print it to stdin
                     write(master_fd, psw.toLocal8Bit().constData(), psw.toLocal8Bit().length()+1);
                     write(master_fd, "\n", 1);
-                    TryToShowSplash(pid, splash, splash_lscape);    //Try to show splash screen
                     IF_DEBUG(qDebug()<<"Password sent";)
                 } else {                                            //Child was not ready for password -> just warn about it and print out data recieved from child
                     Intercom->AddSafeWarning(QCoreApplication::translate("Messages", "__runtools_fork_wrn_NOPSW%1__").arg(path));
                     std::cout<<rbuf;
                     password_needed=false;
                 }
+                TryToShowSplash(pid, splash, splash_lscape);        //Try to show splash screen
                 ClearPsw();                                         //Get rid of password copy in memory
             } else if (password_needed) {                           //If password was needed in previous pass -> print out data from child omitting leading new line
                 std::cout<<DropNewLine(rbuf, ret);
@@ -297,7 +299,7 @@ bool RunTools::Launch(char **cmd, const QString &path, const QString &splash, co
             Intercom->SetCustomExitCode(WIFEXITED(status)?WEXITSTATUS(status):-1);
 
             if (Intercom->GetExitCode()>0)                          //Child returned with error exit code -> warn about it
-                Intercom->AddSafeWarning(QCoreApplication::translate("Messages", "__runtools_fork_wrn_ECODE%1%2%3__").arg(path).arg(Intercom->GetExitCode()).arg(QString::fromLocal8Bit(rbuf)));
+                Intercom->AddSafeWarning(QCoreApplication::translate("Messages", "__runtools_fork_wrn_ECODE%1%2%3__").arg(path).arg(Intercom->GetExitCode()).arg(QString::fromLocal8Bit(rbuf).simplified()));
 
             close(master_fd);
             return true;
@@ -312,7 +314,7 @@ bool RunTools::Launch(char **cmd, const QString &path, const QString &splash, co
 
 bool RunTools::TryToShowSplash(pid_t pid, const QString &splash, const QString &splash_lscape)
 {
-    if (splash.length()==0||isatty(STDIN_FILENO))  //STDIN is not connected to terminal if HMTsu launched with invoker or from QtCreator
+    if (splash.length()==0||isatty(STDIN_FILENO))  //STDIN is not connected to terminal if HMTsu launched from app screen or QtCreator
         return false;
 
     usleep(PARENT_HANDICAP);
