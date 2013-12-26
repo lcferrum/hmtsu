@@ -4,41 +4,41 @@
 <context>
     <name>Messages</name>
     <message>
-        <location filename="../../src/context.cpp" line="138"/>
+        <location filename="../../src/context.cpp" line="146"/>
         <source>__context_verbosity_err__</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/context.cpp" line="163"/>
+        <location filename="../../src/context.cpp" line="172"/>
         <source>__context_printpass_err__</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/context.cpp" line="332"/>
+        <location filename="../../src/context.cpp" line="341"/>
         <source>__context_badinvoke_wrn__</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/context.cpp" line="265"/>
-        <location filename="../../src/context.cpp" line="276"/>
-        <location filename="../../src/context.cpp" line="287"/>
-        <location filename="../../src/context.cpp" line="343"/>
+        <location filename="../../src/context.cpp" line="274"/>
+        <location filename="../../src/context.cpp" line="285"/>
+        <location filename="../../src/context.cpp" line="296"/>
+        <location filename="../../src/context.cpp" line="352"/>
         <source>__context_descfile_wrn%1%2__</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/context.cpp" line="153"/>
+        <location filename="../../src/context.cpp" line="162"/>
         <source>__context_nodesktop_err__</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/context.cpp" line="242"/>
+        <location filename="../../src/context.cpp" line="251"/>
         <source>__context_wordexp_wrn__</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../src/pswtools.cpp" line="43"/>
-        <location filename="../../src/pswtools.cpp" line="92"/>
+        <location filename="../../src/pswtools.cpp" line="97"/>
         <source>__pswchecker_err__</source>
         <translation type="unfinished"></translation>
     </message>
@@ -48,26 +48,26 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/runtools.cpp" line="184"/>
-        <location filename="../../src/runtools.cpp" line="195"/>
-        <location filename="../../src/runtools.cpp" line="249"/>
-        <location filename="../../src/runtools.cpp" line="265"/>
-        <location filename="../../src/runtools.cpp" line="304"/>
+        <location filename="../../src/runtools.cpp" line="185"/>
+        <location filename="../../src/runtools.cpp" line="196"/>
+        <location filename="../../src/runtools.cpp" line="252"/>
+        <location filename="../../src/runtools.cpp" line="268"/>
+        <location filename="../../src/runtools.cpp" line="307"/>
         <source>__runtools_fork_err_BASE%1%2__</source>
         <translation>hmtsu: error launching %1: %2</translation>
     </message>
     <message>
-        <location filename="../../src/runtools.cpp" line="237"/>
+        <location filename="../../src/runtools.cpp" line="240"/>
         <source>__runtools_fork_err_BADPSW%1__</source>
         <translation>hmtsu: error: %1 asks for password</translation>
     </message>
     <message>
-        <location filename="../../src/runtools.cpp" line="279"/>
+        <location filename="../../src/runtools.cpp" line="281"/>
         <source>__runtools_fork_wrn_NOPSW%1__</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/runtools.cpp" line="299"/>
+        <location filename="../../src/runtools.cpp" line="302"/>
         <source>__runtools_fork_wrn_ECODE%1%2%3__</source>
         <translation type="unfinished"></translation>
     </message>
@@ -90,58 +90,58 @@
 <context>
     <name>PassPage</name>
     <message>
-        <location filename="../../src/qml/PassPage.qml" line="25"/>
+        <location filename="../../src/qml/PassPage.qml" line="24"/>
         <source>__default_sudo_root_msg%D__</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/qml/PassPage.qml" line="25"/>
+        <location filename="../../src/qml/PassPage.qml" line="24"/>
         <source>__default_root_msg%D__</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/qml/PassPage.qml" line="27"/>
+        <location filename="../../src/qml/PassPage.qml" line="26"/>
         <source>__default_sudo_msg%U%D__</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/qml/PassPage.qml" line="27"/>
+        <location filename="../../src/qml/PassPage.qml" line="26"/>
         <source>__default_msg%U%D__</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/qml/PassPage.qml" line="27"/>
+        <location filename="../../src/qml/PassPage.qml" line="26"/>
         <source>__default_ariadne_msg%U%D__</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/qml/PassPage.qml" line="58"/>
+        <location filename="../../src/qml/PassPage.qml" line="61"/>
         <source>__pass_ok__</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/qml/PassPage.qml" line="66"/>
+        <location filename="../../src/qml/PassPage.qml" line="48"/>
         <source>__pass_wrong_cnt%R__</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/qml/PassPage.qml" line="72"/>
+        <location filename="../../src/qml/PassPage.qml" line="54"/>
         <source>__pass_wrong_end__</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/qml/PassPage.qml" line="79"/>
+        <location filename="../../src/qml/PassPage.qml" line="75"/>
         <source>__pass_not_needed__</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/qml/PassPage.qml" line="115"/>
+        <location filename="../../src/qml/PassPage.qml" line="104"/>
         <source>__enter_pass__</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/qml/PassPage.qml" line="172"/>
-        <location filename="../../src/qml/PassPage.qml" line="184"/>
+        <location filename="../../src/qml/PassPage.qml" line="161"/>
+        <location filename="../../src/qml/PassPage.qml" line="173"/>
         <source>__launch__</source>
         <translation type="unfinished"></translation>
     </message>
