@@ -82,13 +82,13 @@ Usage (when launched from terminal):
 --description <description|file>, -D <description|file>    
     Provide a descriptive name for the command to be used in the default
     message, making it nicer. You can also provide the absolute path for a    
-    .desktop file. The Name key will be used in this case.  
+    .desktop file. X-MeeGo-Logical-Id or Name keys will be used in this case.  
 
 --message <message|file>, -m <message|file>    
     Replace the standard message shown to ask for password for the argument
     passed to the option. Only use this if --description does not suffice. You
-    can also provide the absolute path for a .desktop file. The Comment key
-    will be used in this case.
+    can also provide the absolute path for a .desktop file. Comment key will be
+    used in this case.
 	
 --force-desktop, -f
     Extract command line, application icon and splash image from .desktop file

@@ -465,10 +465,10 @@ void PrintUsage(const QString &exe, const QString &su)
                     4);
     Hout::EmptyLine();
     Hout::Separator("--description <description|file>, -D <description|file>", 2);
-    Hout::Paragraph("Provide a descriptive name for the command to be used in the default message, making it nicer. You can also provide the absolute path for a .desktop file. The Name key will be used in this case.",
+    Hout::Paragraph("Provide a descriptive name for the command to be used in the default message, making it nicer. You can also provide the absolute path for a .desktop file. X-MeeGo-Logical-Id or Name keys will be used in this case.",
                     4);
     Hout::Separator("--message <message|file>, -m <message|file>", 2);
-    Hout::Paragraph("Replace the standard message shown to ask for password for the argument passed to the option. Only use this if --description does not suffice. You can also provide the absolute path for a .desktop file. The Comment key will be used in this case.",
+    Hout::Paragraph("Replace the standard message shown to ask for password for the argument passed to the option. Only use this if --description does not suffice. You can also provide the absolute path for a .desktop file. Comment key will be used in this case.",
                     4);
     Hout::Separator("--force-desktop, -f", 2);
     Hout::Paragraph("Extract command line, application icon and splash image from .desktop file provided in --description or --message.",
