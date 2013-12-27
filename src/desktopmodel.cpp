@@ -97,6 +97,7 @@ void DesktopSource::run()
     foreach (const QFileInfo &file, AppScreenDir.entryInfoList()) {
         MDesktopEntry CurrentDesktop(file.absoluteFilePath());
         if (!CurrentDesktop.isValid()) continue;
+        if (CurrentDesktop.type()!="Application") continue;
         if (CurrentDesktop.notShowIn().contains("X-MeeGo")) continue;
         signalNewEntry(CurrentDesktop.name(), IconProvider::ConvertPath(CurrentDesktop.icon()), file.absoluteFilePath());    //"QPixmap: It is not safe to use pixmaps outside the GUI thread"
         //signalNewEntry(CurrentDesktop.name(), CurrentDesktop.icon(), file.absoluteFilePath());
